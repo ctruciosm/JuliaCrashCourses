@@ -1,0 +1,89 @@
+---
+title: "Julia para Ciência de Dados"
+subtitle: "Um guia introdutório para importar, transformar, analisar e modelar dados"
+lang: "pt"
+author: "**Professor: Carlos Trucíos (DE)** <br> **Instrutores:** Arthur da Silva (DMA), Henrique Silva (DE) e Sarah Pereira (DMA)."
+institute: "7ª  Semana da Matemática Aplicada (SEMAP), <br> Universidade Estadual de Campinas (UNICAMP) <br> Agosto de 2025"
+knitr:
+    opts_chunk: 
+      fig.align: 'center'
+execute:
+    message: false
+    warning: false
+format:
+    revealjs:
+        slide-number: true
+        toc: true
+        toc-depth: 1
+        toc-title: Agenda
+        self-contained: false
+        chalkboard: true
+        width: 1600
+        height: 900
+        theme: [default, styles.scss]
+        incremental: true
+        code-fold: true
+        logo: "imagens/imecc.png"
+        footer: "7ª SEMAP    |   Agosto de 2025    |    [www.ime.unicamp.br/julialang](https://ime.unicamp.br/julialang)"
+        highlight-style: "a11y"
+        title-slide-attributes:
+            data-background-image: "imagens/unicamp.png"
+            data-background-size: 20%
+            data-background-position: 99% 5%
+            data-background-opacity: "1"
+editor: source
+---
+
+# Por que Julia?
+## Por que escolher Julia?
+
+- A linguagem de programação `Julia`, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como `Matlab`, `Python` e `R`.
+- É utilizada não apenas na academia, [mas também fora dela.](https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html)
+- `Julia` é gratuita
+- `Julia` oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a `Python` e `R`. 
+- `Julia` permite escrever código com símbolos matemáticos diretamente `r emo::ji("nerd")`, facilitando a expressão de conceitos científicos.
+- `Julia` resolve o problema das duas linguagens `r emo::ji("cool")`.
+- Etc.
+
+
+## Do Zero ao Julia
+
+<center>
+![Website Do Zero ao Julia: www.ime.unicamp.br/julialang](imagens/DoZeroaoJulia.png){width=400px}
+</center>
+
+
+
+# Conceitos básicos
+## Conceitos básicos
+
+
+
+
+# Importar
+## Importando dados
+
+
+# Transformar
+## Manipulação de dados com TidierData.jl
+
+
+
+# Analisar
+## EDA
+
+
+# Modelar
+## Regressão e Classificação
+
+
+
+
+
+## Referências
+
+- [Vituri, G. & and Scheuch, C. (2025). Tidier Data Science with Julia.](https://tidierorg.github.io/TidierBook/)
+- [Silva, H. A. V. \&  da Silva, A. D. M. (2025). Do Zero ao Julia: Introdução ao pacote TidierData.jl. Retrieved from https://ime.unicamp.br/julialang/Blog/tidierdata.html](https://ime.unicamp.br/julialang/Blog/tidierdata.html)
+
+
+
