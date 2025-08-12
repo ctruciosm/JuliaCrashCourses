@@ -35,55 +35,126 @@ editor: source
 ---
 
 # Por que Julia?
+
 ## Por que escolher Julia?
 
-- A linguagem de programação `Julia`, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como `Matlab`, `Python` e `R`.
-- É utilizada não apenas na academia, [mas também fora dela.](https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html)
-- `Julia` é gratuita
-- `Julia` oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a `Python` e `R`. 
-- `Julia` permite escrever código com símbolos matemáticos diretamente `r emo::ji("nerd")`, facilitando a expressão de conceitos científicos.
-- `Julia` resolve o problema das duas linguagens `r emo::ji("cool")`.
-- Etc.
-
+-   A linguagem de programação `Julia`, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como `Matlab`, `Python` e `R`.
+-   É utilizada não apenas na academia, [mas também fora dela.](https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html)
+-   `Julia` é gratuita
+-   `Julia` oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a `Python` e `R`.
+-   `Julia` permite escrever código com símbolos matemáticos diretamente `r emo::ji("nerd")`, facilitando a expressão de conceitos científicos.
+-   `Julia` resolve o problema das duas linguagens `r emo::ji("cool")`.
+-   Etc.
 
 ## Do Zero ao Julia
 
 <center>
-![Website Do Zero ao Julia: www.ime.unicamp.br/julialang](imagens/DoZeroaoJulia.png){width=400px}
+
+![Website Do Zero ao Julia: www.ime.unicamp.br/julialang](imagens/DoZeroaoJulia.png){width="400px"}
+
 </center>
 
-
-
 # Conceitos básicos
+
 ## Conceitos básicos
 
-
-
-
 # Importar
+
 ## Importando dados
 
-
 # Transformar
+
 ## Manipulação de dados com TidierData.jl
 
-
-
 # Analisar
+
 ## EDA
 
+-   `Julia` torna possível compreender e explorar conjuntos de dados, identificando padrões, tendências e possíveis outliers antes da modelagem.
+
+-   Nesse tópico, iremos explorar as principais métricas estatísticas (média, mediana, desvio-padrão, etc.) e algumas distribuições discretas e contínuas.
+
+-   Os pacotes `Statistics.jl`, `StatsBase.jl`, `DataFrames.jl` e `TidierData.jl` serão essenciais para a análise `r emo::ji("cool")`.
+
+    ``` julia
+    import Pkg
+
+    Pkg.add("StatsBase")
+    Pkg.add("DataFrames")
+    Pkg.add("TidierData")
+    ```
+
+    ``` julia
+    using Statistics, StatsBase, DataFrames, TidierData
+    ```
+
+## Medidas de tendência central
+
+-   `mean(x)` representa média aritmética
+-   `median(x)` representa a mediana
+-   `mode(x)` representa a moda (pacote `StatsBase.jl`)
+
+## Medidas de dispersão
+
+-   `var(x)` representa variância
+-   `std(x)` representa o desvio padrão
+-   `minimum(x)` e `maximum(x)` são os valores mínimo e máximo
+-   `quantile(x, p)` repesenta quantis (`p` é o parâmetro da posição relativa da distribuição)
+
+## Contagem e frequência
+
+-   `length(x)` é o número de elementos
+-   `count(cond, x)` conta elementos que satisfazem uma condição `cond`
+-   `countmap(x)` cria uma tabela de frequências (pacote `StatsBase.jl`)
+
+## Informações resumidas
+
+-   `describe(df)` fornece estatísticas descritivas de um data frame
+-   `cor(x, y)` descreve uma mmatriz de correlação entre duas variáveis `x` e `y`
+-   `cov(x, y)` covariância das variáveis `x` e `y`
+
+## Visualizações estatísticas
+
+-   O Julia oferece diversas bibliotecas para criar visualizações estatísticas de forma simples e flexível, permitindo a análise e interpretação de dados de maneira visual. Algumas bibliotecas populares incluem `Plots.jl`, `StatsPlots.jl`, `Makie.jl` e `Gadfly.jl`.
+
+    ``` julia
+    import Pkg
+
+    Pkg.add("Plots")
+    Pkg.add("StatsPlots")
+    Pkg.add("Makie")
+    Pkg.add("Gadfly")
+    ```
+
+    ``` julia
+    using Plots, StatsPlots, Makie, Gadfly
+    ```
+
+## Boxplot
+
+-   `bloxplot(x)` resume a distribuição dos dados destacando mediana, quartis e possíveis outliers.
+
+### Barplot (gráfico de barras)
+
+-   `bar(x)` representa frequências ou valores médios para categorias.
+
+### Histograma
+
+-   `histogram(x)` exibe a distribuição de frequências de variáveis contínuas.
+
+### Gráfico de dispersão
+
+-   `scatter(x)` mostra a relação entre duas variáveis numéricas.
+
+## Densidade
+
+-   `density(x)` representa a função de densidade estimada de variáveis contínuas.
 
 # Modelar
+
 ## Regressão e Classificação
-
-
-
-
 
 ## Referências
 
-- [Vituri, G. & and Scheuch, C. (2025). Tidier Data Science with Julia.](https://tidierorg.github.io/TidierBook/)
-- [Silva, H. A. V. \&  da Silva, A. D. M. (2025). Do Zero ao Julia: Introdução ao pacote TidierData.jl. Retrieved from https://ime.unicamp.br/julialang/Blog/tidierdata.html](https://ime.unicamp.br/julialang/Blog/tidierdata.html)
-
-
-
+-   [Vituri, G. & and Scheuch, C. (2025). Tidier Data Science with Julia.](https://tidierorg.github.io/TidierBook/)
+-   [Silva, H. A. V. & da Silva, A. D. M. (2025). Do Zero ao Julia: Introdução ao pacote TidierData.jl. Retrieved from https://ime.unicamp.br/julialang/Blog/tidierdata.html](https://ime.unicamp.br/julialang/Blog/tidierdata.html)

@@ -6,8 +6,8 @@
 <script src="Intro_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Intro_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Intro_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Intro_files/libs/quarto-html/quarto-syntax-highlighting-3e476e15ae565c222d94875412ae43a1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.39">
+<link href="Intro_files/libs/quarto-html/quarto-syntax-highlighting-1fa1d8026083a9bddc52b4aafc7f818e.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Professor: Carlos Trucíos (DE)   Instrutores: Arthur da Silva (DMA), Henrique Silva (DE) e Sarah Pereira (DMA).">
   <title>Julia para Ciência de Dados</title>
@@ -28,8 +28,73 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Intro_files/libs/revealjs/dist/theme/quarto-6ece1e9d939344fcb6ae7a49c6906a8d.css">
+  <link rel="stylesheet" href="Intro_files/libs/revealjs/dist/theme/quarto-8e17f2a73863af51f5998c534404cc9a.css">
   <link href="Intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="Intro_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="Intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -215,6 +280,85 @@
 </section>
 <section id="eda" class="slide level2">
 <h2>EDA</h2>
+<ul>
+<li class="fragment"><p><code>Julia</code> torna possível compreender e explorar conjuntos de dados, identificando padrões, tendências e possíveis outliers antes da modelagem.</p></li>
+<li class="fragment"><p>Nesse tópico, iremos explorar as principais métricas estatísticas (média, mediana, desvio-padrão, etc.) e algumas distribuições discretas e contínuas.</p></li>
+<li class="fragment"><p>Os pacotes <code>Statistics.jl</code>, <code>StatsBase.jl</code>, <code>DataFrames.jl</code> e <code>TidierData.jl</code> serão essenciais para a análise 🆒.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href=""></a><span class="im">import</span> <span class="bu">Pkg</span></span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"StatsBase"</span>)</span>
+<span id="cb1-4"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"DataFrames"</span>)</span>
+<span id="cb1-5"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"TidierData"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span>, <span class="bu">StatsBase</span>, <span class="bu">DataFrames</span>, <span class="bu">TidierData</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</section>
+<section id="medidas-de-tendência-central" class="slide level2">
+<h2>Medidas de tendência central</h2>
+<ul>
+<li class="fragment"><code>mean(x)</code> representa média aritmética</li>
+<li class="fragment"><code>median(x)</code> representa a mediana</li>
+<li class="fragment"><code>mode(x)</code> representa a moda (pacote <code>StatsBase.jl</code>)</li>
+</ul>
+</section>
+<section id="medidas-de-dispersão" class="slide level2">
+<h2>Medidas de dispersão</h2>
+<ul>
+<li class="fragment"><code>var(x)</code> representa variância</li>
+<li class="fragment"><code>std(x)</code> representa o desvio padrão</li>
+<li class="fragment"><code>minimum(x)</code> e <code>maximum(x)</code> são os valores mínimo e máximo</li>
+<li class="fragment"><code>quantile(x, p)</code> repesenta quantis (<code>p</code> é o parâmetro da posição relativa da distribuição)</li>
+</ul>
+</section>
+<section id="contagem-e-frequência" class="slide level2">
+<h2>Contagem e frequência</h2>
+<ul>
+<li class="fragment"><code>length(x)</code> é o número de elementos</li>
+<li class="fragment"><code>count(cond, x)</code> conta elementos que satisfazem uma condição <code>cond</code></li>
+<li class="fragment"><code>countmap(x)</code> cria uma tabela de frequências (pacote <code>StatsBase.jl</code>)</li>
+</ul>
+</section>
+<section id="informações-resumidas" class="slide level2">
+<h2>Informações resumidas</h2>
+<ul>
+<li class="fragment"><code>describe(df)</code> fornece estatísticas descritivas de um data frame</li>
+<li class="fragment"><code>cor(x, y)</code> descreve uma mmatriz de correlação entre duas variáveis <code>x</code> e <code>y</code></li>
+<li class="fragment"><code>cov(x, y)</code> covariância das variáveis <code>x</code> e <code>y</code></li>
+</ul>
+</section>
+<section id="visualizações-estatísticas" class="slide level2">
+<h2>Visualizações estatísticas</h2>
+<ul>
+<li class="fragment"><p>O Julia oferece diversas bibliotecas para criar visualizações estatísticas de forma simples e flexível, permitindo a análise e interpretação de dados de maneira visual. Algumas bibliotecas populares incluem <code>Plots.jl</code>, <code>StatsPlots.jl</code>, <code>Makie.jl</code> e <code>Gadfly.jl</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href=""></a><span class="im">import</span> <span class="bu">Pkg</span></span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Plots"</span>)</span>
+<span id="cb3-4"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"StatsPlots"</span>)</span>
+<span id="cb3-5"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Makie"</span>)</span>
+<span id="cb3-6"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Gadfly"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href=""></a><span class="im">using</span> <span class="bu">Plots</span>, <span class="bu">StatsPlots</span>, <span class="bu">Makie</span>, <span class="bu">Gadfly</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+<h3 id="boxplot">Boxplot</h3>
+<ul>
+<li class="fragment"><code>bloxplot(x)</code> resume a distribuição dos dados destacando mediana, quartis e possíveis outliers.</li>
+</ul>
+<h3 id="barplot-gráfico-de-barras">Barplot (gráfico de barras)</h3>
+<ul>
+<li class="fragment"><code>bar(x)</code> representa frequências ou valores médios para categorias.</li>
+</ul>
+<h3 id="histograma">Histograma</h3>
+<ul>
+<li class="fragment"><code>histogram(x)</code> exibe a distribuição de frequências de variáveis contínuas.</li>
+</ul>
+<h3 id="gráfico-de-dispersão">Gráfico de dispersão</h3>
+<ul>
+<li class="fragment"><code>scatter(x)</code> mostra a relação entre duas variáveis numéricas.</li>
+</ul>
+</section>
+<section id="densidade" class="slide level2">
+<h2>Densidade</h2>
+<ul>
+<li class="fragment"><code>density(x)</code> representa a função de densidade estimada de variáveis contínuas.</li>
+</ul>
 </section></section>
 <section>
 <section id="modelar" class="title-slide slide level1 center">
@@ -451,42 +595,80 @@
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
