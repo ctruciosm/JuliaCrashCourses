@@ -2,7 +2,7 @@
 title: "Julia para Ciência de Dados"
 subtitle: "Um guia introdutório para importar, transformar, analisar e modelar dados"
 lang: "pt"
-author: "**Professor: Carlos Trucíos (DE)** <br> **Instrutores:** Arthur da Silva (DMA), Henrique Silva (DE) e Sarah Pereira (DMA)."
+author: "**Professor: Carlos Trucíos (DE)** <br> **Instrutores:** Arthur da Silva (DMA), Henrique Velloso (DE) e Sarah Pereira (DMA)."
 institute: "7ª  Semana da Matemática Aplicada (SEMAP), <br> Universidade Estadual de Campinas (UNICAMP) <br> Agosto de 2025"
 knitr:
     opts_chunk: 
@@ -38,35 +38,295 @@ editor: source
 
 ## Por que escolher Julia?
 
--   A linguagem de programação `Julia`, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como `Matlab`, `Python` e `R`.
--   É utilizada não apenas na academia, [mas também fora dela.](https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html)
--   `Julia` é gratuita
--   `Julia` oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a `Python` e `R`.
--   `Julia` permite escrever código com símbolos matemáticos diretamente `r emo::ji("nerd")`, facilitando a expressão de conceitos científicos.
--   `Julia` resolve o problema das duas linguagens `r emo::ji("cool")`.
+-   A linguagem de programação `Julia`, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como `Matlab`, `Python` e `R`;
+-   É utilizada não apenas na academia, [mas também fora dela.](https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html);
+-   `Julia` é gratuita;
+-   `Julia` oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a `Python` e `R`;
+-   `Julia` permite escrever código com símbolos matemáticos diretamente `r emo::ji("nerd")`, facilitando a expressão de conceitos científicos;
+-   `Julia` resolve o problema das duas linguagens `r emo::ji("cool")`;
 -   Etc.
 
 ## Do Zero ao Julia
 
 <center>
 
-![Website Do Zero ao Julia: www.ime.unicamp.br/julialang](imagens/DoZeroaoJulia.png){width="400px"}
+![Website Do Zero ao Julia: www.ime.unicamp.br/julialang](imagens/DoZeroaoJulia.png){width="1000px"}
 
 </center>
 
-# Conceitos básicos
+# Importação de dados
 
-## Conceitos básicos
+Nesta seção veremos como importar nossos datasets, estando eles armazenados localmente ou online. Também veremos a diferença na leitura de diferentes formatos, como **.csv**, **.txt** e **.xlsx**.
 
-# Importar
+## Pacotes necessários
 
-## Importando dados
+O `Julia` conta com diversos pacotes que usamos para leitura de datasets, dentre eles vamos focar nos seguintes:
 
-# Transformar
+``` julia
+import Pkg
 
-## Manipulação de dados com TidierData.jl
+Pkg.add("DataFrames");
+Pkg.add("CSV")
+Pkg.add("XLSX")
+```
 
-# Analisar
+- `DataFrames` : Manipulação e análise de dados em formato tabular, similar ao pandas (`Python`) ou data.frame (`R`);
+- `CSV` : Leitura e escrita de arquivos CSV de forma rápida e eficiente;
+- `XLSX` : Leitura e escrita de arquivos Excel (.xlsx).
+
+## Funções básicas
+
+Com os pacotes necessários instalados, agora vejamos como as funções de leitura funcionam:
+
+``` julia
+using DataFrames, CSV, XLSX
+
+# .csv
+
+df_csv = CSV.read("caminho/dados.csv", DataFrame)
+
+# .txt
+
+df_txt = CSV.read("caminho/dados.txt", DataFrame, delim=';')
+
+# .xlsx
+
+sheets = XLSX.readxlsx("caminho/dados.xlsx")
+df_xlsx = DataFrame(sheets)
+```
+
+## Funções básicas
+
+Podemos usar a função `download()` é usada para baixar um arquivo temporariamente e retorna o caminho local onde ele foi salvo.
+
+**Ex.:**
+
+``` julia
+dados_csv = CSV.read(download(url), DataFrame, delim=';')
+
+first(dados_csv, 5) # Podemos usar a função first() para visualizar as primeiras linhas do dataset
+```
+
+## Leitura da base de dados
+
+Agora, vamos ler os dados que usaremos na aula de hoje.
+
+```{julia}
+#| echo: false
+
+begin
+    import Pkg
+    redirect_stdout(devnull) do
+        redirect_stderr(devnull) do
+            Pkg.add("TidierData")
+            Pkg.add("PrettyTables")
+        end
+    end
+end
+```
+
+```{julia}
+#| echo: fenced
+
+begin
+    import Pkg
+    redirect_stdout(devnull) do
+        redirect_stderr(devnull) do
+            Pkg.add("DataFrames")
+            Pkg.add("CSV")
+            Pkg.add("XLSX")
+        end
+    end
+end
+```
+
+```{julia}
+#| echo: fenced
+#| output: false
+
+using DataFrames, CSV
+
+file = "https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/datasets/dataset.csv"
+
+dados = CSV.read(download(file), DataFrame)
+```
+
+## Leitura da base de dados
+
+```{julia}
+#| echo: fenced
+#| output: true
+#| eval: true
+
+using DataFrames, TidierData
+
+@chain dados begin
+    @slice(1:6)
+end
+```
+
+# Banco de dados
+
+## Dados de faixas do Spotify
+
+Vamos analisar um banco de dados de faixas do Spotify abrangendo 125 gêneros diferentes. Aqui estão as principais colunas do dataset:
+
+1. **track_name**: Nome da faixa;
+
+2. **artists**: Os nomes dos artistas que interpretaram a faixa. Se houver mais de um artista, eles serão separados por ';' ;
+
+3. **album_name**: O nome do álbum de onde a faixa pertence;
+
+4. **popularity**: A popularidade de uma faixa é um valor entre 0 e 100, sendo 100 o mais popular, sendo calculada a partir (de forma geral) do número de streams daquela faixa, e o quão recente foram essas streams;
+
+5. **duration_ms**: A duração da faixa em milissegundos;
+
+6. **danceability**: A dançabilidade descreve o quão adequada uma faixa é para dançar com base em uma combinação de elementos musicais, incluindo andamento, estabilidade do ritmo, força da batida e regularidade geral. Um valor de 0,0 é o menos dançante e 1,0 o mais dançante;
+
+## Dados de faixas do Spotify
+
+7. **energy**: Energia é uma medida de 0,0 a 1,0 e representa uma medida perceptual de intensidade e atividade. Normalmente, músicas energéticas parecem rápidas, altas e barulhentas. Por exemplo, o death metal tem alta energia, enquanto um prelúdio de Bach tem baixa pontuação na escala;
+
+8. **loudness**: O volume total de uma faixa em decibéis (dB);
+
+9. **speechiness**: Detecta a presença de palavras faladas em uma faixa. Quanto mais exclusivamente semelhante à fala for a gravação (por exemplo, talk show, audiolivro, poesia), mais próximo de 1,0 será o valor do atributo. Valores acima de 0,66 descrevem faixas que provavelmente são compostas inteiramente de palavras faladas. Valores entre 0,33 e 0,66 descrevem faixas que podem conter música e fala, seja em seções ou em camadas, incluindo casos como rap. Valores abaixo de 0,33 provavelmente representam música e outras faixas que não se assemelham à fala.
+
+10. **acousticness**: Uma medida de confiança de 0,0 a 1,0 para determinar se a faixa é acústica. 1,0 representa alta confiança de que a faixa é acústica.
+
+## Dados de faixas do Spotify
+
+11. **valence**: Uma medida de 0,0 a 1,0 que descreve a positividade musical transmitida por uma faixa. Faixas com alta valência soam mais positivas (por exemplo, felizes, alegres, eufóricas), enquanto faixas com baixa valência soam mais negativas (por exemplo, tristes, deprimidas, raivosas);
+
+12. **tempo**: O andamento estimado geral de uma faixa em batidas por minuto (BPM);
+
+13. **track_genre**: O gênero da faixa;
+
+14. **instrumentalness**: Prevê se uma faixa não contém vocais. Sons de "Ooh" e "aah" são tratados como instrumentais neste contexto. Faixas de rap ou palavra falada são claramente "vocais". Quanto mais próximo o valor de instrumentalidade estiver de 1,0, maior a probabilidade de a faixa não conter conteúdo vocal.
+
+15. **liveness**: Detecta a presença de público na gravação. Valores mais altos de ao vivo representam uma probabilidade maior de que a faixa tenha sido tocada ao vivo. Um valor acima de 0,8 fornece alta probabilidade de que a faixa seja ao vivo.
+
+# Manipulação de banco de dados
+
+Agora que temos o nosso dataset, vamos passar por algumas funções e pacotes que vão nos auxiliar na limpeza dos nossos dados!
+
+## Tidier.jl
+
+A biblioteca `Tidier.jl` possui vários pacotes que auxiliam na manipulação e análise de datasets. Para quem está vindo do `R`, esses pacotes são bem similares e intuitivos. Aqui estão alguns dos pacotes:
+
+- `TidierData` : Implementação 100% `Julia` dos pacotes `dplyr` e `tidyr` do `R`. Usado na tranformação e manipulação dos dados;
+- `TidierPlots` : Implementação 100% `Julia` do pacote `ggplot2` do `R`;
+- `TidierStrings` : O objetivo deste pacote é replicar o `stringr` do `R` em `Julia` de uma forma que funcione com o Tidier ou como uma função autônoma.
+
+> Acessem o link `https://tidierorg.github.io/Tidier.jl/v1.6.1/` para mais informações!
+
+## Pacote TidierData.jl
+
+Para a nossa análise de hoje, vamos utilizar principalmente o pacote `TidierData`.
+
+### Funções Macro
+
+Para suportar a programação no estilo `R`, o `TidierData.jl` é implementado usando **macros**. Isso ocorre porque as **macros** são capazes de "capturar" o código antes de executá-lo, o que permite que o pacote suporte "expressões *tidy*" semelhantes ao `R` que, de outra forma, não seriam consideradas código `Julia` válido.
+
+```{julia}
+#| echo: fenced
+
+using TidierData
+
+@chain dados begin
+    @filter(popularity > 50)
+    @arrange(desc("energy"))
+    @select(track_name, popularity, energy, acousticness)
+    @slice(1:5)
+end
+```
+
+## Pacote TidierData.jl
+
+- Para quem já está familiarizado com a linguagem `R`, a função `@chain()` é similar ao pipeline `%>%` ou `|>`, usado para encadear várias operações em sequência no mesmo conjunto de dados.
+
+    - `@filter()` : Filtra as linhas com base em uma restrição;
+    - `@arrange()` : Ordena as linhas com base em uma coluna (`desc()` para definir ordem crescente ou decrescente);
+    - `@select()` : Seleciona as colunas de interesse;
+    - `@slice()` : Seleciona as linhas para visualização.
+
+> Obs.: A função `desc()` é uma função auxiliar.
+
+---
+
+### Funções auxiliares
+
+Algumas funções auxiliares do pacote que é importante citarmos:
+
+- `across()` : Aplica uma função a várias colunas de uma vez;
+- `n()` e `row_number()` : Retornam o número total de linhas ou o número da linha;
+- `replace_missing()` : Substitui valores ausentes em uma coluna por um valor especificado.
+
+Outras funções auxiliares de outros pacotes que vale mencionar:
+
+- `dropmissing()` : Remove as linhas que contêm valores faltantes (*missing*);
+- `unique()` : Retorna os valores distintos únicos de um vetor ou coluna, removendo duplicatas;
+- `nrow()` : Retorna o número de linhas de um DataFrame ou matriz;
+- `any()` : Testa se **pelo menos um** elemento de uma coleção (ou resultado de uma condição) é verdadeiro; retorna `true` ou `false`.
+
+## Limpeza do dataset do Spotify
+
+### Tratando valores faltantes
+
+> Dica: Use a função `any()` e a função `ismissing` no formato `row -> any(ismissing, row)` para verificar se há colunas sem informação. Nesse caso, a função `filter()` da base do `Julia` é mais eficiente, no formato `filter(condição, dados)`.
+
+```{julia}
+#| echo: fenced
+#| output: false
+
+using DataFrames, TidierData
+
+faltantes = filter(row -> any(ismissing, row), dados)
+```
+
+```{julia}
+#| echo: fenced
+#| output: true
+
+using TidierData
+
+@chain faltantes begin
+    @slice(1)
+end
+```
+
+---
+
+### Tratando valores faltantes
+
+Vamos remover as linhas que possuem valores faltantes.
+
+```{julia}
+#| echo: fenced
+#| output: false
+
+using TidierData, DataFrames
+
+dados = @chain dados begin
+    dropmissing()
+end
+```
+
+## Tratando valores duplicados
+
+Verificaremos possíveis faixas duplicadas, e retirá-las caso haja alguma.
+
+```{julia}
+#| echo: fenced
+#| output: true
+
+using DataFrames, PrettyTables
+
+nrow(unique(dados, :track_name)), nrow(dados)
+
+dados = unique(dados, :track_name)
+```
+
+# Análise Exploratória de Dados (EDA)
 
 ## EDA
 
