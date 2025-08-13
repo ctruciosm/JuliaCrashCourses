@@ -37,6 +37,8 @@ editor: source
 ---
 
 
+
+
 # Por que Julia?
 
 ## Por que escolher Julia?
@@ -114,6 +116,8 @@ first(dados_csv, 5) # Podemos usar a função first() para visualizar as primeir
 
 Agora, vamos ler os dados que usaremos na aula de hoje.
 
+
+
 ```{julia}
 #| echo: false
 
@@ -154,7 +158,11 @@ file = "https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/d
 dados = CSV.read(download(file), DataFrame)
 ```
 
+
+
 ## Leitura da base de dados
+
+
 
 ```{julia}
 #| echo: fenced
@@ -167,6 +175,8 @@ using DataFrames, TidierData
     @slice(1:6)
 end
 ```
+
+
 
 # Banco de dados
 
@@ -230,6 +240,8 @@ Para a nossa análise de hoje, vamos utilizar principalmente o pacote `TidierDat
 
 Para suportar a programação no estilo `R`, o `TidierData.jl` é implementado usando **macros**. Isso ocorre porque as **macros** são capazes de "capturar" o código antes de executá-lo, o que permite que o pacote suporte "expressões *tidy*" semelhantes ao `R` que, de outra forma, não seriam consideradas código `Julia` válido.
 
+
+
 ```{julia}
 #| echo: fenced
 
@@ -242,6 +254,8 @@ using TidierData
     @slice(1:5)
 end
 ```
+
+
 
 ## Pacote TidierData.jl
 
@@ -277,6 +291,8 @@ Outras funções auxiliares de outros pacotes que vale mencionar:
 
 > Dica: Use a função `any()` e a função `ismissing` no formato `row -> any(ismissing, row)` para verificar se há colunas sem informação. Nesse caso, a função `filter()` da base do `Julia` é mais eficiente, no formato `filter(condição, dados)`.
 
+
+
 ```{julia}
 #| echo: fenced
 #| output: false
@@ -297,11 +313,15 @@ using TidierData
 end
 ```
 
+
+
 ------------------------------------------------------------------------
 
 ### Tratando valores faltantes
 
 Vamos remover as linhas que possuem valores faltantes.
+
+
 
 ```{julia}
 #| echo: fenced
@@ -314,9 +334,13 @@ dados = @chain dados begin
 end
 ```
 
+
+
 ## Tratando valores duplicados
 
 Verificaremos possíveis faixas duplicadas, e retirá-las caso haja alguma.
+
+
 
 ```{julia}
 #| echo: fenced
@@ -328,6 +352,8 @@ nrow(unique(dados, :track_id)), nrow(dados)
 
 dados = unique(dados, :track_id)
 ```
+
+
 
 # Análise Exploratória de Dados (EDA)
 
@@ -702,3 +728,4 @@ heatmap(String.(var_numericas), String.(var_numericas), corr_matrix;
 
 -   [Vituri, G. & and Scheuch, C. (2025). Tidier Data Science with Julia.](https://tidierorg.github.io/TidierBook/)
 -   [Silva, H. A. V. & da Silva, A. D. M. (2025). Do Zero ao Julia: Introdução ao pacote TidierData.jl. Retrieved from https://ime.unicamp.br/julialang/Blog/tidierdata.html](https://ime.unicamp.br/julialang/Blog/tidierdata.html)
+
