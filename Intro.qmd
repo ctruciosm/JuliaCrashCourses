@@ -100,6 +100,8 @@ Pkg.add("CategoricalArrays")
 ![Passo 2: Criar novo notebook](imagens/colab_novo_notebook.png){width=60%}
 
 Google Colaboratory (Colab)
+
+[Repositório da Aula](https://github.com/Arthur-Dionizio/minicurso-julia)
 :::
 
 </center>
