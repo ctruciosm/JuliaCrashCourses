@@ -40,7 +40,30 @@ library(JuliaCall)
 julia_setup()
 ```
 
+```{julia}
+#| echo: false
+#| output: false
 
+# import Pkg
+
+# Pkg.add("Statistics")
+# Pkg.add("Random")
+# Pkg.add("TidierData")
+# Pkg.add("LinearAlgebra")
+# Pkg.add("DataFrames")
+# Pkg.add("CSV")
+# Pkg.add("XLSX")
+# Pkg.add("StatsBase")
+# Pkg.add("StatsPlots")
+# Pkg.add("Plots")
+# Pkg.add("Makie")
+# Pkg.add("Gadfly")
+# Pkg.add("Distributions")
+# Pkg.add("MLJ")
+# Pkg.add("StatsBase")
+# Pkg.add("GLM")
+# Pkg.add("CategoricalArrays")
+```
 
 # Por que Julia?
 
@@ -247,7 +270,8 @@ Nesta seção veremos como importar nossos _datasets_, estando eles armazenados 
 
 `Julia` conta com diversos pacotes para leitura de _datasets_, dentre eles:
 
-``` julia
+``` {julia}
+#| eval: false
 import Pkg
 
 Pkg.add("DataFrames");
@@ -265,7 +289,8 @@ Pkg.add("XLSX")
 
 Com os pacotes necessários instalados, agora vejamos como as funções de leitura funcionam:
 
-``` julia
+```{julia}
+#| eval: false
 using DataFrames, CSV, XLSX
 
 # .csv
@@ -285,7 +310,8 @@ Podemos usar a função `download()` para baixar um arquivo temporariamente e re
 
 **Ex.:**
 
-``` julia
+```{julia}
+#| eval: false
 dados_csv = CSV.read(download(url), DataFrame, delim=';')
 
 first(dados_csv, 5) # Podemos usar a função first() para visualizar as primeiras linhas do dataset
@@ -294,34 +320,6 @@ first(dados_csv, 5) # Podemos usar a função first() para visualizar as primeir
 ## Leitura da base de dados
 
 Agora, vamos ler os dados que usaremos na aula de hoje.
-
-```{julia}
-#| echo: false
-begin
-    import Pkg
-    redirect_stdout(devnull) do
-        redirect_stderr(devnull) do
-            Pkg.add("TidierData")
-            Pkg.add("PrettyTables")
-        end
-    end
-end
-```
-
-```{julia}
-#| echo: fenced
-
-begin
-    import Pkg
-    redirect_stdout(devnull) do
-        redirect_stderr(devnull) do
-            Pkg.add("DataFrames")
-            Pkg.add("CSV")
-            Pkg.add("XLSX")
-        end
-    end
-end
-```
 
 ```{julia}
 #| echo: true
@@ -335,6 +333,15 @@ first(dados, 5)
 ```
 
 ## Leitura da base de dados
+
+```{julia}
+#| echo: true
+#| eval: false
+
+import Pkg
+
+Pkg.add("TidierData")
+```
 
 ```{julia}
 #| echo: true
@@ -402,7 +409,7 @@ A biblioteca `Tidier.jl` possui vários pacotes que auxiliam na manipulação e 
 
 . . . 
 
-> Acessem o link `https://tidierorg.github.io/Tidier.jl/v1.6.1/` para mais informações!
+> Acessem o link [https://tidierorg.github.io/Tidier.jl/v1.6.1/](https://tidierorg.github.io/Tidier.jl/v1.6.1/) para mais informações!
 
 ## Pacote TidierData.jl
 
@@ -493,18 +500,7 @@ faltantes = filter(row -> any(ismissing, row), dados)
 ```
 
 
-. . . 
-
-```{julia}
-#| echo: true
-@chain faltantes begin
-    @slice(1)
-end
-```
-
-
 ## Pacote TidierData.jl
-
 
 Vamos remover as linhas que possuem valores faltantes.
 
@@ -526,7 +522,6 @@ Verificaremos possíveis faixas duplicadas, e retirá-las caso haja alguma.
 nrow(unique(dados, :track_id)), nrow(dados)
 dados = unique(dados, :track_id)
 ```
-
 
 
 # Análise Exploratória de Dados (EDA)
@@ -584,6 +579,7 @@ mean(x)
 
 ```{julia}
 #| echo: true
+x = [1, 2, 2, 2, 5, 6, 7];
 std(x)
 ```
 
@@ -638,10 +634,11 @@ Para identificar os cinco artistas com maior número de faixas no dataset, utili
 
 
 
-``` julia
+```{julia}
+#| eval: false
 using Statistics, StatsPlots, Plots
 
-artists = combine(groupby(df, :artists), nrow => :n_tracks)
+artists = combine(groupby(dados, :artists), nrow => :n_tracks)
 sort!(artists, :n_tracks, rev=true)
 first(artists, 5)  # Top 5 artistas
 ```
@@ -663,7 +660,7 @@ Para filtrar as faixas de um artista específico, como George Jones, utilize `fi
 #| echo: true
 using Statistics, StatsPlots, Plots
 
-df_george = filter(:artists => x -> occursin("George Jones", x), df)
+df_george = filter(:artists => x -> occursin("George Jones", x), dados)
 
 vars_numericas = [:popularity, :duration_ms, :danceability, :energy,
                   :loudness, :speechiness, :acousticness, :instrumentalness,
@@ -672,23 +669,25 @@ vars_numericas = [:popularity, :duration_ms, :danceability, :energy,
 describe(select(df_george, vars_numericas))
 ```
 
-## EDA:Visualização de dados
+## EDA: Visualização de dados
 
 -   O Julia oferece diversas bibliotecas para criar visualizações estatísticas de forma simples e flexível, permitindo a análise e interpretação de dados de maneira visual. Algumas bibliotecas populares incluem `Plots.jl`, `StatsPlots.jl`, `Makie.jl` e `Gadfly.jl`.
 
-    ``` julia
-    import Pkg
+```{julia}
+#| eval: false
+import Pkg
 
-    Pkg.add("Plots")
-    Pkg.add("StatsPlots")
-    Pkg.add("Makie")
-    Pkg.add("Gadfly")
-    Pkg.add("Distributions")
-    ```
+Pkg.add("Plots")
+Pkg.add("StatsPlots")
+Pkg.add("Makie")
+Pkg.add("Gadfly")
+Pkg.add("Distributions")
+```
 
-    ``` julia
-    using Plots, StatsPlots, Makie, Gadfly, Distributions
-    ```
+```{julia}
+#| eval: false
+using Plots, StatsPlots, Makie, Gadfly, Distributions
+```
 
 ## EDA: Boxplot
 
@@ -710,7 +709,7 @@ boxplot(x;
 
 ## Barplot (gráfico de barras)
 
--   `bar(x)` representa frequências ou valores médios para categorias.
+-  `bar(x)` representa frequências ou valores médios para categorias.
 
 **Ex.:**
 
@@ -831,9 +830,9 @@ heatmap(names(df_rand), names(df_rand), corr_mat;
 #| echo: true
 using Statistics, StatsPlots, Plots
 
-df.duration_min = df.duration_ms ./ 60000
+dados.duration_min = dados.duration_ms ./ 60000
 
-histogram(df[!, :duration_min],
+histogram(dados[!, :duration_min],
     bins = 50,
     xlabel = "Duração (min)",
     ylabel = "Número de músicas",
@@ -841,7 +840,7 @@ histogram(df[!, :duration_min],
     normalize = true,
     legend = false)
     
-density!(df[!, :duration_min], linewidth = 2, label = "Densidade")
+density!(dados[!, :duration_min], linewidth = 2, label = "Densidade")
 ```
 
 ## EDA: Gerando gráficos do dataset
@@ -856,7 +855,7 @@ var_numericas = [:popularity, :duration_ms, :danceability, :energy,
              :liveness, :valence, :tempo]
 
 # Selecionar e limpar
-numdf = select(df, variables)
+numdf = select(dados, var_numericas)
 
 # Matriz de correlação
 corr_matrix = cor(Matrix(numdf))
@@ -869,11 +868,236 @@ heatmap(String.(var_numericas), String.(var_numericas), corr_matrix;
     yrotation = 45)
 ```
 
-# Modelar
+# Modelagem
 
-## Regressão e Classificação
+**Objetivo**: Prever a variável *energy* com base nas outras variáveis quantitativas. Para isso, utilizaremos um modelo de Regressão Linear Múltipla.
+
+## Pré-Processamento
+
+Primeiro, vamos fazer a divisão do dataset em dados de treino e dados de teste:
+
+```{julia}
+#| echo: true
+#| output: false
+var_categoricas = [:track_genre, :explicit]
+```
+
+```{julia}
+#| echo: true
+#| output: false
+#| eval: false
+X = select(dados, union(?, ?))
+y = dados.variavel_resposta
+```
+
+```{julia}
+#| echo: false
+#| output: false
+using DataFrames
+
+X = select(dados, union(var_numericas, var_categoricas))
+y = dados.energy
+```
+
+```{julia}
+#| echo: false
+#| output: false
+using MLJ
+# Substitua o parâmetro ? pela porcentagem (em decimal) do dataset total que você deseja designar para
+# treino. O Restante ficará para com dataset de teste.
+train_idx, test_idx = partition(collect(eachindex(y)), 0.8, shuffle=true, rng=42)
+
+X_train = X[train_idx, :]
+X_test  = X[test_idx, :]
+y_train = y[train_idx]
+y_test  = y[test_idx]
+```
+
+```{julia}
+#| eval: false
+#| echo: true
+#| output: false
+using MLJ
+# Substitua o parâmetro ? pela porcentagem (em decimal) do dataset total que você deseja designar para
+# treino. O Restante ficará para com dataset de teste.
+train_idx, test_idx = partition(collect(eachindex(y)), 0.8, shuffle=true, rng=42)
+
+X_train = X[train_idx, :]
+X_test  = X[test_idx, :]
+y_train = y[train_idx]
+y_test  = y[test_idx]
+```
+
+## Pré-Processamento
+
+- Para verificar se deu certo, rode uma célula contendo apenas `X` e uma contendo apenas `y`
+- Para rodas ambos na mesma célula, você deve utilizar a função `display()`. Por padrão, `Julia` exibe somente o último objeto da célula
+
+Agora, seguimos com a normalização das variáveis numéricas.
+
+```{julia}
+#| echo: true
+# verificando as colunas numéricas:
+describe(dados[:, var_numericas], :min, :max)
+```
+
+## Pré-Processamento
+
+```{julia}
+#| echo: true
+#| output: false
+using MLJ
+using StatsBase
+
+# --- 3. Normalização das colunas contínuas ---
+using MLJ
+using StatsBase
+
+X_train_scaled = deepcopy(X_train)
+X_test_scaled  = deepcopy(X_test)
+
+for col in var_numericas # percorre cada coluna numérica
+    x_train = Float64.(X_train[!, col]) # garante que os valores sejam do tipo Float64
+    scaler = fit(UnitRangeTransform, x_train) # ajusta o transformador Min-Max aos dados de treino
+
+    X_train_scaled[!, col] = StatsBase.transform(scaler, x_train) # aplica a normalização nos dados de treino
+    X_test_scaled[!, col]  = StatsBase.transform(scaler, Float64.(X_test[!, col])) # aplica a mesma transformação nos dados de teste usando os parâmetros do treino (mesma escala)
+end
+
+# colunas categóricas permanecem inalteradas
+
+# Ver resumo estatístico das colunas numéricas
+describe(X_train_scaled[:, var_numericas])
+```
+
+## Pré-Processamento
+
+```{julia}
+#| echo: true
+# Visualizar as primeiras 5 linhas do df original para comparar
+first(X, 5)
+```
+
+## Pré-Processamento
+
+```{julia}
+#| echo: true
+# Visualizar as primeiras 5 linhas do df normalizado para comparar
+first(X_train_scaled, 5)
+```
+
+```{julia}
+#| echo: true
+# Ver resumo estatístico das colunas numéricas
+describe(dados[:, var_numericas])
+```
+
+## Pré-Processamento
+
+Nesse momento, faremos o *encoding* das variáveis categóricas.
+
+- Aplicar one hot encoding em variáveis categóricas é uma técnica comum para converter essas variáveis em um formato que pode ser usado por algoritmos de aprendizado de máquina.
+
+- Isso envolve criar colunas binárias para cada categoria, permitindo que o modelo aprenda a partir dessas variáveis categóricas de forma mais eficaz.
+
+- Essa técnica é essencial em modelos como regressão linear, árvores de decisão e redes neurais, onde as variáveis categóricas precisam ser representadas numericamente.
+
+## Pré-Processamento
+
+```{julia}
+#| echo: true
+#| output: false
+
+using CategoricalArrays, MLJ
+
+# --- converter colunas do tipo string para o tipo categórico (CategoricalValue) ---
+for col in names(X_train_scaled)
+    if eltype(X_train_scaled[!, col]) <: AbstractString
+        X_train_scaled[!, col] = categorical(X_train_scaled[!, col])
+        X_test_scaled[!, col]  = categorical(X_test_scaled[!, col])
+    end
+end
+
+# --- One-Hot Encoder (ajusta no treino, transforma treino e teste) ---
+ohe = OneHotEncoder(drop_last=true)  # drop_last evita multicolinearidade para GLM
+
+"""One-Hot Encoding transforma cada categoria em uma coluna binária (0 ou 1).
+Ex.: track_genre com valores Rock, Pop vira 2 colunas: [Rock, Pop].
+"""
+
+mach_ohe = MLJ.machine(ohe, X_train_scaled)
+MLJ.fit!(mach_ohe)
+X_train_cleaned = MLJ.transform(mach_ohe, X_train_scaled)
+X_test_cleaned  = MLJ.transform(mach_ohe, X_test_scaled)
+
+"""Cria uma “máquina” com o encoder e o dataset de treino.
+
+fit! → aprende quais categorias existem em cada coluna de treino.
+
+transform → aplica a codificação nos dados de treino e teste usando os mesmos parâmetros aprendidos.
+
+Resultado: X_train_cleaned e X_test_cleaned estão prontos para modelos de ML, com variáveis numéricas apenas.
+"""
+
+
+X_train_cleaned
+
+```
+
+```{julia}
+#| echo: true
+typeof(X_train_cleaned)
+```
+
+## Pré-Processamento
+
+Por último, transformaremos nosso dataset em matriz.
+
+- Essa técnica é essencial para modelos de Regressão Linear Múltipla
+
+- `Float64.(Matrix(X_train_cleaned))` garante que todas as colunas sejam numéricas, requisito do `GLM.jl`, o pacote que usaremos para implementar nossa Reg. Lin. Múltipla.
+
+- Nesse pacote, quando temos múltiplas features, podemos usar a forma matricial `(X e y)` ou transformar `X_train_cleaned` em `DataFrame` com colunas nomeadas para usar fórmula.
+
+- Faremos uso da abordagem matricial, que funciona diretamente com `DataFrame` ou `Matrix`.
+
+## Pré-Processamento
+
+- A função abaixo serve para retornar o tipo de dado de algum objeto. Em outras palavras:
+
+- Ela não mostra o conteúdo da variável.
+
+- Ela diz de que “classe” ou estrutura interna o objeto é, por exemplo: `DataFrame`, `Matrix{Float64}`, `CategoricalArray{String,1,UInt32}`, etc.
+
+```{julia}
+#| echo: true
+#| output: false
+X_train_mat = Matrix(X_train_cleaned)
+display(typeof(X_train_mat))
+
+X_test_mat = Matrix(X_test_cleaned)
+display(typeof(X_test_mat))
+```
+
+```{julia}
+#| echo: true
+X_train_mat
+```
+
+## Pré-Processamento
+
+- Vetorização da variável resposta (*target variable*), `energy`:
+
+```{julia}
+#| echo: true
+y_train_vec = y_train
+y_test_vec  = y_test
+```
+
+# Modelo de Regressão Linear Múltipla
 
 ## Referências
 
 -   [Vituri, G. & and Scheuch, C. (2025). Tidier Data Science with Julia.](https://tidierorg.github.io/TidierBook/)
 -   [Silva, H. A. V. & da Silva, A. D. M. (2025). Do Zero ao Julia: Introdução ao pacote TidierData.jl. Retrieved from https://ime.unicamp.br/julialang/Blog/tidierdata.html](https://ime.unicamp.br/julialang/Blog/tidierdata.html)
+-   Documentação oficial da biblioteca Tidier.jl [https://tidierorg.github.io/Tidier.jl/v1.6.1/](https://tidierorg.github.io/Tidier.jl/v1.6.1/)
