@@ -44,25 +44,25 @@ julia_setup()
 #| echo: false
 #| output: false
 
-# import Pkg
+import Pkg
 
-# Pkg.add("Statistics")
-# Pkg.add("Random")
-# Pkg.add("TidierData")
-# Pkg.add("LinearAlgebra")
-# Pkg.add("DataFrames")
-# Pkg.add("CSV")
-# Pkg.add("XLSX")
-# Pkg.add("StatsBase")
-# Pkg.add("StatsPlots")
-# Pkg.add("Plots")
-# Pkg.add("Makie")
-# Pkg.add("Gadfly")
-# Pkg.add("Distributions")
-# Pkg.add("MLJ")
-# Pkg.add("StatsBase")
-# Pkg.add("GLM")
-# Pkg.add("CategoricalArrays")
+Pkg.add("Statistics")
+Pkg.add("Random")
+Pkg.add("TidierData")
+Pkg.add("LinearAlgebra")
+Pkg.add("DataFrames")
+Pkg.add("CSV")
+Pkg.add("XLSX")
+Pkg.add("StatsBase")
+Pkg.add("StatsPlots")
+Pkg.add("Plots")
+Pkg.add("Makie")
+Pkg.add("Gadfly")
+Pkg.add("Distributions")
+Pkg.add("MLJ")
+Pkg.add("StatsBase")
+Pkg.add("GLM")
+Pkg.add("CategoricalArrays")
 ```
 
 # Por que Julia?
