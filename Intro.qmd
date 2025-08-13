@@ -16,8 +16,8 @@ format:
         toc: true
         toc-depth: 1
         toc-title: Agenda
-        self-contained: false
-        chalkboard: true
+        self-contained: true
+        chalkboard: false
         width: 1600
         height: 900
         theme: [default, styles.scss]
