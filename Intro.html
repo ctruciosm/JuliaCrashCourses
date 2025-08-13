@@ -9,7 +9,7 @@
 <link href="Intro_files/libs/quarto-html/quarto-syntax-highlighting-3e476e15ae565c222d94875412ae43a1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.39">
 
-  <meta name="author" content="Professor: Carlos Trucíos (DE)   Instrutores: Arthur da Silva (DMA), Henrique Silva (DE) e Sarah Pereira (DMA).">
+  <meta name="author" content="Professor: Carlos Trucíos (DE)   Instrutores: Arthur da Silva (DMA), Henrique Velloso (DE) e Sarah Pereira (DMA).">
   <title>Julia para Ciência de Dados</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -200,7 +200,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-<strong>Professor: Carlos Trucíos (DE)</strong> <br> <strong>Instrutores:</strong> Arthur da Silva (DMA), Henrique Silva (DE) e Sarah Pereira (DMA). 
+<strong>Professor: Carlos Trucíos (DE)</strong> <br> <strong>Instrutores:</strong> Arthur da Silva (DMA), Henrique Velloso (DE) e Sarah Pereira (DMA). 
 </div>
         <p class="quarto-title-affiliation">
             7ª Semana da Matemática Aplicada (SEMAP), <br> Universidade Estadual de Campinas (UNICAMP) <br> Agosto de 2025
@@ -214,9 +214,9 @@
 <ul>
 <li class="fragment"><a href="#/por-que-julia" id="/toc-por-que-julia">Por que Julia?</a></li>
 <li class="fragment"><a href="#/primeiros-passos" id="/toc-primeiros-passos">Primeiros passos</a></li>
-<li class="fragment"><a href="#/importar" id="/toc-importar">Importar</a></li>
-<li class="fragment"><a href="#/transformar" id="/toc-transformar">Transformar</a></li>
-<li class="fragment"><a href="#/analisar" id="/toc-analisar">Analisar</a></li>
+<li class="fragment"><a href="#/importação-de-dados" id="/toc-importação-de-dados">Importação de dados</a></li>
+<li class="fragment"><a href="#/manipulação-de-banco-de-dados" id="/toc-manipulação-de-banco-de-dados">Manipulação de banco de dados</a></li>
+<li class="fragment"><a href="#/análise-exploratória-de-dados-eda" id="/toc-análise-exploratória-de-dados-eda">Análise Exploratória de Dados (EDA)</a></li>
 <li class="fragment"><a href="#/modelar" id="/toc-modelar">Modelar</a></li>
 </ul>
 </nav>
@@ -229,12 +229,13 @@
 <section id="por-que-escolher-julia" class="slide level2">
 <h2>Por que escolher Julia?</h2>
 <ul>
-<li class="fragment">A linguagem de programação <code>Julia</code>, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como <code>Matlab</code>, <code>Python</code> e <code>R</code>.</li>
-<li class="fragment">É utilizada não apenas na academia, <a href="https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html">mas também fora dela.</a></li>
-<li class="fragment"><code>Julia</code> é gratuita</li>
-<li class="fragment"><code>Julia</code> oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a <code>Python</code> e <code>R</code>.</li>
-<li class="fragment"><code>Julia</code> permite escrever código com símbolos matemáticos diretamente 🤓, facilitando a expressão de conceitos científicos.</li>
-<li class="fragment"><code>Julia</code> resolve o problema das duas linguagens 🆒.</li>
+<li class="fragment">A linguagem de programação <code>Julia</code>, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como <code>Matlab</code>, <code>Python</code> e <code>R</code>;</li>
+<li class="fragment">É utilizada não apenas na academia, <a href="https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html">mas também fora dela</a>;</li>
+<li class="fragment"><code>Julia</code> é gratuita;</li>
+<li class="fragment"><code>Julia</code> oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a <code>Python</code> e <code>R</code>;</li>
+<li class="fragment"><code>Julia</code> permite escrever código com símbolos matemáticos diretamente 🤓, facilitando a expressão de conceitos científicos;</li>
+<li class="fragment"><code>Julia</code> resolve o problema das duas linguagens 🆒;</li>
+<li class="fragment">Porque o projeto <a href="www.ime.unicamp.br/julialang">Do Zero ao Julia</a> é 100% Unicamper (🕺);</li>
 <li class="fragment">Etc.</li>
 </ul>
 </section>
@@ -257,16 +258,38 @@
 <section id="primeiros-passos-1" class="slide level2">
 <h2>Primeiros passos</h2>
 <center>
+<div id="fig-colab" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="imagens/colab.png" style="width:40.0%"></p>
-<figcaption>https://colab.research.google.com/</figcaption>
+<figcaption>Passo 1: Abrir o Colab https://colab.research.google.com/</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imagens/colab_novo_notebook.png" style="width:60.0%"></p>
+<figcaption>Passo 2: Criar novo notebook</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Google Colaboratory (Colab)
+</figcaption>
 </figure>
 </div>
 </center>
 </section>
 <section id="primeiros-passos-2" class="slide level2">
 <h2>Primeiros passos</h2>
+<center>
 <div id="fig-colab" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -275,7 +298,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="imagens/colab_01.png" style="width:50.0%"></p>
-<figcaption>Colab 1</figcaption>
+<figcaption>Passo 3: Configurar o Colab</figcaption>
 </figure>
 </div>
 </div>
@@ -283,17 +306,18 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="imagens/colab_02.png"></p>
-<figcaption>Colab 2</figcaption>
+<figcaption>Passo 4: Julia pronto pra ação</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1: Julia no Colab
+Figura&nbsp;2: Julia no Colab
 </figcaption>
 </figure>
 </div>
+</center>
 </section>
 <section id="primeiros-passos-3" class="slide level2">
 <h2>Primeiros passos</h2>
@@ -306,21 +330,6 @@ Figura&nbsp;1: Julia no Colab
 <span id="cb1-5"><a href=""></a>nomes  <span class="op">=</span> [<span class="st">"Julia"</span>, <span class="st">"Lucas"</span>, <span class="st">"Pedro"</span>, <span class="st">"Carlos"</span>, <span class="st">"Maria"</span>, <span class="st">"Luisa"</span>, <span class="st">"Marcelo"</span>, <span class="st">"Camila"</span>];</span>
 <span id="cb1-6"><a href=""></a>idades <span class="op">=</span> [<span class="fl">19</span>, <span class="fl">20</span>, <span class="fl">18</span>, <span class="fl">22</span>, <span class="fl">21</span>, <span class="fl">19</span>, <span class="fl">17</span>, <span class="fl">23</span>];</span>
 <span id="cb1-7"><a href=""></a>peso   <span class="op">=</span> [<span class="fl">65.5</span>, <span class="fl">70.5</span>, <span class="fl">65.2</span>, <span class="fl">70.1</span>, <span class="fl">65.1</span>, <span class="fl">65.4</span>, <span class="fl">65.3</span>, <span class="fl">65.2</span>];</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Mão na massa:</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li class="fragment">Copie e cole o código no colab</li>
-<li class="fragment">O que acontece se removermos os “;” no final de cada linha?</li>
-</ol>
-</div>
-</div>
-</div>
 </div>
 </section>
 <section id="primeiros-passos-4" class="slide level2">
@@ -348,16 +357,16 @@ Figura&nbsp;1: Julia no Colab
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href=""></a><span class="fu">log</span>.(idades)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<blockquote>
-<p>. (dot) faz com que a mesma operação seja feita em todos os elementos do vetor</p>
-</blockquote>
-</div>
-<div class="fragment">
 <p>Qual código está correto?</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href=""></a>idades <span class="op">+</span> <span class="fl">1</span>    </span>
 <span id="cb8-2"><a href=""></a>idades <span class="op">.+</span> <span class="fl">1</span>  </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
+<blockquote>
+<p><strong>Observação:</strong> O . (dot) faz com que a operação seja feita em todos os elementos do vetor.</p>
+</blockquote>
 </div>
 </section>
 <section id="primeiros-passos-6" class="slide level2">
@@ -405,7 +414,7 @@ Figura&nbsp;1: Julia no Colab
 <p><strong>Nota</strong></p>
 </div>
 <div class="callout-content">
-<p>Uma boa prática em <code>Julia</code> é:</p>
+<p>Boas práticas em <code>Julia</code> são:</p>
 <ol type="1">
 <li class="fragment">Carregar os pacotes logo no começo do script</li>
 <li class="fragment">Carregar cada pacote um a um (linha a linha)</li>
@@ -418,28 +427,443 @@ Figura&nbsp;1: Julia no Colab
 </div>
 </section></section>
 <section>
-<section id="importar" class="title-slide slide level1 center">
-<h1>Importar</h1>
+<section id="importação-de-dados" class="title-slide slide level1 center">
+<h1>Importação de dados</h1>
 
 </section>
-<section id="importando-dados" class="slide level2">
-<h2>Importando dados</h2>
+<section id="importação-de-dados-1" class="slide level2">
+<h2>Importação de dados</h2>
+<p>Nesta seção veremos como importar nossos <em>datasets</em>, estando eles armazenados localmente ou online. Também veremos a diferença na leitura de diferentes formatos, como <strong>.csv</strong>, <strong>.txt</strong> e <strong>.xlsx</strong>.</p>
+<div class="fragment">
+<p><code>Julia</code> conta com diversos pacotes para leitura de <em>datasets</em>, dentre eles:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href=""></a><span class="im">import</span> <span class="bu">Pkg</span></span>
+<span id="cb13-2"><a href=""></a></span>
+<span id="cb13-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"DataFrames"</span>);</span>
+<span id="cb13-4"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"CSV"</span>)</span>
+<span id="cb13-5"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"XLSX"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment"><code>DataFrames</code> : Manipulação e análise de dados em formato tabular, similar ao pandas (<code>Python</code>) ou data.frame (<code>R</code>);</li>
+<li class="fragment"><code>CSV</code> : Leitura e escrita de arquivos CSV de forma rápida e eficiente;</li>
+<li class="fragment"><code>XLSX</code> : Leitura e escrita de arquivos Excel (.xlsx).</li>
+</ul>
+</div>
+</section>
+<section id="funções-básicas" class="slide level2">
+<h2>Funções básicas</h2>
+<p>Com os pacotes necessários instalados, agora vejamos como as funções de leitura funcionam:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span>, <span class="bu">CSV</span>, <span class="bu">XLSX</span></span>
+<span id="cb14-2"><a href=""></a></span>
+<span id="cb14-3"><a href=""></a><span class="co"># .csv</span></span>
+<span id="cb14-4"><a href=""></a>df_csv <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="st">"caminho/dados.csv"</span>, DataFrame)</span>
+<span id="cb14-5"><a href=""></a></span>
+<span id="cb14-6"><a href=""></a><span class="co"># .txt</span></span>
+<span id="cb14-7"><a href=""></a>df_txt <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="st">"caminho/dados.txt"</span>, DataFrame, delim<span class="op">=</span><span class="ch">';'</span>)</span>
+<span id="cb14-8"><a href=""></a></span>
+<span id="cb14-9"><a href=""></a><span class="co"># .xlsx</span></span>
+<span id="cb14-10"><a href=""></a>sheets <span class="op">=</span> XLSX.<span class="fu">readxlsx</span>(<span class="st">"caminho/dados.xlsx"</span>)</span>
+<span id="cb14-11"><a href=""></a>df_xlsx <span class="op">=</span> <span class="fu">DataFrame</span>(sheets)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="funções-básicas-1" class="slide level2">
+<h2>Funções básicas</h2>
+<p>Podemos usar a função <code>download()</code> para baixar um arquivo temporariamente e retorna o caminho local onde ele foi salvo.</p>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href=""></a>dados_csv <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="fu">download</span>(url), DataFrame, delim<span class="op">=</span><span class="ch">';'</span>)</span>
+<span id="cb15-2"><a href=""></a></span>
+<span id="cb15-3"><a href=""></a><span class="fu">first</span>(dados_csv, <span class="fl">5</span>) <span class="co"># Podemos usar a função first() para visualizar as primeiras linhas do dataset</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="leitura-da-base-de-dados" class="slide level2">
+<h2>Leitura da base de dados</h2>
+<p>Agora, vamos ler os dados que usaremos na aula de hoje.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb16-2"><a href=""></a><span class="in">begin</span></span>
+<span id="cb16-3"><a href=""></a><span class="in">    import Pkg</span></span>
+<span id="cb16-4"><a href=""></a><span class="in">    redirect_stdout(devnull) do</span></span>
+<span id="cb16-5"><a href=""></a><span class="in">        redirect_stderr(devnull) do</span></span>
+<span id="cb16-6"><a href=""></a><span class="in">            Pkg.add("DataFrames")</span></span>
+<span id="cb16-7"><a href=""></a><span class="in">            Pkg.add("CSV")</span></span>
+<span id="cb16-8"><a href=""></a><span class="in">            Pkg.add("XLSX")</span></span>
+<span id="cb16-9"><a href=""></a><span class="in">        end</span></span>
+<span id="cb16-10"><a href=""></a><span class="in">    end</span></span>
+<span id="cb16-11"><a href=""></a><span class="in">end</span></span>
+<span id="cb16-12"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href=""></a><span class="im">using</span> <span class="bu">CSV</span></span>
+<span id="cb17-2"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb17-3"><a href=""></a></span>
+<span id="cb17-4"><a href=""></a>file <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/datasets/dataset.csv"</span>;</span>
+<span id="cb17-5"><a href=""></a>dados <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="fu">download</span>(file), DataFrame);</span>
+<span id="cb17-6"><a href=""></a><span class="fu">first</span>(dados, <span class="fl">5</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5×21 DataFrame
+ Row │ Column1  track_id                artists                 album_name     ⋯
+     │ Int64    String31                String?                 String?        ⋯
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │       0  5SuOikwiRyPMVoIQDJUgSV  Gen Hoshino             Comedy         ⋯
+   2 │       1  4qPNDBW1i3p13qLCt0Ki3A  Ben Woodward            Ghost (Acousti
+   3 │       2  1iJBSr7s7jYXzM8EGcbK5b  Ingrid Michaelson;ZAYN  To Begin Again
+   4 │       3  6lfxq3CG4xtTiEg7opyCyx  Kina Grannis            Crazy Rich Asi
+   5 │       4  5vjLSffimiIP26QG5WcN2K  Chord Overstreet        Hold On        ⋯
+                                                              18 columns omitted</code></pre>
+</div>
+</div>
+</section>
+<section id="leitura-da-base-de-dados-1" class="slide level2">
+<h2>Leitura da base de dados</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb19-2"><a href=""></a><span class="im">using</span> <span class="bu">TidierData</span></span>
+<span id="cb19-3"><a href=""></a></span>
+<span id="cb19-4"><a href=""></a><span class="pp">@chain</span> dados <span class="cf">begin</span></span>
+<span id="cb19-5"><a href=""></a>    <span class="pp">@slice</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">6</span>)</span>
+<span id="cb19-6"><a href=""></a><span class="cf">end</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>6×21 DataFrame
+ Row │ Column1  track_id                artists                 album_name     ⋯
+     │ Int64    String31                String?                 String?        ⋯
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │       0  5SuOikwiRyPMVoIQDJUgSV  Gen Hoshino             Comedy         ⋯
+   2 │       1  4qPNDBW1i3p13qLCt0Ki3A  Ben Woodward            Ghost (Acousti
+   3 │       2  1iJBSr7s7jYXzM8EGcbK5b  Ingrid Michaelson;ZAYN  To Begin Again
+   4 │       3  6lfxq3CG4xtTiEg7opyCyx  Kina Grannis            Crazy Rich Asi
+   5 │       4  5vjLSffimiIP26QG5WcN2K  Chord Overstreet        Hold On        ⋯
+   6 │       5  01MVOl9KtVTNfFiBU9I7dc  Tyrone Wells            Days I Will Re
+                                                              18 columns omitted</code></pre>
+</div>
+</div>
+</section>
+<section id="leitura-da-base-de-dados-2" class="slide level2">
+<h2>Leitura da base de dados</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Conhecendo o dataset</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li class="fragment"><strong>track_name</strong>: Nome da faixa;</li>
+<li class="fragment"><strong>artists</strong>: Os nomes dos artistas que interpretaram a faixa. Se houver mais de um artista, eles serão separados por ‘;’ ;</li>
+<li class="fragment"><strong>album_name</strong>: O nome do álbum de onde a faixa pertence;</li>
+<li class="fragment"><strong>popularity</strong>: A popularidade de uma faixa é um valor entre 0 e 100, sendo 100 o mais popular, sendo calculada a partir (de forma geral) do número de streams daquela faixa, e o quão recente foram essas streams;</li>
+<li class="fragment"><strong>duration_ms</strong>: A duração da faixa em milissegundos;</li>
+<li class="fragment"><strong>danceability</strong>: A dançabilidade descreve o quão adequada uma faixa é para dançar com base em uma combinação de elementos musicais, incluindo andamento, estabilidade do ritmo, força da batida e regularidade geral. Um valor de 0,0 é o menos dançante e 1,0 o mais dançante;</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="leitura-da-base-de-dados-3" class="slide level2">
+<h2>Leitura da base de dados</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Conhecendo o dataset</strong></p>
+</div>
+<div class="callout-content">
+<ol start="7" type="1">
+<li class="fragment"><strong>energy</strong>: Energia é uma medida de 0,0 a 1,0 e representa uma medida perceptual de intensidade e atividade. Normalmente, músicas energéticas parecem rápidas, altas e barulhentas. Por exemplo, o death metal tem alta energia, enquanto um prelúdio de Bach tem baixa pontuação na escala;</li>
+<li class="fragment"><strong>loudness</strong>: O volume total de uma faixa em decibéis (dB);</li>
+<li class="fragment"><strong>speechiness</strong>: Detecta a presença de palavras faladas em uma faixa. Quanto mais exclusivamente semelhante à fala for a gravação (por exemplo, talk show, audiolivro, poesia), mais próximo de 1,0 será o valor do atributo. Valores acima de 0,66 descrevem faixas que provavelmente são compostas inteiramente de palavras faladas. Valores entre 0,33 e 0,66 descrevem faixas que podem conter música e fala, seja em seções ou em camadas, incluindo casos como rap. Valores abaixo de 0,33 provavelmente representam música e outras faixas que não se assemelham à fala.</li>
+<li class="fragment"><strong>acousticness</strong>: Uma medida de confiança de 0,0 a 1,0 para determinar se a faixa é acústica. 1,0 representa alta confiança de que a faixa é acústica.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="leitura-da-base-de-dados-4" class="slide level2">
+<h2>Leitura da base de dados</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Conhecendo o dataset</strong></p>
+</div>
+<div class="callout-content">
+<ol start="11" type="1">
+<li class="fragment"><strong>valence</strong>: Uma medida de 0,0 a 1,0 que descreve a positividade musical transmitida por uma faixa. Faixas com alta valência soam mais positivas (por exemplo, felizes, alegres, eufóricas), enquanto faixas com baixa valência soam mais negativas (por exemplo, tristes, deprimidas, raivosas);</li>
+<li class="fragment"><strong>tempo</strong>: O andamento estimado geral de uma faixa em batidas por minuto (BPM);</li>
+<li class="fragment"><strong>track_genre</strong>: O gênero da faixa;</li>
+<li class="fragment"><strong>instrumentalness</strong>: Prevê se uma faixa não contém vocais. Sons de “Ooh” e “aah” são tratados como instrumentais neste contexto. Faixas de rap ou palavra falada são claramente “vocais”. Quanto mais próximo o valor de instrumentalidade estiver de 1,0, maior a probabilidade de a faixa não conter conteúdo vocal.</li>
+<li class="fragment"><strong>liveness</strong>: Detecta a presença de público na gravação. Valores mais altos de ao vivo representam uma probabilidade maior de que a faixa tenha sido tocada ao vivo. Um valor acima de 0,8 fornece alta probabilidade de que a faixa seja ao vivo.</li>
+</ol>
+</div>
+</div>
+</div>
 </section></section>
 <section>
-<section id="transformar" class="title-slide slide level1 center">
-<h1>Transformar</h1>
+<section id="manipulação-de-banco-de-dados" class="title-slide slide level1 center">
+<h1>Manipulação de banco de dados</h1>
 
 </section>
-<section id="manipulação-de-dados-com-tidierdata.jl" class="slide level2">
-<h2>Manipulação de dados com TidierData.jl</h2>
+<section id="tidier.jl" class="slide level2">
+<h2>Tidier.jl</h2>
+<p>A biblioteca <code>Tidier.jl</code> possui vários pacotes que auxiliam na manipulação e análise de datasets. Para quem está vindo do <code>R</code>, esses pacotes são bem similares e intuitivos. Aqui estão alguns dos pacotes:</p>
+<ul>
+<li class="fragment"><code>TidierData</code> : Implementação 100% <code>Julia</code> dos pacotes <code>dplyr</code> e <code>tidyr</code> do <code>R</code>. Usado na tranformação e manipulação dos dados;</li>
+<li class="fragment"><code>TidierPlots</code> : Implementação 100% <code>Julia</code> do pacote <code>ggplot2</code> do <code>R</code>;</li>
+<li class="fragment"><code>TidierStrings</code> : O objetivo deste pacote é replicar o <code>stringr</code> do <code>R</code> em <code>Julia</code> de uma forma que funcione com o Tidier ou como uma função autônoma.</li>
+</ul>
+<div class="fragment">
+<blockquote>
+<p>Acessem o link <code>https://tidierorg.github.io/Tidier.jl/v1.6.1/</code> para mais informações!</p>
+</blockquote>
+</div>
+</section>
+<section id="pacote-tidierdata.jl" class="slide level2">
+<h2>Pacote TidierData.jl</h2>
+<p>Para a nossa análise de hoje, vamos utilizar principalmente o pacote <code>TidierData</code>.</p>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Funções Macro</strong></p>
+</div>
+<div class="callout-content">
+<p>Para suportar a programação no estilo <code>R</code>, o <code>TidierData.jl</code> é implementado usando <strong>macros</strong>. Isso ocorre porque as <strong>macros</strong> são capazes de “capturar” o código antes de executá-lo, o que permite que o pacote suporte “expressões <em>tidy</em>” semelhantes ao <code>R</code> que, de outra forma, não seriam consideradas código <code>Julia</code> válido.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pacote-tidierdata.jl-1" class="slide level2">
+<h2>Pacote TidierData.jl</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href=""></a><span class="im">using</span> <span class="bu">TidierData</span></span>
+<span id="cb21-2"><a href=""></a></span>
+<span id="cb21-3"><a href=""></a><span class="pp">@chain</span> dados <span class="cf">begin</span></span>
+<span id="cb21-4"><a href=""></a>    <span class="pp">@filter</span>(popularity <span class="op">&gt;</span> <span class="fl">50</span>)</span>
+<span id="cb21-5"><a href=""></a>    <span class="pp">@arrange</span>(<span class="fu">desc</span>(<span class="st">"energy"</span>))</span>
+<span id="cb21-6"><a href=""></a>    <span class="pp">@select</span>(track_name, popularity, energy, acousticness)</span>
+<span id="cb21-7"><a href=""></a>    <span class="pp">@slice</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>)</span>
+<span id="cb21-8"><a href=""></a><span class="cf">end</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5×4 DataFrame
+ Row │ track_name                   popularity  energy   acousticness
+     │ String?                      Int64       Float64  Float64
+─────┼────────────────────────────────────────────────────────────────
+   1 │ Meeresrauschen zum Schlafen          52    0.999       0.554
+   2 │ Voodoo People                        56    0.998       0.00128
+   3 │ Bleed                                60    0.998       8.12e-6
+   4 │ Wait A Minute                        58    0.998       0.0496
+   5 │ Hooked                               52    0.998       0.0207</code></pre>
+</div>
+</div>
+</section>
+<section id="pacote-tidierdata.jl-2" class="slide level2">
+<h2>Pacote TidierData.jl</h2>
+<p>Para quem já está familiarizado com a linguagem <code>R</code>, a função <code>@chain()</code> é similar ao pipeline <code>%&gt;%</code> ou <code>|&gt;</code>, usado para encadear várias operações em sequência no mesmo conjunto de dados.</p>
+<ul>
+<li class="fragment"><code>@filter()</code> : Filtra as linhas com base em uma restrição;</li>
+<li class="fragment"><code>@arrange()</code> : Ordena as linhas com base em uma coluna (<code>desc()</code> para definir ordem crescente ou decrescente);</li>
+<li class="fragment"><code>@select()</code> : Seleciona as colunas de interesse;</li>
+<li class="fragment"><code>@slice()</code> : Seleciona as linhas para visualização.</li>
+</ul>
+<div class="fragment">
+<blockquote>
+<p>Obs.: A função <code>desc()</code> é uma função auxiliar.</p>
+</blockquote>
+</div>
+</section>
+<section id="pacote-tidierdata.jl-3" class="slide level2">
+<h2>Pacote TidierData.jl</h2>
+<p>Existem algumas funções auxiliares do pacote que é importante citarmos:</p>
+<ul>
+<li class="fragment"><code>across()</code> : Aplica uma função a várias colunas de uma vez;</li>
+<li class="fragment"><code>n()</code> e <code>row_number()</code> : Retornam o número total de linhas ou o número da linha;</li>
+<li class="fragment"><code>replace_missing()</code> : Substitui valores ausentes em uma coluna por um valor especificado.</li>
+</ul>
+</section>
+<section id="pacote-tidierdata.jl-4" class="slide level2">
+<h2>Pacote TidierData.jl</h2>
+<p>Outras funções auxiliares de outros pacotes que vale mencionar:</p>
+<ul>
+<li class="fragment"><code>dropmissing()</code> : Remove as linhas que contêm valores faltantes (<em>missing</em>);</li>
+<li class="fragment"><code>unique()</code> : Retorna os valores distintos únicos de um vetor ou coluna, removendo duplicatas;</li>
+<li class="fragment"><code>nrow()</code> : Retorna o número de linhas de um DataFrame ou matriz;</li>
+<li class="fragment"><code>any()</code> : Testa se <strong>pelo menos um</strong> elemento de uma coleção (ou resultado de uma condição) é verdadeiro; retorna <code>true</code> ou <code>false</code>.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Dica</strong></p>
+</div>
+<div class="callout-content">
+<p>Use a função <code>any()</code> e a função <code>ismissing</code> no formato <code>row -&gt; any(ismissing, row)</code> para verificar se há colunas sem informação. Nesse caso, a função <code>filter()</code> da base do <code>Julia</code> é mais eficiente, no formato <code>filter(condição, dados)</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pacote-tidierdata.jl-5" class="slide level2">
+<h2>Pacote TidierData.jl</h2>
+<p>Limpeza do dataset do Spotify: Tratando valores faltantes</p>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href=""></a>faltantes <span class="op">=</span> <span class="fu">filter</span>(row <span class="op">-&gt;</span> <span class="fu">any</span>(ismissing, row), dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1×21 DataFrame
+ Row │ Column1  track_id                artists  album_name  track_name  popul ⋯
+     │ Int64    String31                String?  String?     String?     Int64 ⋯
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │   65900  1kR4gIb7nGxHPI3D2ifs59  missing  missing     missing           ⋯
+                                                              16 columns omitted</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href=""></a><span class="pp">@chain</span> faltantes <span class="cf">begin</span></span>
+<span id="cb25-2"><a href=""></a>    <span class="pp">@slice</span>(<span class="fl">1</span>)</span>
+<span id="cb25-3"><a href=""></a><span class="cf">end</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1×21 DataFrame
+ Row │ Column1  track_id                artists  album_name  track_name  popul ⋯
+     │ Int64    String31                String?  String?     String?     Int64 ⋯
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │   65900  1kR4gIb7nGxHPI3D2ifs59  missing  missing     missing           ⋯
+                                                              16 columns omitted</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="pacote-tidierdata.jl-6" class="slide level2">
+<h2>Pacote TidierData.jl</h2>
+<p>Vamos remover as linhas que possuem valores faltantes.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href=""></a>dados <span class="op">=</span> <span class="pp">@chain</span> dados <span class="cf">begin</span></span>
+<span id="cb27-2"><a href=""></a>    <span class="fu">dropmissing</span>()</span>
+<span id="cb27-3"><a href=""></a><span class="cf">end</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>113999×21 DataFrame
+    Row │ Column1  track_id                artists                             ⋯
+        │ Int64    String31                String                              ⋯
+────────┼───────────────────────────────────────────────────────────────────────
+      1 │       0  5SuOikwiRyPMVoIQDJUgSV  Gen Hoshino                         ⋯
+      2 │       1  4qPNDBW1i3p13qLCt0Ki3A  Ben Woodward
+      3 │       2  1iJBSr7s7jYXzM8EGcbK5b  Ingrid Michaelson;ZAYN
+      4 │       3  6lfxq3CG4xtTiEg7opyCyx  Kina Grannis
+      5 │       4  5vjLSffimiIP26QG5WcN2K  Chord Overstreet                    ⋯
+      6 │       5  01MVOl9KtVTNfFiBU9I7dc  Tyrone Wells
+      7 │       6  6Vc5wAMmXdKIAM7WUoEb7N  A Great Big World;Christina Agui…
+      8 │       7  1EzrEOXmMH3G43AXT1y7pA  Jason Mraz
+   ⋮    │    ⋮               ⋮                             ⋮                   ⋱
+ 113993 │  113993  4OkMK49i3NApR1KsAIsTf6  Chris Tomlin                        ⋯
+ 113994 │  113994  4WbOUe6T0sozC7z5ZJgiAA  Lucas Cervetti
+ 113995 │  113995  2C3TZjDRiAzdyViavDJ217  Rainy Lullaby
+ 113996 │  113996  1hIz5L4IB9hN3WRYPOCGPw  Rainy Lullaby
+ 113997 │  113997  6x8ZfSoqDjuNa5SVP5QjvX  Cesária Evora                       ⋯
+ 113998 │  113998  2e6sXL2bYv4bSz6VTdnfLs  Michael W. Smith
+ 113999 │  113999  2hETkH7cOfqmz3LqZDHZf5  Cesária Evora
+                                              18 columns and 113984 rows omitted</code></pre>
+</div>
+</div>
+</section>
+<section id="pacote-tidierdata.jl-7" class="slide level2">
+<h2>Pacote TidierData.jl</h2>
+<p>Verificaremos possíveis faixas duplicadas, e retirá-las caso haja alguma.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href=""></a><span class="fu">nrow</span>(<span class="fu">unique</span>(dados, <span class="op">:</span>track_id)), <span class="fu">nrow</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(89740, 113999)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href=""></a>dados <span class="op">=</span> <span class="fu">unique</span>(dados, <span class="op">:</span>track_id)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>89740×21 DataFrame
+   Row │ Column1  track_id                artists                            a ⋯
+       │ Int64    String31                String                             S ⋯
+───────┼────────────────────────────────────────────────────────────────────────
+     1 │       0  5SuOikwiRyPMVoIQDJUgSV  Gen Hoshino                        C ⋯
+     2 │       1  4qPNDBW1i3p13qLCt0Ki3A  Ben Woodward                       G
+     3 │       2  1iJBSr7s7jYXzM8EGcbK5b  Ingrid Michaelson;ZAYN             T
+     4 │       3  6lfxq3CG4xtTiEg7opyCyx  Kina Grannis                       C
+     5 │       4  5vjLSffimiIP26QG5WcN2K  Chord Overstreet                   H ⋯
+     6 │       5  01MVOl9KtVTNfFiBU9I7dc  Tyrone Wells                       D
+     7 │       6  6Vc5wAMmXdKIAM7WUoEb7N  A Great Big World;Christina Agui…  I
+     8 │       7  1EzrEOXmMH3G43AXT1y7pA  Jason Mraz                         W
+   ⋮   │    ⋮               ⋮                             ⋮                    ⋱
+ 89734 │  113993  4OkMK49i3NApR1KsAIsTf6  Chris Tomlin                       S ⋯
+ 89735 │  113994  4WbOUe6T0sozC7z5ZJgiAA  Lucas Cervetti                     F
+ 89736 │  113995  2C3TZjDRiAzdyViavDJ217  Rainy Lullaby                      #
+ 89737 │  113996  1hIz5L4IB9hN3WRYPOCGPw  Rainy Lullaby                      #
+ 89738 │  113997  6x8ZfSoqDjuNa5SVP5QjvX  Cesária Evora                      B ⋯
+ 89739 │  113998  2e6sXL2bYv4bSz6VTdnfLs  Michael W. Smith                   C
+ 89740 │  113999  2hETkH7cOfqmz3LqZDHZf5  Cesária Evora                      M
+                                               18 columns and 89725 rows omitted</code></pre>
+</div>
+</div>
 </section></section>
 <section>
-<section id="analisar" class="title-slide slide level1 center">
-<h1>Analisar</h1>
+<section id="análise-exploratória-de-dados-eda" class="title-slide slide level1 center">
+<h1>Análise Exploratória de Dados (EDA)</h1>
 
 </section>
 <section id="eda" class="slide level2">
 <h2>EDA</h2>
+<ul>
+<li class="fragment"><p><code>Julia</code> torna possível compreender e explorar conjuntos de dados, identificando padrões, tendências e possíveis outliers antes da modelagem.</p></li>
+<li class="fragment"><p>Nesse tópico, iremos explorar algumas estatísticas resumo (média, mediana, desvio-padrão, etc.) e algumas distribuições (discretas e contínuas).</p></li>
+<li class="fragment"><p>Os pacotes <code>Statistics.jl</code>, <code>StatsBase.jl</code>, <code>DataFrames.jl</code> e <code>TidierData.jl</code> serão essenciais para a análise 🆒.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb33-2"><a href=""></a><span class="im">using</span> <span class="bu">StatsBase</span></span>
+<span id="cb33-3"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span></span>
+<span id="cb33-4"><a href=""></a><span class="im">using</span> <span class="bu">TidierData</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</section>
+<section id="medidas-de-tendência-central" class="slide level2">
+<h2>Medidas de tendência central</h2>
+<ul>
+<li class="fragment"><code>mean(x)</code>: media</li>
+<li class="fragment"><code>median(x)</code>: mediana</li>
+<li class="fragment"><code>mode(x)</code>: moda (pacote <code>StatsBase.jl</code>)</li>
+</ul>
+</section>
+<section id="medidas-de-dispersão" class="slide level2">
+<h2>Medidas de dispersão</h2>
+<ul>
+<li class="fragment"><code>var(x)</code>: variância amostral</li>
+<li class="fragment"><code>std(x)</code>: desvio padrão</li>
+<li class="fragment"><code>minimum(x)</code>: mínimo</li>
+<li class="fragment"><code>maximum(x)</code>: máximo</li>
+<li class="fragment"><code>quantile(x, p)</code>: p-éssimo quantil empírico</li>
+</ul>
+</section>
+<section id="contagem-e-frequência" class="slide level2">
+<h2>Contagem e frequência</h2>
+<ul>
+<li class="fragment"><code>length(x)</code>: número de elementos</li>
+<li class="fragment"><code>count(cond, x)</code>: conta elementos que satisfazem uma condição <code>cond</code></li>
+<li class="fragment"><code>countmap(x)</code>: cria uma tabela de frequências (pacote <code>StatsBase.jl</code>)</li>
+</ul>
+</section>
+<section id="informações-resumidas" class="slide level2">
+<h2>Informações resumidas</h2>
+<ul>
+<li class="fragment"><code>describe(df)</code>: fornece estatísticas descritivas de um data frame</li>
+<li class="fragment"><code>cor(x, y)</code>: correlação entre duas variáveis <code>x</code> e <code>y</code></li>
+<li class="fragment"><code>cov(x, y)</code>: covariância das variáveis <code>x</code> e <code>y</code></li>
+</ul>
+</section>
+<section id="visualização-de-dados" class="slide level2">
+<h2>Visualização de dados</h2>
+<p><code>Julia</code> oferece diversas bibliotecas para criar visualizações estatísticas de forma simples e flexível, permitindo a análise e interpretação de dados de maneira visual. Algumas bibliotecas populares incluem <code>Plots.jl</code>, <code>StatsPlots.jl</code>, <code>Makie.jl</code> e <code>Gadfly.jl</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href=""></a><span class="im">using</span> <span class="bu">Gadfly</span></span>
+<span id="cb34-2"><a href=""></a><span class="im">using</span> <span class="bu">Makie</span></span>
+<span id="cb34-3"><a href=""></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb34-4"><a href=""></a><span class="im">using</span> <span class="bu">StatsPlots</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment"><code>bloxplot(x)</code>: gráfico de caixas</li>
+<li class="fragment"><code>bar(x)</code>: gráfico de barras</li>
+<li class="fragment"><code>histogram(x)</code>: histograma</li>
+<li class="fragment"><code>scatter(x)</code>: gráfico de dispersão</li>
+<li class="fragment"><code>density(x)</code>: gráfico de densidade</li>
+</ul>
+</div>
 </section></section>
 <section>
 <section id="modelar" class="title-slide slide level1 center">

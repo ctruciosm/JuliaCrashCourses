@@ -2,7 +2,7 @@
 title: "Julia para Ciência de Dados"
 subtitle: "Um guia introdutório para importar, transformar, analisar e modelar dados"
 lang: "pt"
-author: "**Professor: Carlos Trucíos (DE)** <br> **Instrutores:** Arthur da Silva (DMA), Henrique Silva (DE) e Sarah Pereira (DMA)."
+author: "**Professor: Carlos Trucíos (DE)** <br> **Instrutores:** Arthur da Silva (DMA), Henrique Velloso (DE) e Sarah Pereira (DMA)."
 institute: "7ª  Semana da Matemática Aplicada (SEMAP), <br> Universidade Estadual de Campinas (UNICAMP) <br> Agosto de 2025"
 knitr:
     opts_chunk: 
@@ -42,16 +42,17 @@ Sys.setenv(JULIA_HOME = "/Users/ctrucios/.juliaup/bin/")
 
 
 # Por que Julia?
+
 ## Por que escolher Julia?
 
-- A linguagem de programação `Julia`, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como `Matlab`, `Python` e `R`.
-- É utilizada não apenas na academia, [mas também fora dela.](https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html)
-- `Julia` é gratuita
-- `Julia` oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a `Python` e `R`. 
-- `Julia` permite escrever código com símbolos matemáticos diretamente `r emo::ji("nerd")`, facilitando a expressão de conceitos científicos.
-- `Julia` resolve o problema das duas linguagens `r emo::ji("cool")`.
-- Etc.
-
+-   A linguagem de programação `Julia`, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como `Matlab`, `Python` e `R`;
+-   É utilizada não apenas na academia, [mas também fora dela](https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html);
+-   `Julia` é gratuita;
+-   `Julia` oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a `Python` e `R`;
+-   `Julia` permite escrever código com símbolos matemáticos diretamente `r emo::ji("nerd")`, facilitando a expressão de conceitos científicos;
+-   `Julia` resolve o problema das duas linguagens `r emo::ji("cool")`;
+-   Porque o projeto [Do Zero ao Julia](www.ime.unicamp.br/julialang) é 100\% Unicamper (`r emo::ji("dance")`);
+-   Etc.
 
 ## Do Zero ao Julia
 
@@ -61,27 +62,39 @@ Sys.setenv(JULIA_HOME = "/Users/ctrucios/.juliaup/bin/")
 
 
 
+
+
 # Primeiros passos
 ## Primeiros passos
 
 
 <center>
-![https://colab.research.google.com/](imagens/colab.png){width=40%}
+::: {#fig-colab layout-ncol=2}
+
+![Passo 1: Abrir o Colab https://colab.research.google.com/](imagens/colab.png){width=40%}
+
+![Passo 2: Criar novo notebook](imagens/colab_novo_notebook.png){width=60%}
+
+Google Colaboratory (Colab)
+:::
+
 </center>
+
+
 
 
 ## Primeiros passos
 
-
+<center>
 ::: {#fig-colab layout-ncol=2}
 
-![Colab 1](imagens/colab_01.png){width=50%}
+![Passo 3: Configurar o Colab](imagens/colab_01.png){width=50%}
 
-![Colab 2](imagens/colab_02.png)
+![Passo 4: Julia pronto pra ação](imagens/colab_02.png)
 
 Julia no Colab
 :::
-
+</center>
 
 
 ## Primeiros passos
@@ -99,14 +112,6 @@ idades = [19, 20, 18, 22, 21, 19, 17, 23];
 peso   = [65.5, 70.5, 65.2, 70.1, 65.1, 65.4, 65.3, 65.2];
 ```
 
-. . . 
-
-
-::: {.callout-note icon=false}
-###  Mão na massa:
-1. Copie e cole o código no colab
-2. O que acontece se removermos os ";" no final de cada linha?
-:::
 
 
 ## Primeiros passos
@@ -143,10 +148,6 @@ log.(idades)
 
 . . . 
 
-> . (dot) faz com que a mesma operação seja feita em todos os elementos do vetor
-
-. . . 
-
 Qual código está correto?
 
 ```{julia}
@@ -155,6 +156,13 @@ Qual código está correto?
 idades + 1    
 idades .+ 1  
 ```
+
+
+. . . 
+
+
+> **Observação:** O . (dot) faz com que a operação seja feita em todos os elementos do vetor.
+
 
 
 
@@ -216,7 +224,7 @@ using Random
 
 
 ::: {.callout-note icon=false}
-Uma boa prática em `Julia` é:
+Boas práticas em `Julia` são:
 
 1. Carregar os pacotes logo no começo do script
 2. Carregar cada pacote um a um (linha a linha)
@@ -227,31 +235,375 @@ Se quiser saber mais acerca de boas práticas, veja [aqui](https://github.com/Ju
 
 
 
+# Importação de dados
 
-# Importar
-## Importando dados
+## Importação de dados
+
+Nesta seção veremos como importar nossos _datasets_, estando eles armazenados localmente ou online. Também veremos a diferença na leitura de diferentes formatos, como **.csv**, **.txt** e **.xlsx**.
+
+. . . 
 
 
-# Transformar
-## Manipulação de dados com TidierData.jl
+`Julia` conta com diversos pacotes para leitura de _datasets_, dentre eles:
+
+``` julia
+import Pkg
+
+Pkg.add("DataFrames");
+Pkg.add("CSV")
+Pkg.add("XLSX")
+```
+
+. . . 
+
+- `DataFrames` : Manipulação e análise de dados em formato tabular, similar ao pandas (`Python`) ou data.frame (`R`);
+- `CSV` : Leitura e escrita de arquivos CSV de forma rápida e eficiente;
+- `XLSX` : Leitura e escrita de arquivos Excel (.xlsx).
+
+## Funções básicas
+
+Com os pacotes necessários instalados, agora vejamos como as funções de leitura funcionam:
+
+``` julia
+using DataFrames, CSV, XLSX
+
+# .csv
+df_csv = CSV.read("caminho/dados.csv", DataFrame)
+
+# .txt
+df_txt = CSV.read("caminho/dados.txt", DataFrame, delim=';')
+
+# .xlsx
+sheets = XLSX.readxlsx("caminho/dados.xlsx")
+df_xlsx = DataFrame(sheets)
+```
+
+## Funções básicas
+
+Podemos usar a função `download()` para baixar um arquivo temporariamente e retorna o caminho local onde ele foi salvo.
+
+**Ex.:**
+
+``` julia
+dados_csv = CSV.read(download(url), DataFrame, delim=';')
+
+first(dados_csv, 5) # Podemos usar a função first() para visualizar as primeiras linhas do dataset
+```
+
+## Leitura da base de dados
+
+Agora, vamos ler os dados que usaremos na aula de hoje.
+
+```{julia}
+#| echo: false
+begin
+    import Pkg
+    redirect_stdout(devnull) do
+        redirect_stderr(devnull) do
+            Pkg.add("TidierData")
+            Pkg.add("PrettyTables")
+        end
+    end
+end
+```
+
+```{julia}
+#| echo: fenced
+
+begin
+    import Pkg
+    redirect_stdout(devnull) do
+        redirect_stderr(devnull) do
+            Pkg.add("DataFrames")
+            Pkg.add("CSV")
+            Pkg.add("XLSX")
+        end
+    end
+end
+```
+
+```{julia}
+#| echo: true
+
+using CSV
+using DataFrames
+
+file = "https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/datasets/dataset.csv";
+dados = CSV.read(download(file), DataFrame);
+first(dados, 5)
+```
+
+## Leitura da base de dados
+
+```{julia}
+#| echo: true
+
+using DataFrames
+using TidierData
+
+@chain dados begin
+    @slice(1:6)
+end
+```
+
+
+## Leitura da base de dados
+
+::: {.callout-note icon=false}
+### Conhecendo o dataset
+
+1. **track_name**: Nome da faixa;
+2. **artists**: Os nomes dos artistas que interpretaram a faixa. Se houver mais de um artista, eles serão separados por ';' ;
+3. **album_name**: O nome do álbum de onde a faixa pertence;
+4. **popularity**: A popularidade de uma faixa é um valor entre 0 e 100, sendo 100 o mais popular, sendo calculada a partir (de forma geral) do número de streams daquela faixa, e o quão recente foram essas streams;
+5. **duration_ms**: A duração da faixa em milissegundos;
+6. **danceability**: A dançabilidade descreve o quão adequada uma faixa é para dançar com base em uma combinação de elementos musicais, incluindo andamento, estabilidade do ritmo, força da batida e regularidade geral. Um valor de 0,0 é o menos dançante e 1,0 o mais dançante;
+:::
 
 
 
-# Analisar
+## Leitura da base de dados
+
+::: {.callout-note icon=false}
+### Conhecendo o dataset
+
+7. **energy**: Energia é uma medida de 0,0 a 1,0 e representa uma medida perceptual de intensidade e atividade. Normalmente, músicas energéticas parecem rápidas, altas e barulhentas. Por exemplo, o death metal tem alta energia, enquanto um prelúdio de Bach tem baixa pontuação na escala;
+8. **loudness**: O volume total de uma faixa em decibéis (dB);
+9. **speechiness**: Detecta a presença de palavras faladas em uma faixa. Quanto mais exclusivamente semelhante à fala for a gravação (por exemplo, talk show, audiolivro, poesia), mais próximo de 1,0 será o valor do atributo. Valores acima de 0,66 descrevem faixas que provavelmente são compostas inteiramente de palavras faladas. Valores entre 0,33 e 0,66 descrevem faixas que podem conter música e fala, seja em seções ou em camadas, incluindo casos como rap. Valores abaixo de 0,33 provavelmente representam música e outras faixas que não se assemelham à fala.
+10. **acousticness**: Uma medida de confiança de 0,0 a 1,0 para determinar se a faixa é acústica. 1,0 representa alta confiança de que a faixa é acústica.
+:::
+
+
+
+
+## Leitura da base de dados
+
+::: {.callout-note icon=false}
+### Conhecendo o dataset
+11. **valence**: Uma medida de 0,0 a 1,0 que descreve a positividade musical transmitida por uma faixa. Faixas com alta valência soam mais positivas (por exemplo, felizes, alegres, eufóricas), enquanto faixas com baixa valência soam mais negativas (por exemplo, tristes, deprimidas, raivosas);
+12. **tempo**: O andamento estimado geral de uma faixa em batidas por minuto (BPM);
+13. **track_genre**: O gênero da faixa;
+14. **instrumentalness**: Prevê se uma faixa não contém vocais. Sons de "Ooh" e "aah" são tratados como instrumentais neste contexto. Faixas de rap ou palavra falada são claramente "vocais". Quanto mais próximo o valor de instrumentalidade estiver de 1,0, maior a probabilidade de a faixa não conter conteúdo vocal.
+15. **liveness**: Detecta a presença de público na gravação. Valores mais altos de ao vivo representam uma probabilidade maior de que a faixa tenha sido tocada ao vivo. Um valor acima de 0,8 fornece alta probabilidade de que a faixa seja ao vivo.
+:::
+
+
+
+# Manipulação de banco de dados
+
+## Tidier.jl
+
+A biblioteca `Tidier.jl` possui vários pacotes que auxiliam na manipulação e análise de datasets. Para quem está vindo do `R`, esses pacotes são bem similares e intuitivos. Aqui estão alguns dos pacotes:
+
+- `TidierData` : Implementação 100% `Julia` dos pacotes `dplyr` e `tidyr` do `R`. Usado na tranformação e manipulação dos dados;
+- `TidierPlots` : Implementação 100% `Julia` do pacote `ggplot2` do `R`;
+- `TidierStrings` : O objetivo deste pacote é replicar o `stringr` do `R` em `Julia` de uma forma que funcione com o Tidier ou como uma função autônoma.
+
+. . . 
+
+> Acessem o link `https://tidierorg.github.io/Tidier.jl/v1.6.1/` para mais informações!
+
+## Pacote TidierData.jl
+
+Para a nossa análise de hoje, vamos utilizar principalmente o pacote `TidierData`.
+
+. . . 
+
+
+::: {.callout-note icon=false}
+### Funções Macro
+
+Para suportar a programação no estilo `R`, o `TidierData.jl` é implementado usando **macros**. Isso ocorre porque as **macros** são capazes de "capturar" o código antes de executá-lo, o que permite que o pacote suporte "expressões *tidy*" semelhantes ao `R` que, de outra forma, não seriam consideradas código `Julia` válido.
+
+:::
+
+
+## Pacote TidierData.jl
+
+```{julia}
+#| echo: true
+
+using TidierData
+
+@chain dados begin
+    @filter(popularity > 50)
+    @arrange(desc("energy"))
+    @select(track_name, popularity, energy, acousticness)
+    @slice(1:5)
+end
+```
+
+
+## Pacote TidierData.jl
+
+Para quem já está familiarizado com a linguagem `R`, a função `@chain()` é similar ao pipeline `%>%` ou `|>`, usado para encadear várias operações em sequência no mesmo conjunto de dados.
+
+- `@filter()` : Filtra as linhas com base em uma restrição;
+- `@arrange()` : Ordena as linhas com base em uma coluna (`desc()` para definir ordem crescente ou decrescente);
+- `@select()` : Seleciona as colunas de interesse;
+- `@slice()` : Seleciona as linhas para visualização.
+
+. . . 
+
+> Obs.: A função `desc()` é uma função auxiliar.
+
+
+## Pacote TidierData.jl
+
+
+Existem algumas funções auxiliares do pacote que é importante citarmos:
+
+- `across()` : Aplica uma função a várias colunas de uma vez;
+- `n()` e `row_number()` : Retornam o número total de linhas ou o número da linha;
+- `replace_missing()` : Substitui valores ausentes em uma coluna por um valor especificado.
+
+
+## Pacote TidierData.jl
+
+Outras funções auxiliares de outros pacotes que vale mencionar:
+
+- `dropmissing()` : Remove as linhas que contêm valores faltantes (*missing*);
+- `unique()` : Retorna os valores distintos únicos de um vetor ou coluna, removendo duplicatas;
+- `nrow()` : Retorna o número de linhas de um DataFrame ou matriz;
+- `any()` : Testa se **pelo menos um** elemento de uma coleção (ou resultado de uma condição) é verdadeiro; retorna `true` ou `false`.
+
+
+. . . 
+
+
+::: {.callout-note icon=false}
+### Dica
+
+Use a função `any()` e a função `ismissing` no formato `row -> any(ismissing, row)` para verificar se há colunas sem informação. Nesse caso, a função `filter()` da base do `Julia` é mais eficiente, no formato `filter(condição, dados)`.
+:::
+
+
+## Pacote TidierData.jl
+
+
+Limpeza do dataset do Spotify: Tratando valores faltantes
+
+. . . 
+
+
+```{julia}
+#| echo: true
+faltantes = filter(row -> any(ismissing, row), dados)
+```
+
+
+. . . 
+
+```{julia}
+#| echo: true
+@chain faltantes begin
+    @slice(1)
+end
+```
+
+
+## Pacote TidierData.jl
+
+
+Vamos remover as linhas que possuem valores faltantes.
+
+```{julia}
+#| echo: true
+dados = @chain dados begin
+    dropmissing()
+end
+```
+
+
+## Pacote TidierData.jl
+
+Verificaremos possíveis faixas duplicadas, e retirá-las caso haja alguma.
+
+```{julia}
+#| echo: true
+
+nrow(unique(dados, :track_id)), nrow(dados)
+dados = unique(dados, :track_id)
+```
+
+
+
+# Análise Exploratória de Dados (EDA)
+
 ## EDA
+
+-   `Julia` torna possível compreender e explorar conjuntos de dados, identificando padrões, tendências e possíveis outliers antes da modelagem.
+-   Nesse tópico, iremos explorar algumas estatísticas resumo (média, mediana, desvio-padrão, etc.) e algumas distribuições (discretas e contínuas).
+-   Os pacotes `Statistics.jl`, `StatsBase.jl`, `DataFrames.jl` e `TidierData.jl` serão essenciais para a análise `r emo::ji("cool")`.
+
+. . . 
+
+```{julia}
+#| echo: true
+using DataFrames
+using StatsBase
+using Statistics
+using TidierData
+```
+
+
+
+## Medidas de tendência central
+
+-   `mean(x)`: media
+-   `median(x)`: mediana
+-   `mode(x)`: moda (pacote `StatsBase.jl`)
+
+## Medidas de dispersão
+
+-   `var(x)`:  variância amostral
+-   `std(x)`: desvio padrão
+-   `minimum(x)`: mínimo
+-   `maximum(x)`: máximo
+-   `quantile(x, p)`: p-éssimo quantil empírico
+
+## Contagem e frequência
+
+-   `length(x)`: número de elementos
+-   `count(cond, x)`: conta elementos que satisfazem uma condição `cond`
+-   `countmap(x)`: cria uma tabela de frequências (pacote `StatsBase.jl`)
+
+## Informações resumidas
+
+-   `describe(df)`: fornece estatísticas descritivas de um data frame
+-   `cor(x, y)`:  correlação entre duas variáveis `x` e `y`
+-   `cov(x, y)`: covariância das variáveis `x` e `y`
+
+## Visualização de dados
+
+`Julia` oferece diversas bibliotecas para criar visualizações estatísticas de forma simples e flexível, permitindo a análise e interpretação de dados de maneira visual. Algumas bibliotecas populares incluem `Plots.jl`, `StatsPlots.jl`, `Makie.jl` e `Gadfly.jl`.
+
+
+
+```{julia}
+#| echo: true
+using Gadfly
+using Makie
+using Plots
+using StatsPlots
+```
+
+    
+. . . 
+
+
+-   `bloxplot(x)`: gráfico de caixas
+-   `bar(x)`: gráfico de barras
+-   `histogram(x)`: histograma
+-   `scatter(x)`: gráfico de dispersão
+-   `density(x)`: gráfico de densidade
 
 
 # Modelar
+
 ## Regressão e Classificação
-
-
-
-
 
 ## Referências
 
-- [Vituri, G. & and Scheuch, C. (2025). Tidier Data Science with Julia.](https://tidierorg.github.io/TidierBook/)
-- [Silva, H. A. V. \&  da Silva, A. D. M. (2025). Do Zero ao Julia: Introdução ao pacote TidierData.jl. Retrieved from https://ime.unicamp.br/julialang/Blog/tidierdata.html](https://ime.unicamp.br/julialang/Blog/tidierdata.html)
-
-
-
+-   [Vituri, G. & and Scheuch, C. (2025). Tidier Data Science with Julia.](https://tidierorg.github.io/TidierBook/)
+-   [Silva, H. A. V. & da Silva, A. D. M. (2025). Do Zero ao Julia: Introdução ao pacote TidierData.jl. Retrieved from https://ime.unicamp.br/julialang/Blog/tidierdata.html](https://ime.unicamp.br/julialang/Blog/tidierdata.html)
