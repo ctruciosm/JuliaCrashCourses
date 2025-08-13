@@ -321,9 +321,9 @@ Verificaremos possíveis faixas duplicadas, e retirá-las caso haja alguma.
 
 using DataFrames, PrettyTables
 
-nrow(unique(dados, :track_name)), nrow(dados)
+nrow(unique(dados, :track_id)), nrow(dados)
 
-dados = unique(dados, :track_name)
+dados = unique(dados, :track_id)
 ```
 
 # Análise Exploratória de Dados (EDA)
