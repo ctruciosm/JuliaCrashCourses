@@ -28,6 +28,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="Intro_files/libs/revealjs/dist/theme/quarto-6ece1e9d939344fcb6ae7a49c6906a8d.css">
   <link href="Intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -148,7 +213,7 @@
 <h2 id="toc-title">Agenda</h2>
 <ul>
 <li class="fragment"><a href="#/por-que-julia" id="/toc-por-que-julia">Por que Julia?</a></li>
-<li class="fragment"><a href="#/conceitos-básicos" id="/toc-conceitos-básicos">Conceitos básicos</a></li>
+<li class="fragment"><a href="#/primeiros-passos" id="/toc-primeiros-passos">Primeiros passos</a></li>
 <li class="fragment"><a href="#/importar" id="/toc-importar">Importar</a></li>
 <li class="fragment"><a href="#/transformar" id="/toc-transformar">Transformar</a></li>
 <li class="fragment"><a href="#/analisar" id="/toc-analisar">Analisar</a></li>
@@ -178,19 +243,179 @@
 <center>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="imagens/DoZeroaoJulia.png" width="400"></p>
-<figcaption>Website Do Zero ao Julia: www.ime.unicamp.br/julialang</figcaption>
+<p><img data-src="imagens/DoZeroaoJulia.png" style="width:70.0%"></p>
+<figcaption>Website do projeto”Do Zero ao Julia”: www.ime.unicamp.br/julialang</figcaption>
 </figure>
 </div>
 </center>
 </section></section>
 <section>
-<section id="conceitos-básicos" class="title-slide slide level1 center">
-<h1>Conceitos básicos</h1>
+<section id="primeiros-passos" class="title-slide slide level1 center">
+<h1>Primeiros passos</h1>
 
 </section>
-<section id="conceitos-básicos-1" class="slide level2">
-<h2>Conceitos básicos</h2>
+<section id="primeiros-passos-1" class="slide level2">
+<h2>Primeiros passos</h2>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imagens/colab.png" style="width:40.0%"></p>
+<figcaption>https://colab.research.google.com/</figcaption>
+</figure>
+</div>
+</center>
+</section>
+<section id="primeiros-passos-2" class="slide level2">
+<h2>Primeiros passos</h2>
+<div id="fig-colab" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imagens/colab_01.png" style="width:50.0%"></p>
+<figcaption>Colab 1</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imagens/colab_02.png"></p>
+<figcaption>Colab 2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Julia no Colab
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="primeiros-passos-3" class="slide level2">
+<h2>Primeiros passos</h2>
+<p>Atribuindo valores a diferentes variáveis e vetores</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href=""></a>x <span class="op">=</span> <span class="fl">20</span>;</span>
+<span id="cb1-2"><a href=""></a>y <span class="op">=</span> <span class="fl">8.3</span>;</span>
+<span id="cb1-3"><a href=""></a>nome <span class="op">=</span> <span class="st">"Julia"</span>;</span>
+<span id="cb1-4"><a href=""></a>idade <span class="op">=</span> <span class="fl">19</span>;</span>
+<span id="cb1-5"><a href=""></a>nomes  <span class="op">=</span> [<span class="st">"Julia"</span>, <span class="st">"Lucas"</span>, <span class="st">"Pedro"</span>, <span class="st">"Carlos"</span>, <span class="st">"Maria"</span>, <span class="st">"Luisa"</span>, <span class="st">"Marcelo"</span>, <span class="st">"Camila"</span>];</span>
+<span id="cb1-6"><a href=""></a>idades <span class="op">=</span> [<span class="fl">19</span>, <span class="fl">20</span>, <span class="fl">18</span>, <span class="fl">22</span>, <span class="fl">21</span>, <span class="fl">19</span>, <span class="fl">17</span>, <span class="fl">23</span>];</span>
+<span id="cb1-7"><a href=""></a>peso   <span class="op">=</span> [<span class="fl">65.5</span>, <span class="fl">70.5</span>, <span class="fl">65.2</span>, <span class="fl">70.1</span>, <span class="fl">65.1</span>, <span class="fl">65.4</span>, <span class="fl">65.3</span>, <span class="fl">65.2</span>];</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Mão na massa:</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li class="fragment">Copie e cole o código no colab</li>
+<li class="fragment">O que acontece se removermos os “;” no final de cada linha?</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="primeiros-passos-4" class="slide level2">
+<h2>Primeiros passos</h2>
+<p>Acessando aos elementos dos vetores</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href=""></a>idades[<span class="fl">2</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>20</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href=""></a>nomes[<span class="fl">3</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>"Pedro"</code></pre>
+</div>
+</div>
+</section>
+<section id="primeiros-passos-5" class="slide level2">
+<h2>Primeiros passos</h2>
+<p>Qual a diferença entre</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href=""></a><span class="fu">log</span>(idades)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>e</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href=""></a><span class="fu">log</span>.(idades)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<blockquote>
+<p>. (dot) faz com que a mesma operação seja feita em todos os elementos do vetor</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>Qual código está correto?</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href=""></a>idades <span class="op">+</span> <span class="fl">1</span>    </span>
+<span id="cb8-2"><a href=""></a>idades <span class="op">.+</span> <span class="fl">1</span>  </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="primeiros-passos-6" class="slide level2">
+<h2>Primeiros passos</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href=""></a><span class="co"># Matrizes</span></span>
+<span id="cb9-2"><a href=""></a>A <span class="op">=</span> [<span class="fl">1.0</span> <span class="fl">2.0</span> <span class="fl">3.0</span>; <span class="fl">4.0</span> <span class="fl">5.0</span> <span class="fl">6.0</span>]   <span class="co"># 2x3 de Float64</span></span>
+<span id="cb9-3"><a href=""></a>B <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span>; <span class="fl">4</span> <span class="fl">5</span> <span class="fl">6</span>]  <span class="co"># 2x3 de Int</span></span>
+<span id="cb9-4"><a href=""></a>Z <span class="op">=</span> <span class="fu">zeros</span>(<span class="fl">3</span>, <span class="fl">4</span>) <span class="co"># Matriz de zeros</span></span>
+<span id="cb9-5"><a href=""></a>O <span class="op">=</span> <span class="fu">ones</span>(<span class="dt">Int</span>, <span class="fl">2</span>, <span class="fl">5</span>) <span class="co"># Matriz de uns</span></span>
+<span id="cb9-6"><a href=""></a>R <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">3</span>, <span class="fl">3</span>)   <span class="co"># Aleatória uniforme [0,1)</span></span>
+<span id="cb9-7"><a href=""></a>N <span class="op">=</span> <span class="fu">randn</span>(<span class="fl">3</span>, <span class="fl">3</span>)  <span class="co"># Aleatória normal padrão</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>Como acessar aos elementos da matriz?</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href=""></a>A[<span class="fl">1</span>, <span class="fl">2</span>]         <span class="co"># elemento da 1ª linha, 2ª coluna</span></span>
+<span id="cb10-2"><a href=""></a>A[<span class="fl">2</span>, <span class="op">:</span>]         <span class="co"># linha 2 inteira</span></span>
+<span id="cb10-3"><a href=""></a>A[<span class="op">:</span>, <span class="fl">3</span>]         <span class="co"># coluna 3 inteira</span></span>
+<span id="cb10-4"><a href=""></a>A[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>]     <span class="co"># submatriz</span></span>
+<span id="cb10-5"><a href=""></a>A[<span class="fl">1</span>, <span class="fl">2</span>] <span class="op">=</span> <span class="fl">10.0</span>  <span class="co"># alterar valor</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="primeiros-passos-7" class="slide level2">
+<h2>Primeiros passos</h2>
+<p>Instalar pacotes:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href=""></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb11-2"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Statistics"</span>)</span>
+<span id="cb11-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Random"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>Carregar pacotes:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href=""></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span>
+<span id="cb12-2"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span></span>
+<span id="cb12-3"><a href=""></a><span class="im">using</span> <span class="bu">Random</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>Uma boa prática em <code>Julia</code> é:</p>
+<ol type="1">
+<li class="fragment">Carregar os pacotes logo no começo do script</li>
+<li class="fragment">Carregar cada pacote um a um (linha a linha)</li>
+<li class="fragment">Carregar os pacotes em ordem alfabetica.</li>
+</ol>
+<p>Se quiser saber mais acerca de boas práticas, veja <a href="https://github.com/JuliaDiff/BlueStyle">aqui</a>.</p>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="importar" class="title-slide slide level1 center">
