@@ -6,8 +6,8 @@
 <script src="Intro_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Intro_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Intro_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Intro_files/libs/quarto-html/quarto-syntax-highlighting-3e476e15ae565c222d94875412ae43a1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.39">
+<link href="Intro_files/libs/quarto-html/quarto-syntax-highlighting-1fa1d8026083a9bddc52b4aafc7f818e.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Professor: Carlos Trucíos (DE)   Instrutores: Arthur da Silva (DMA), Henrique Velloso (DE) e Sarah Pereira (DMA).">
   <title>Julia para Ciência de Dados</title>
@@ -94,7 +94,7 @@
     code span.vs { color: #008000; } /* VerbatimString */
     code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Intro_files/libs/revealjs/dist/theme/quarto-6ece1e9d939344fcb6ae7a49c6906a8d.css">
+  <link rel="stylesheet" href="Intro_files/libs/revealjs/dist/theme/quarto-8e17f2a73863af51f5998c534404cc9a.css">
   <link href="Intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="Intro_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="Intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -213,8 +213,8 @@
 <h2 id="toc-title">Agenda</h2>
 <ul>
 <li class="fragment"><a href="#/por-que-julia" id="/toc-por-que-julia">Por que Julia?</a></li>
-<li class="fragment"><a href="#/primeiros-passos" id="/toc-primeiros-passos">Primeiros passos</a></li>
 <li class="fragment"><a href="#/importação-de-dados" id="/toc-importação-de-dados">Importação de dados</a></li>
+<li class="fragment"><a href="#/banco-de-dados" id="/toc-banco-de-dados">Banco de dados</a></li>
 <li class="fragment"><a href="#/manipulação-de-banco-de-dados" id="/toc-manipulação-de-banco-de-dados">Manipulação de banco de dados</a></li>
 <li class="fragment"><a href="#/análise-exploratória-de-dados-eda" id="/toc-análise-exploratória-de-dados-eda">Análise Exploratória de Dados (EDA)</a></li>
 <li class="fragment"><a href="#/modelar" id="/toc-modelar">Modelar</a></li>
@@ -230,12 +230,11 @@
 <h2>Por que escolher Julia?</h2>
 <ul>
 <li class="fragment">A linguagem de programação <code>Julia</code>, lançada oficialmente em 2012, tem se destacado como uma alternativa moderna para ciência de dados e computação científica, competindo com linguagens como <code>Matlab</code>, <code>Python</code> e <code>R</code>;</li>
-<li class="fragment">É utilizada não apenas na academia, <a href="https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html">mas também fora dela</a>;</li>
+<li class="fragment">É utilizada não apenas na academia, <a href="https://ime.unicamp.br/julialang/Blog/Julia%20no%20Mercado%20de%20Trabalho.html">mas também fora dela.</a>;</li>
 <li class="fragment"><code>Julia</code> é gratuita;</li>
 <li class="fragment"><code>Julia</code> oferece desempenho próximo ao de C++, aliado à facilidade de aprendizado e sintaxe simples, comparáveis a <code>Python</code> e <code>R</code>;</li>
 <li class="fragment"><code>Julia</code> permite escrever código com símbolos matemáticos diretamente 🤓, facilitando a expressão de conceitos científicos;</li>
 <li class="fragment"><code>Julia</code> resolve o problema das duas linguagens 🆒;</li>
-<li class="fragment">Porque o projeto <a href="www.ime.unicamp.br/julialang">Do Zero ao Julia</a> é 100% Unicamper (🕺);</li>
 <li class="fragment">Etc.</li>
 </ul>
 </section>
@@ -244,282 +243,99 @@
 <center>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="imagens/DoZeroaoJulia.png" style="width:70.0%"></p>
-<figcaption>Website do projeto”Do Zero ao Julia”: www.ime.unicamp.br/julialang</figcaption>
+<p><img data-src="imagens/DoZeroaoJulia.png" width="1000"></p>
+<figcaption>Website Do Zero ao Julia: www.ime.unicamp.br/julialang</figcaption>
 </figure>
 </div>
 </center>
-</section></section>
-<section>
-<section id="primeiros-passos" class="title-slide slide level1 center">
-<h1>Primeiros passos</h1>
-
-</section>
-<section id="primeiros-passos-1" class="slide level2">
-<h2>Primeiros passos</h2>
-<center>
-<div id="fig-colab" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imagens/colab.png" style="width:40.0%"></p>
-<figcaption>Passo 1: Abrir o Colab https://colab.research.google.com/</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imagens/colab_novo_notebook.png" style="width:60.0%"></p>
-<figcaption>Passo 2: Criar novo notebook</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1: Google Colaboratory (Colab)
-</figcaption>
-</figure>
-</div>
-</center>
-</section>
-<section id="primeiros-passos-2" class="slide level2">
-<h2>Primeiros passos</h2>
-<center>
-<div id="fig-colab" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imagens/colab_01.png" style="width:50.0%"></p>
-<figcaption>Passo 3: Configurar o Colab</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imagens/colab_02.png"></p>
-<figcaption>Passo 4: Julia pronto pra ação</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-colab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;2: Julia no Colab
-</figcaption>
-</figure>
-</div>
-</center>
-</section>
-<section id="primeiros-passos-3" class="slide level2">
-<h2>Primeiros passos</h2>
-<p>Atribuindo valores a diferentes variáveis e vetores</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href=""></a>x <span class="op">=</span> <span class="fl">20</span>;</span>
-<span id="cb1-2"><a href=""></a>y <span class="op">=</span> <span class="fl">8.3</span>;</span>
-<span id="cb1-3"><a href=""></a>nome <span class="op">=</span> <span class="st">"Julia"</span>;</span>
-<span id="cb1-4"><a href=""></a>idade <span class="op">=</span> <span class="fl">19</span>;</span>
-<span id="cb1-5"><a href=""></a>nomes  <span class="op">=</span> [<span class="st">"Julia"</span>, <span class="st">"Lucas"</span>, <span class="st">"Pedro"</span>, <span class="st">"Carlos"</span>, <span class="st">"Maria"</span>, <span class="st">"Luisa"</span>, <span class="st">"Marcelo"</span>, <span class="st">"Camila"</span>];</span>
-<span id="cb1-6"><a href=""></a>idades <span class="op">=</span> [<span class="fl">19</span>, <span class="fl">20</span>, <span class="fl">18</span>, <span class="fl">22</span>, <span class="fl">21</span>, <span class="fl">19</span>, <span class="fl">17</span>, <span class="fl">23</span>];</span>
-<span id="cb1-7"><a href=""></a>peso   <span class="op">=</span> [<span class="fl">65.5</span>, <span class="fl">70.5</span>, <span class="fl">65.2</span>, <span class="fl">70.1</span>, <span class="fl">65.1</span>, <span class="fl">65.4</span>, <span class="fl">65.3</span>, <span class="fl">65.2</span>];</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="primeiros-passos-4" class="slide level2">
-<h2>Primeiros passos</h2>
-<p>Acessando aos elementos dos vetores</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href=""></a>idades[<span class="fl">2</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>20</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href=""></a>nomes[<span class="fl">3</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>"Pedro"</code></pre>
-</div>
-</div>
-</section>
-<section id="primeiros-passos-5" class="slide level2">
-<h2>Primeiros passos</h2>
-<p>Qual a diferença entre</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href=""></a><span class="fu">log</span>(idades)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>e</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href=""></a><span class="fu">log</span>.(idades)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p>Qual código está correto?</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href=""></a>idades <span class="op">+</span> <span class="fl">1</span>    </span>
-<span id="cb8-2"><a href=""></a>idades <span class="op">.+</span> <span class="fl">1</span>  </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<blockquote>
-<p><strong>Observação:</strong> O . (dot) faz com que a operação seja feita em todos os elementos do vetor.</p>
-</blockquote>
-</div>
-</section>
-<section id="primeiros-passos-6" class="slide level2">
-<h2>Primeiros passos</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href=""></a><span class="co"># Matrizes</span></span>
-<span id="cb9-2"><a href=""></a>A <span class="op">=</span> [<span class="fl">1.0</span> <span class="fl">2.0</span> <span class="fl">3.0</span>; <span class="fl">4.0</span> <span class="fl">5.0</span> <span class="fl">6.0</span>]   <span class="co"># 2x3 de Float64</span></span>
-<span id="cb9-3"><a href=""></a>B <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span>; <span class="fl">4</span> <span class="fl">5</span> <span class="fl">6</span>]  <span class="co"># 2x3 de Int</span></span>
-<span id="cb9-4"><a href=""></a>Z <span class="op">=</span> <span class="fu">zeros</span>(<span class="fl">3</span>, <span class="fl">4</span>) <span class="co"># Matriz de zeros</span></span>
-<span id="cb9-5"><a href=""></a>O <span class="op">=</span> <span class="fu">ones</span>(<span class="dt">Int</span>, <span class="fl">2</span>, <span class="fl">5</span>) <span class="co"># Matriz de uns</span></span>
-<span id="cb9-6"><a href=""></a>R <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">3</span>, <span class="fl">3</span>)   <span class="co"># Aleatória uniforme [0,1)</span></span>
-<span id="cb9-7"><a href=""></a>N <span class="op">=</span> <span class="fu">randn</span>(<span class="fl">3</span>, <span class="fl">3</span>)  <span class="co"># Aleatória normal padrão</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p>Como acessar aos elementos da matriz?</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href=""></a>A[<span class="fl">1</span>, <span class="fl">2</span>]         <span class="co"># elemento da 1ª linha, 2ª coluna</span></span>
-<span id="cb10-2"><a href=""></a>A[<span class="fl">2</span>, <span class="op">:</span>]         <span class="co"># linha 2 inteira</span></span>
-<span id="cb10-3"><a href=""></a>A[<span class="op">:</span>, <span class="fl">3</span>]         <span class="co"># coluna 3 inteira</span></span>
-<span id="cb10-4"><a href=""></a>A[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>]     <span class="co"># submatriz</span></span>
-<span id="cb10-5"><a href=""></a>A[<span class="fl">1</span>, <span class="fl">2</span>] <span class="op">=</span> <span class="fl">10.0</span>  <span class="co"># alterar valor</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
-<section id="primeiros-passos-7" class="slide level2">
-<h2>Primeiros passos</h2>
-<p>Instalar pacotes:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href=""></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb11-2"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Statistics"</span>)</span>
-<span id="cb11-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Random"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p>Carregar pacotes:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href=""></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span>
-<span id="cb12-2"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span></span>
-<span id="cb12-3"><a href=""></a><span class="im">using</span> <span class="bu">Random</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Nota</strong></p>
-</div>
-<div class="callout-content">
-<p>Boas práticas em <code>Julia</code> são:</p>
-<ol type="1">
-<li class="fragment">Carregar os pacotes logo no começo do script</li>
-<li class="fragment">Carregar cada pacote um a um (linha a linha)</li>
-<li class="fragment">Carregar os pacotes em ordem alfabetica.</li>
-</ol>
-<p>Se quiser saber mais acerca de boas práticas, veja <a href="https://github.com/JuliaDiff/BlueStyle">aqui</a>.</p>
-</div>
-</div>
-</div>
-</div>
 </section></section>
 <section>
 <section id="importação-de-dados" class="title-slide slide level1 center">
 <h1>Importação de dados</h1>
-
+<p>Nesta seção veremos como importar nossos datasets, estando eles armazenados localmente ou online. Também veremos a diferença na leitura de diferentes formatos, como <strong>.csv</strong>, <strong>.txt</strong> e <strong>.xlsx</strong>.</p>
 </section>
-<section id="importação-de-dados-1" class="slide level2">
-<h2>Importação de dados</h2>
-<p>Nesta seção veremos como importar nossos <em>datasets</em>, estando eles armazenados localmente ou online. Também veremos a diferença na leitura de diferentes formatos, como <strong>.csv</strong>, <strong>.txt</strong> e <strong>.xlsx</strong>.</p>
-<div class="fragment">
-<p><code>Julia</code> conta com diversos pacotes para leitura de <em>datasets</em>, dentre eles:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href=""></a><span class="im">import</span> <span class="bu">Pkg</span></span>
-<span id="cb13-2"><a href=""></a></span>
-<span id="cb13-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"DataFrames"</span>);</span>
-<span id="cb13-4"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"CSV"</span>)</span>
-<span id="cb13-5"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"XLSX"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
+<section id="pacotes-necessários" class="slide level2">
+<h2>Pacotes necessários</h2>
+<p>O <code>Julia</code> conta com diversos pacotes que usamos para leitura de datasets, dentre eles vamos focar nos seguintes:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href=""></a><span class="im">import</span> <span class="bu">Pkg</span></span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"DataFrames"</span>);</span>
+<span id="cb1-4"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"CSV"</span>)</span>
+<span id="cb1-5"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"XLSX"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment"><code>DataFrames</code> : Manipulação e análise de dados em formato tabular, similar ao pandas (<code>Python</code>) ou data.frame (<code>R</code>);</li>
 <li class="fragment"><code>CSV</code> : Leitura e escrita de arquivos CSV de forma rápida e eficiente;</li>
 <li class="fragment"><code>XLSX</code> : Leitura e escrita de arquivos Excel (.xlsx).</li>
 </ul>
-</div>
 </section>
 <section id="funções-básicas" class="slide level2">
 <h2>Funções básicas</h2>
 <p>Com os pacotes necessários instalados, agora vejamos como as funções de leitura funcionam:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span>, <span class="bu">CSV</span>, <span class="bu">XLSX</span></span>
-<span id="cb14-2"><a href=""></a></span>
-<span id="cb14-3"><a href=""></a><span class="co"># .csv</span></span>
-<span id="cb14-4"><a href=""></a>df_csv <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="st">"caminho/dados.csv"</span>, DataFrame)</span>
-<span id="cb14-5"><a href=""></a></span>
-<span id="cb14-6"><a href=""></a><span class="co"># .txt</span></span>
-<span id="cb14-7"><a href=""></a>df_txt <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="st">"caminho/dados.txt"</span>, DataFrame, delim<span class="op">=</span><span class="ch">';'</span>)</span>
-<span id="cb14-8"><a href=""></a></span>
-<span id="cb14-9"><a href=""></a><span class="co"># .xlsx</span></span>
-<span id="cb14-10"><a href=""></a>sheets <span class="op">=</span> XLSX.<span class="fu">readxlsx</span>(<span class="st">"caminho/dados.xlsx"</span>)</span>
-<span id="cb14-11"><a href=""></a>df_xlsx <span class="op">=</span> <span class="fu">DataFrame</span>(sheets)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span>, <span class="bu">CSV</span>, <span class="bu">XLSX</span></span>
+<span id="cb2-2"><a href=""></a></span>
+<span id="cb2-3"><a href=""></a><span class="co"># .csv</span></span>
+<span id="cb2-4"><a href=""></a></span>
+<span id="cb2-5"><a href=""></a>df_csv <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="st">"caminho/dados.csv"</span>, DataFrame)</span>
+<span id="cb2-6"><a href=""></a></span>
+<span id="cb2-7"><a href=""></a><span class="co"># .txt</span></span>
+<span id="cb2-8"><a href=""></a></span>
+<span id="cb2-9"><a href=""></a>df_txt <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="st">"caminho/dados.txt"</span>, DataFrame, delim<span class="op">=</span><span class="ch">';'</span>)</span>
+<span id="cb2-10"><a href=""></a></span>
+<span id="cb2-11"><a href=""></a><span class="co"># .xlsx</span></span>
+<span id="cb2-12"><a href=""></a></span>
+<span id="cb2-13"><a href=""></a>sheets <span class="op">=</span> XLSX.<span class="fu">readxlsx</span>(<span class="st">"caminho/dados.xlsx"</span>)</span>
+<span id="cb2-14"><a href=""></a>df_xlsx <span class="op">=</span> <span class="fu">DataFrame</span>(sheets)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="funções-básicas-1" class="slide level2">
 <h2>Funções básicas</h2>
-<p>Podemos usar a função <code>download()</code> para baixar um arquivo temporariamente e retorna o caminho local onde ele foi salvo.</p>
+<p>Podemos usar a função <code>download()</code> é usada para baixar um arquivo temporariamente e retorna o caminho local onde ele foi salvo.</p>
 <p><strong>Ex.:</strong></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href=""></a>dados_csv <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="fu">download</span>(url), DataFrame, delim<span class="op">=</span><span class="ch">';'</span>)</span>
-<span id="cb15-2"><a href=""></a></span>
-<span id="cb15-3"><a href=""></a><span class="fu">first</span>(dados_csv, <span class="fl">5</span>) <span class="co"># Podemos usar a função first() para visualizar as primeiras linhas do dataset</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href=""></a>dados_csv <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="fu">download</span>(url), DataFrame, delim<span class="op">=</span><span class="ch">';'</span>)</span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a><span class="fu">first</span>(dados_csv, <span class="fl">5</span>) <span class="co"># Podemos usar a função first() para visualizar as primeiras linhas do dataset</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="leitura-da-base-de-dados" class="slide level2">
 <h2>Leitura da base de dados</h2>
 <p>Agora, vamos ler os dados que usaremos na aula de hoje.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href=""></a><span class="in">```{julia}</span></span>
-<span id="cb16-2"><a href=""></a><span class="in">begin</span></span>
-<span id="cb16-3"><a href=""></a><span class="in">    import Pkg</span></span>
-<span id="cb16-4"><a href=""></a><span class="in">    redirect_stdout(devnull) do</span></span>
-<span id="cb16-5"><a href=""></a><span class="in">        redirect_stderr(devnull) do</span></span>
-<span id="cb16-6"><a href=""></a><span class="in">            Pkg.add("DataFrames")</span></span>
-<span id="cb16-7"><a href=""></a><span class="in">            Pkg.add("CSV")</span></span>
-<span id="cb16-8"><a href=""></a><span class="in">            Pkg.add("XLSX")</span></span>
-<span id="cb16-9"><a href=""></a><span class="in">        end</span></span>
-<span id="cb16-10"><a href=""></a><span class="in">    end</span></span>
-<span id="cb16-11"><a href=""></a><span class="in">end</span></span>
-<span id="cb16-12"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb4-2"><a href=""></a><span class="in">begin</span></span>
+<span id="cb4-3"><a href=""></a><span class="in">    import Pkg</span></span>
+<span id="cb4-4"><a href=""></a><span class="in">    redirect_stdout(devnull) do</span></span>
+<span id="cb4-5"><a href=""></a><span class="in">        redirect_stderr(devnull) do</span></span>
+<span id="cb4-6"><a href=""></a><span class="in">            Pkg.add("DataFrames")</span></span>
+<span id="cb4-7"><a href=""></a><span class="in">            Pkg.add("CSV")</span></span>
+<span id="cb4-8"><a href=""></a><span class="in">            Pkg.add("XLSX")</span></span>
+<span id="cb4-9"><a href=""></a><span class="in">        end</span></span>
+<span id="cb4-10"><a href=""></a><span class="in">    end</span></span>
+<span id="cb4-11"><a href=""></a><span class="in">end</span></span>
+<span id="cb4-12"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href=""></a><span class="im">using</span> <span class="bu">CSV</span></span>
-<span id="cb17-2"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb17-3"><a href=""></a></span>
-<span id="cb17-4"><a href=""></a>file <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/datasets/dataset.csv"</span>;</span>
-<span id="cb17-5"><a href=""></a>dados <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="fu">download</span>(file), DataFrame);</span>
-<span id="cb17-6"><a href=""></a><span class="fu">first</span>(dados, <span class="fl">5</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>5×21 DataFrame
- Row │ Column1  track_id                artists                 album_name     ⋯
-     │ Int64    String31                String?                 String?        ⋯
-─────┼──────────────────────────────────────────────────────────────────────────
-   1 │       0  5SuOikwiRyPMVoIQDJUgSV  Gen Hoshino             Comedy         ⋯
-   2 │       1  4qPNDBW1i3p13qLCt0Ki3A  Ben Woodward            Ghost (Acousti
-   3 │       2  1iJBSr7s7jYXzM8EGcbK5b  Ingrid Michaelson;ZAYN  To Begin Again
-   4 │       3  6lfxq3CG4xtTiEg7opyCyx  Kina Grannis            Crazy Rich Asi
-   5 │       4  5vjLSffimiIP26QG5WcN2K  Chord Overstreet        Hold On        ⋯
-                                                              18 columns omitted</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb5-2"><a href=""></a><span class="in">#| output: false</span></span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a><span class="in">using DataFrames, CSV</span></span>
+<span id="cb5-5"><a href=""></a></span>
+<span id="cb5-6"><a href=""></a><span class="in">file = "https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/datasets/dataset.csv"</span></span>
+<span id="cb5-7"><a href=""></a></span>
+<span id="cb5-8"><a href=""></a><span class="in">dados = CSV.read(download(file), DataFrame)</span></span>
+<span id="cb5-9"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="leitura-da-base-de-dados-1" class="slide level2">
 <h2>Leitura da base de dados</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb19-2"><a href=""></a><span class="im">using</span> <span class="bu">TidierData</span></span>
-<span id="cb19-3"><a href=""></a></span>
-<span id="cb19-4"><a href=""></a><span class="pp">@chain</span> dados <span class="cf">begin</span></span>
-<span id="cb19-5"><a href=""></a>    <span class="pp">@slice</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">6</span>)</span>
-<span id="cb19-6"><a href=""></a><span class="cf">end</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb6-2"><a href=""></a><span class="in">#| output: true</span></span>
+<span id="cb6-3"><a href=""></a><span class="in">#| eval: true</span></span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="in">using DataFrames, TidierData</span></span>
+<span id="cb6-6"><a href=""></a></span>
+<span id="cb6-7"><a href=""></a><span class="in">@chain dados begin</span></span>
+<span id="cb6-8"><a href=""></a><span class="in">    @slice(1:6)</span></span>
+<span id="cb6-9"><a href=""></a><span class="in">end</span></span>
+<span id="cb6-10"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>6×21 DataFrame
  Row │ Column1  track_id                artists                 album_name     ⋯
@@ -534,68 +350,47 @@ Figura&nbsp;2: Julia no Colab
                                                               18 columns omitted</code></pre>
 </div>
 </div>
+</section></section>
+<section>
+<section id="banco-de-dados" class="title-slide slide level1 center">
+<h1>Banco de dados</h1>
+
 </section>
-<section id="leitura-da-base-de-dados-2" class="slide level2">
-<h2>Leitura da base de dados</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Conhecendo o dataset</strong></p>
-</div>
-<div class="callout-content">
+<section id="dados-de-faixas-do-spotify" class="slide level2">
+<h2>Dados de faixas do Spotify</h2>
+<p>Vamos analisar um banco de dados de faixas do Spotify abrangendo 125 gêneros diferentes. Aqui estão as principais colunas do dataset:</p>
 <ol type="1">
-<li class="fragment"><strong>track_name</strong>: Nome da faixa;</li>
-<li class="fragment"><strong>artists</strong>: Os nomes dos artistas que interpretaram a faixa. Se houver mais de um artista, eles serão separados por ‘;’ ;</li>
-<li class="fragment"><strong>album_name</strong>: O nome do álbum de onde a faixa pertence;</li>
-<li class="fragment"><strong>popularity</strong>: A popularidade de uma faixa é um valor entre 0 e 100, sendo 100 o mais popular, sendo calculada a partir (de forma geral) do número de streams daquela faixa, e o quão recente foram essas streams;</li>
-<li class="fragment"><strong>duration_ms</strong>: A duração da faixa em milissegundos;</li>
-<li class="fragment"><strong>danceability</strong>: A dançabilidade descreve o quão adequada uma faixa é para dançar com base em uma combinação de elementos musicais, incluindo andamento, estabilidade do ritmo, força da batida e regularidade geral. Um valor de 0,0 é o menos dançante e 1,0 o mais dançante;</li>
+<li class="fragment"><p><strong>track_name</strong>: Nome da faixa;</p></li>
+<li class="fragment"><p><strong>artists</strong>: Os nomes dos artistas que interpretaram a faixa. Se houver mais de um artista, eles serão separados por ‘;’ ;</p></li>
+<li class="fragment"><p><strong>album_name</strong>: O nome do álbum de onde a faixa pertence;</p></li>
+<li class="fragment"><p><strong>popularity</strong>: A popularidade de uma faixa é um valor entre 0 e 100, sendo 100 o mais popular, sendo calculada a partir (de forma geral) do número de streams daquela faixa, e o quão recente foram essas streams;</p></li>
+<li class="fragment"><p><strong>duration_ms</strong>: A duração da faixa em milissegundos;</p></li>
+<li class="fragment"><p><strong>danceability</strong>: A dançabilidade descreve o quão adequada uma faixa é para dançar com base em uma combinação de elementos musicais, incluindo andamento, estabilidade do ritmo, força da batida e regularidade geral. Um valor de 0,0 é o menos dançante e 1,0 o mais dançante;</p></li>
 </ol>
-</div>
-</div>
-</div>
 </section>
-<section id="leitura-da-base-de-dados-3" class="slide level2">
-<h2>Leitura da base de dados</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Conhecendo o dataset</strong></p>
-</div>
-<div class="callout-content">
+<section id="dados-de-faixas-do-spotify-1" class="slide level2">
+<h2>Dados de faixas do Spotify</h2>
 <ol start="7" type="1">
-<li class="fragment"><strong>energy</strong>: Energia é uma medida de 0,0 a 1,0 e representa uma medida perceptual de intensidade e atividade. Normalmente, músicas energéticas parecem rápidas, altas e barulhentas. Por exemplo, o death metal tem alta energia, enquanto um prelúdio de Bach tem baixa pontuação na escala;</li>
-<li class="fragment"><strong>loudness</strong>: O volume total de uma faixa em decibéis (dB);</li>
-<li class="fragment"><strong>speechiness</strong>: Detecta a presença de palavras faladas em uma faixa. Quanto mais exclusivamente semelhante à fala for a gravação (por exemplo, talk show, audiolivro, poesia), mais próximo de 1,0 será o valor do atributo. Valores acima de 0,66 descrevem faixas que provavelmente são compostas inteiramente de palavras faladas. Valores entre 0,33 e 0,66 descrevem faixas que podem conter música e fala, seja em seções ou em camadas, incluindo casos como rap. Valores abaixo de 0,33 provavelmente representam música e outras faixas que não se assemelham à fala.</li>
-<li class="fragment"><strong>acousticness</strong>: Uma medida de confiança de 0,0 a 1,0 para determinar se a faixa é acústica. 1,0 representa alta confiança de que a faixa é acústica.</li>
+<li class="fragment"><p><strong>energy</strong>: Energia é uma medida de 0,0 a 1,0 e representa uma medida perceptual de intensidade e atividade. Normalmente, músicas energéticas parecem rápidas, altas e barulhentas. Por exemplo, o death metal tem alta energia, enquanto um prelúdio de Bach tem baixa pontuação na escala;</p></li>
+<li class="fragment"><p><strong>loudness</strong>: O volume total de uma faixa em decibéis (dB);</p></li>
+<li class="fragment"><p><strong>speechiness</strong>: Detecta a presença de palavras faladas em uma faixa. Quanto mais exclusivamente semelhante à fala for a gravação (por exemplo, talk show, audiolivro, poesia), mais próximo de 1,0 será o valor do atributo. Valores acima de 0,66 descrevem faixas que provavelmente são compostas inteiramente de palavras faladas. Valores entre 0,33 e 0,66 descrevem faixas que podem conter música e fala, seja em seções ou em camadas, incluindo casos como rap. Valores abaixo de 0,33 provavelmente representam música e outras faixas que não se assemelham à fala.</p></li>
+<li class="fragment"><p><strong>acousticness</strong>: Uma medida de confiança de 0,0 a 1,0 para determinar se a faixa é acústica. 1,0 representa alta confiança de que a faixa é acústica.</p></li>
 </ol>
-</div>
-</div>
-</div>
 </section>
-<section id="leitura-da-base-de-dados-4" class="slide level2">
-<h2>Leitura da base de dados</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Conhecendo o dataset</strong></p>
-</div>
-<div class="callout-content">
+<section id="dados-de-faixas-do-spotify-2" class="slide level2">
+<h2>Dados de faixas do Spotify</h2>
 <ol start="11" type="1">
-<li class="fragment"><strong>valence</strong>: Uma medida de 0,0 a 1,0 que descreve a positividade musical transmitida por uma faixa. Faixas com alta valência soam mais positivas (por exemplo, felizes, alegres, eufóricas), enquanto faixas com baixa valência soam mais negativas (por exemplo, tristes, deprimidas, raivosas);</li>
-<li class="fragment"><strong>tempo</strong>: O andamento estimado geral de uma faixa em batidas por minuto (BPM);</li>
-<li class="fragment"><strong>track_genre</strong>: O gênero da faixa;</li>
-<li class="fragment"><strong>instrumentalness</strong>: Prevê se uma faixa não contém vocais. Sons de “Ooh” e “aah” são tratados como instrumentais neste contexto. Faixas de rap ou palavra falada são claramente “vocais”. Quanto mais próximo o valor de instrumentalidade estiver de 1,0, maior a probabilidade de a faixa não conter conteúdo vocal.</li>
-<li class="fragment"><strong>liveness</strong>: Detecta a presença de público na gravação. Valores mais altos de ao vivo representam uma probabilidade maior de que a faixa tenha sido tocada ao vivo. Um valor acima de 0,8 fornece alta probabilidade de que a faixa seja ao vivo.</li>
+<li class="fragment"><p><strong>valence</strong>: Uma medida de 0,0 a 1,0 que descreve a positividade musical transmitida por uma faixa. Faixas com alta valência soam mais positivas (por exemplo, felizes, alegres, eufóricas), enquanto faixas com baixa valência soam mais negativas (por exemplo, tristes, deprimidas, raivosas);</p></li>
+<li class="fragment"><p><strong>tempo</strong>: O andamento estimado geral de uma faixa em batidas por minuto (BPM);</p></li>
+<li class="fragment"><p><strong>track_genre</strong>: O gênero da faixa;</p></li>
+<li class="fragment"><p><strong>instrumentalness</strong>: Prevê se uma faixa não contém vocais. Sons de “Ooh” e “aah” são tratados como instrumentais neste contexto. Faixas de rap ou palavra falada são claramente “vocais”. Quanto mais próximo o valor de instrumentalidade estiver de 1,0, maior a probabilidade de a faixa não conter conteúdo vocal.</p></li>
+<li class="fragment"><p><strong>liveness</strong>: Detecta a presença de público na gravação. Valores mais altos de ao vivo representam uma probabilidade maior de que a faixa tenha sido tocada ao vivo. Um valor acima de 0,8 fornece alta probabilidade de que a faixa seja ao vivo.</p></li>
 </ol>
-</div>
-</div>
-</div>
 </section></section>
 <section>
 <section id="manipulação-de-banco-de-dados" class="title-slide slide level1 center">
 <h1>Manipulação de banco de dados</h1>
-
+<p>Agora que temos o nosso dataset, vamos passar por algumas funções e pacotes que vão nos auxiliar na limpeza dos nossos dados!</p>
 </section>
 <section id="tidier.jl" class="slide level2">
 <h2>Tidier.jl</h2>
@@ -605,39 +400,26 @@ Figura&nbsp;2: Julia no Colab
 <li class="fragment"><code>TidierPlots</code> : Implementação 100% <code>Julia</code> do pacote <code>ggplot2</code> do <code>R</code>;</li>
 <li class="fragment"><code>TidierStrings</code> : O objetivo deste pacote é replicar o <code>stringr</code> do <code>R</code> em <code>Julia</code> de uma forma que funcione com o Tidier ou como uma função autônoma.</li>
 </ul>
-<div class="fragment">
 <blockquote>
 <p>Acessem o link <code>https://tidierorg.github.io/Tidier.jl/v1.6.1/</code> para mais informações!</p>
 </blockquote>
-</div>
 </section>
 <section id="pacote-tidierdata.jl" class="slide level2">
 <h2>Pacote TidierData.jl</h2>
 <p>Para a nossa análise de hoje, vamos utilizar principalmente o pacote <code>TidierData</code>.</p>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Funções Macro</strong></p>
-</div>
-<div class="callout-content">
+<h3 id="funções-macro">Funções Macro</h3>
 <p>Para suportar a programação no estilo <code>R</code>, o <code>TidierData.jl</code> é implementado usando <strong>macros</strong>. Isso ocorre porque as <strong>macros</strong> são capazes de “capturar” o código antes de executá-lo, o que permite que o pacote suporte “expressões <em>tidy</em>” semelhantes ao <code>R</code> que, de outra forma, não seriam consideradas código <code>Julia</code> válido.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="pacote-tidierdata.jl-1" class="slide level2">
-<h2>Pacote TidierData.jl</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href=""></a><span class="im">using</span> <span class="bu">TidierData</span></span>
-<span id="cb21-2"><a href=""></a></span>
-<span id="cb21-3"><a href=""></a><span class="pp">@chain</span> dados <span class="cf">begin</span></span>
-<span id="cb21-4"><a href=""></a>    <span class="pp">@filter</span>(popularity <span class="op">&gt;</span> <span class="fl">50</span>)</span>
-<span id="cb21-5"><a href=""></a>    <span class="pp">@arrange</span>(<span class="fu">desc</span>(<span class="st">"energy"</span>))</span>
-<span id="cb21-6"><a href=""></a>    <span class="pp">@select</span>(track_name, popularity, energy, acousticness)</span>
-<span id="cb21-7"><a href=""></a>    <span class="pp">@slice</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>)</span>
-<span id="cb21-8"><a href=""></a><span class="cf">end</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb8-2"><a href=""></a><span class="in">using TidierData</span></span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="in">@chain dados begin</span></span>
+<span id="cb8-5"><a href=""></a><span class="in">    @filter(popularity &gt; 50)</span></span>
+<span id="cb8-6"><a href=""></a><span class="in">    @arrange(desc("energy"))</span></span>
+<span id="cb8-7"><a href=""></a><span class="in">    @select(track_name, popularity, energy, acousticness)</span></span>
+<span id="cb8-8"><a href=""></a><span class="in">    @slice(1:5)</span></span>
+<span id="cb8-9"><a href=""></a><span class="in">end</span></span>
+<span id="cb8-10"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>5×4 DataFrame
  Row │ track_name                   popularity  energy   acousticness
@@ -651,32 +433,30 @@ Figura&nbsp;2: Julia no Colab
 </div>
 </div>
 </section>
-<section id="pacote-tidierdata.jl-2" class="slide level2">
+<section id="pacote-tidierdata.jl-1" class="slide level2">
 <h2>Pacote TidierData.jl</h2>
-<p>Para quem já está familiarizado com a linguagem <code>R</code>, a função <code>@chain()</code> é similar ao pipeline <code>%&gt;%</code> ou <code>|&gt;</code>, usado para encadear várias operações em sequência no mesmo conjunto de dados.</p>
+<ul>
+<li class="fragment"><p>Para quem já está familiarizado com a linguagem <code>R</code>, a função <code>@chain()</code> é similar ao pipeline <code>%&gt;%</code> ou <code>|&gt;</code>, usado para encadear várias operações em sequência no mesmo conjunto de dados.</p>
 <ul>
 <li class="fragment"><code>@filter()</code> : Filtra as linhas com base em uma restrição;</li>
 <li class="fragment"><code>@arrange()</code> : Ordena as linhas com base em uma coluna (<code>desc()</code> para definir ordem crescente ou decrescente);</li>
 <li class="fragment"><code>@select()</code> : Seleciona as colunas de interesse;</li>
 <li class="fragment"><code>@slice()</code> : Seleciona as linhas para visualização.</li>
+</ul></li>
 </ul>
-<div class="fragment">
 <blockquote>
 <p>Obs.: A função <code>desc()</code> é uma função auxiliar.</p>
 </blockquote>
-</div>
 </section>
-<section id="pacote-tidierdata.jl-3" class="slide level2">
-<h2>Pacote TidierData.jl</h2>
-<p>Existem algumas funções auxiliares do pacote que é importante citarmos:</p>
+<section class="slide level2">
+
+<h3 id="funções-auxiliares">Funções auxiliares</h3>
+<p>Algumas funções auxiliares do pacote que é importante citarmos:</p>
 <ul>
 <li class="fragment"><code>across()</code> : Aplica uma função a várias colunas de uma vez;</li>
 <li class="fragment"><code>n()</code> e <code>row_number()</code> : Retornam o número total de linhas ou o número da linha;</li>
 <li class="fragment"><code>replace_missing()</code> : Substitui valores ausentes em uma coluna por um valor especificado.</li>
 </ul>
-</section>
-<section id="pacote-tidierdata.jl-4" class="slide level2">
-<h2>Pacote TidierData.jl</h2>
 <p>Outras funções auxiliares de outros pacotes que vale mencionar:</p>
 <ul>
 <li class="fragment"><code>dropmissing()</code> : Remove as linhas que contêm valores faltantes (<em>missing</em>);</li>
@@ -684,25 +464,32 @@ Figura&nbsp;2: Julia no Colab
 <li class="fragment"><code>nrow()</code> : Retorna o número de linhas de um DataFrame ou matriz;</li>
 <li class="fragment"><code>any()</code> : Testa se <strong>pelo menos um</strong> elemento de uma coleção (ou resultado de uma condição) é verdadeiro; retorna <code>true</code> ou <code>false</code>.</li>
 </ul>
-<div class="fragment">
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Dica</strong></p>
-</div>
-<div class="callout-content">
-<p>Use a função <code>any()</code> e a função <code>ismissing</code> no formato <code>row -&gt; any(ismissing, row)</code> para verificar se há colunas sem informação. Nesse caso, a função <code>filter()</code> da base do <code>Julia</code> é mais eficiente, no formato <code>filter(condição, dados)</code>.</p>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="pacote-tidierdata.jl-5" class="slide level2">
-<h2>Pacote TidierData.jl</h2>
-<p>Limpeza do dataset do Spotify: Tratando valores faltantes</p>
-<div class="fragment">
+<section id="limpeza-do-dataset-do-spotify" class="slide level2">
+<h2>Limpeza do dataset do Spotify</h2>
+<h3 id="tratando-valores-faltantes">Tratando valores faltantes</h3>
+<blockquote>
+<p>Dica: Use a função <code>any()</code> e a função <code>ismissing</code> no formato <code>row -&gt; any(ismissing, row)</code> para verificar se há colunas sem informação. Nesse caso, a função <code>filter()</code> da base do <code>Julia</code> é mais eficiente, no formato <code>filter(condição, dados)</code>.</p>
+</blockquote>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href=""></a>faltantes <span class="op">=</span> <span class="fu">filter</span>(row <span class="op">-&gt;</span> <span class="fu">any</span>(ismissing, row), dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb10-2"><a href=""></a><span class="in">#| output: false</span></span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a><span class="in">using DataFrames, TidierData</span></span>
+<span id="cb10-5"><a href=""></a></span>
+<span id="cb10-6"><a href=""></a><span class="in">faltantes = filter(row -&gt; any(ismissing, row), dados)</span></span>
+<span id="cb10-7"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb11-2"><a href=""></a><span class="in">#| output: true</span></span>
+<span id="cb11-3"><a href=""></a></span>
+<span id="cb11-4"><a href=""></a><span class="in">using TidierData</span></span>
+<span id="cb11-5"><a href=""></a></span>
+<span id="cb11-6"><a href=""></a><span class="in">@chain faltantes begin</span></span>
+<span id="cb11-7"><a href=""></a><span class="in">    @slice(1)</span></span>
+<span id="cb11-8"><a href=""></a><span class="in">end</span></span>
+<span id="cb11-9"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1×21 DataFrame
  Row │ Column1  track_id                artists  album_name  track_name  popul ⋯
@@ -712,64 +499,43 @@ Figura&nbsp;2: Julia no Colab
                                                               16 columns omitted</code></pre>
 </div>
 </div>
-</div>
-<div class="fragment">
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href=""></a><span class="pp">@chain</span> faltantes <span class="cf">begin</span></span>
-<span id="cb25-2"><a href=""></a>    <span class="pp">@slice</span>(<span class="fl">1</span>)</span>
-<span id="cb25-3"><a href=""></a><span class="cf">end</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1×21 DataFrame
- Row │ Column1  track_id                artists  album_name  track_name  popul ⋯
-     │ Int64    String31                String?  String?     String?     Int64 ⋯
-─────┼──────────────────────────────────────────────────────────────────────────
-   1 │   65900  1kR4gIb7nGxHPI3D2ifs59  missing  missing     missing           ⋯
-                                                              16 columns omitted</code></pre>
-</div>
-</div>
-</div>
 </section>
-<section id="pacote-tidierdata.jl-6" class="slide level2">
-<h2>Pacote TidierData.jl</h2>
+<section class="slide level2">
+
+<h3 id="tratando-valores-faltantes-1">Tratando valores faltantes</h3>
 <p>Vamos remover as linhas que possuem valores faltantes.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href=""></a>dados <span class="op">=</span> <span class="pp">@chain</span> dados <span class="cf">begin</span></span>
-<span id="cb27-2"><a href=""></a>    <span class="fu">dropmissing</span>()</span>
-<span id="cb27-3"><a href=""></a><span class="cf">end</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>113999×21 DataFrame
-    Row │ Column1  track_id                artists                             ⋯
-        │ Int64    String31                String                              ⋯
-────────┼───────────────────────────────────────────────────────────────────────
-      1 │       0  5SuOikwiRyPMVoIQDJUgSV  Gen Hoshino                         ⋯
-      2 │       1  4qPNDBW1i3p13qLCt0Ki3A  Ben Woodward
-      3 │       2  1iJBSr7s7jYXzM8EGcbK5b  Ingrid Michaelson;ZAYN
-      4 │       3  6lfxq3CG4xtTiEg7opyCyx  Kina Grannis
-      5 │       4  5vjLSffimiIP26QG5WcN2K  Chord Overstreet                    ⋯
-      6 │       5  01MVOl9KtVTNfFiBU9I7dc  Tyrone Wells
-      7 │       6  6Vc5wAMmXdKIAM7WUoEb7N  A Great Big World;Christina Agui…
-      8 │       7  1EzrEOXmMH3G43AXT1y7pA  Jason Mraz
-   ⋮    │    ⋮               ⋮                             ⋮                   ⋱
- 113993 │  113993  4OkMK49i3NApR1KsAIsTf6  Chris Tomlin                        ⋯
- 113994 │  113994  4WbOUe6T0sozC7z5ZJgiAA  Lucas Cervetti
- 113995 │  113995  2C3TZjDRiAzdyViavDJ217  Rainy Lullaby
- 113996 │  113996  1hIz5L4IB9hN3WRYPOCGPw  Rainy Lullaby
- 113997 │  113997  6x8ZfSoqDjuNa5SVP5QjvX  Cesária Evora                       ⋯
- 113998 │  113998  2e6sXL2bYv4bSz6VTdnfLs  Michael W. Smith
- 113999 │  113999  2hETkH7cOfqmz3LqZDHZf5  Cesária Evora
-                                              18 columns and 113984 rows omitted</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb13-2"><a href=""></a><span class="in">#| output: false</span></span>
+<span id="cb13-3"><a href=""></a></span>
+<span id="cb13-4"><a href=""></a><span class="in">using TidierData, DataFrames</span></span>
+<span id="cb13-5"><a href=""></a></span>
+<span id="cb13-6"><a href=""></a><span class="in">dados = @chain dados begin</span></span>
+<span id="cb13-7"><a href=""></a><span class="in">    dropmissing()</span></span>
+<span id="cb13-8"><a href=""></a><span class="in">end</span></span>
+<span id="cb13-9"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="pacote-tidierdata.jl-7" class="slide level2">
-<h2>Pacote TidierData.jl</h2>
+<section id="tratando-valores-duplicados" class="slide level2">
+<h2>Tratando valores duplicados</h2>
 <p>Verificaremos possíveis faixas duplicadas, e retirá-las caso haja alguma.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href=""></a><span class="fu">nrow</span>(<span class="fu">unique</span>(dados, <span class="op">:</span>track_id)), <span class="fu">nrow</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb14-2"><a href=""></a><span class="in">#| output: true</span></span>
+<span id="cb14-3"><a href=""></a></span>
+<span id="cb14-4"><a href=""></a><span class="in">using DataFrames, PrettyTables</span></span>
+<span id="cb14-5"><a href=""></a></span>
+<span id="cb14-6"><a href=""></a><span class="in">nrow(unique(dados, :track_id)), nrow(dados)</span></span>
+<span id="cb14-7"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(89740, 113999)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href=""></a>dados <span class="op">=</span> <span class="fu">unique</span>(dados, <span class="op">:</span>track_id)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href=""></a><span class="in">```{julia}</span></span>
+<span id="cb16-2"><a href=""></a><span class="in">#| output: true</span></span>
+<span id="cb16-3"><a href=""></a></span>
+<span id="cb16-4"><a href=""></a></span>
+<span id="cb16-5"><a href=""></a><span class="in">dados = unique(dados, :track_id)</span></span>
+<span id="cb16-6"><a href=""></a><span class="in">```</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>89740×21 DataFrame
    Row │ Column1  track_id                artists                            a ⋯
@@ -804,67 +570,315 @@ Figura&nbsp;2: Julia no Colab
 <h2>EDA</h2>
 <ul>
 <li class="fragment"><p><code>Julia</code> torna possível compreender e explorar conjuntos de dados, identificando padrões, tendências e possíveis outliers antes da modelagem.</p></li>
-<li class="fragment"><p>Nesse tópico, iremos explorar algumas estatísticas resumo (média, mediana, desvio-padrão, etc.) e algumas distribuições (discretas e contínuas).</p></li>
+<li class="fragment"><p>Nesse tópico, iremos explorar as principais métricas estatísticas (média, mediana, desvio-padrão, etc.) e algumas distribuições discretas e contínuas.</p></li>
 <li class="fragment"><p>Os pacotes <code>Statistics.jl</code>, <code>StatsBase.jl</code>, <code>DataFrames.jl</code> e <code>TidierData.jl</code> serão essenciais para a análise 🆒.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href=""></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb33-2"><a href=""></a><span class="im">using</span> <span class="bu">StatsBase</span></span>
-<span id="cb33-3"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span></span>
-<span id="cb33-4"><a href=""></a><span class="im">using</span> <span class="bu">TidierData</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href=""></a><span class="im">import</span> <span class="bu">Pkg</span></span>
+<span id="cb18-2"><a href=""></a></span>
+<span id="cb18-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"StatsBase"</span>)</span>
+<span id="cb18-4"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"DataFrames"</span>)</span>
+<span id="cb18-5"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"TidierData"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span>, <span class="bu">StatsBase</span>, <span class="bu">DataFrames</span>, <span class="bu">TidierData</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </section>
 <section id="medidas-de-tendência-central" class="slide level2">
 <h2>Medidas de tendência central</h2>
+<p><code>Julia</code> tem como uma vantagem uma sintaxe muito similar a Python e R, o que torna seu processo de aprendizado muito mais rápido e eficiente! Algumas das principais medidas são:</p>
 <ul>
-<li class="fragment"><code>mean(x)</code>: media</li>
-<li class="fragment"><code>median(x)</code>: mediana</li>
-<li class="fragment"><code>mode(x)</code>: moda (pacote <code>StatsBase.jl</code>)</li>
+<li class="fragment"><code>mean(x)</code> representa média aritmética</li>
+<li class="fragment"><code>median(x)</code> representa a mediana</li>
+<li class="fragment"><code>mode(x)</code> representa a moda (pacote <code>StatsBase.jl</code>)</li>
 </ul>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href=""></a>x <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>]</span>
+<span id="cb20-2"><a href=""></a></span>
+<span id="cb20-3"><a href=""></a><span class="fu">mean</span>(x)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Saída:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href=""></a><span class="fl">3.5714285714285716</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="medidas-de-dispersão" class="slide level2">
 <h2>Medidas de dispersão</h2>
 <ul>
-<li class="fragment"><code>var(x)</code>: variância amostral</li>
-<li class="fragment"><code>std(x)</code>: desvio padrão</li>
-<li class="fragment"><code>minimum(x)</code>: mínimo</li>
-<li class="fragment"><code>maximum(x)</code>: máximo</li>
-<li class="fragment"><code>quantile(x, p)</code>: p-éssimo quantil empírico</li>
+<li class="fragment"><code>var(x)</code> representa variância</li>
+<li class="fragment"><code>std(x)</code> representa o desvio padrão</li>
+<li class="fragment"><code>minimum(x)</code> e <code>maximum(x)</code> são os valores mínimo e máximo</li>
+<li class="fragment"><code>quantile(x, p)</code> repesenta quantis (<code>p</code> é o parâmetro da posição relativa da distribuição)</li>
 </ul>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href=""></a>A <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span>;</span>
+<span id="cb22-2"><a href=""></a>     <span class="fl">4</span> <span class="fl">5</span> <span class="fl">6</span>;</span>
+<span id="cb22-3"><a href=""></a>     <span class="fl">7</span> <span class="fl">8</span> <span class="fl">9</span>]</span>
+<span id="cb22-4"><a href=""></a></span>
+<span id="cb22-5"><a href=""></a><span class="fu">std</span>(x)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Saída:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href=""></a><span class="fl">2.7386127875258306</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="contagem-e-frequência" class="slide level2">
 <h2>Contagem e frequência</h2>
 <ul>
-<li class="fragment"><code>length(x)</code>: número de elementos</li>
-<li class="fragment"><code>count(cond, x)</code>: conta elementos que satisfazem uma condição <code>cond</code></li>
-<li class="fragment"><code>countmap(x)</code>: cria uma tabela de frequências (pacote <code>StatsBase.jl</code>)</li>
+<li class="fragment"><code>length(x)</code> é o número de elementos</li>
+<li class="fragment"><code>count(cond, x)</code> conta elementos que satisfazem uma condição <code>cond</code></li>
+<li class="fragment"><code>countmap(x)</code> cria uma tabela de frequências (pacote <code>StatsBase.jl</code>)</li>
 </ul>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href=""></a>x <span class="op">=</span> [<span class="st">"maçã"</span>, <span class="st">"banana"</span>, <span class="st">"maçã"</span>, <span class="st">"laranja"</span>, <span class="st">"banana"</span>, <span class="st">"maçã"</span>]</span>
+<span id="cb24-2"><a href=""></a></span>
+<span id="cb24-3"><a href=""></a><span class="fu">std</span>(x)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Saída:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href=""></a><span class="dt">Dict</span>{<span class="dt">String</span>, <span class="dt">Int64</span>} with <span class="fl">3</span> entries<span class="op">:</span></span>
+<span id="cb25-2"><a href=""></a>  <span class="st">"laranja"</span> <span class="op">=&gt;</span> <span class="fl">1</span></span>
+<span id="cb25-3"><a href=""></a>  <span class="st">"banana"</span>  <span class="op">=&gt;</span> <span class="fl">2</span></span>
+<span id="cb25-4"><a href=""></a>  <span class="st">"maçã"</span>    <span class="op">=&gt;</span> <span class="fl">3</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="informações-resumidas" class="slide level2">
 <h2>Informações resumidas</h2>
 <ul>
-<li class="fragment"><code>describe(df)</code>: fornece estatísticas descritivas de um data frame</li>
-<li class="fragment"><code>cor(x, y)</code>: correlação entre duas variáveis <code>x</code> e <code>y</code></li>
-<li class="fragment"><code>cov(x, y)</code>: covariância das variáveis <code>x</code> e <code>y</code></li>
+<li class="fragment"><code>describe(df)</code> fornece estatísticas descritivas de um data frame</li>
+<li class="fragment"><code>cor(x, y)</code> descreve uma matriz de correlação entre duas variáveis <code>x</code> e <code>y</code></li>
+<li class="fragment"><code>cov(x, y)</code> covariância das variáveis <code>x</code> e <code>y</code></li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href=""></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(</span>
+<span id="cb26-2"><a href=""></a>    idade <span class="op">=</span> [<span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span>],</span>
+<span id="cb26-3"><a href=""></a>    altura <span class="op">=</span> [<span class="fl">1.70</span>, <span class="fl">1.75</span>, <span class="fl">1.80</span>, <span class="fl">1.65</span>, <span class="fl">1.90</span>],</span>
+<span id="cb26-4"><a href=""></a>    nome <span class="op">=</span> [<span class="st">"Ana"</span>, <span class="st">"Bruno"</span>, <span class="st">"Carlos"</span>, <span class="st">"Daniela"</span>, <span class="st">"Eduardo"</span>]</span>
+<span id="cb26-5"><a href=""></a>)</span>
+<span id="cb26-6"><a href=""></a></span>
+<span id="cb26-7"><a href=""></a><span class="fu">describe</span>(df)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Saída:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href=""></a><span class="fl">3</span><span class="op">×</span><span class="fl">7</span> DataFrame</span>
+<span id="cb27-2"><a href=""></a> Row │ variable  mean     min     median  max     nmissing  eltype</span>
+<span id="cb27-3"><a href=""></a>     │ <span class="dt">Symbol</span>    <span class="dt">Float64</span>  <span class="dt">Real</span>    <span class="dt">Float64</span> <span class="dt">Real</span>    <span class="dt">Int64</span>     DataType</span>
+<span id="cb27-4"><a href=""></a>─────┼──────────────────────────────────────────────────────────────</span>
+<span id="cb27-5"><a href=""></a>   <span class="fl">1</span> │ idade       <span class="fl">30.0</span>     <span class="fl">20</span>       <span class="fl">30.0</span>     <span class="fl">40</span>         <span class="fl">0</span>  <span class="dt">Int64</span></span>
+<span id="cb27-6"><a href=""></a>   <span class="fl">2</span> │ altura       <span class="fl">1.76</span>     <span class="fl">1.65</span>     <span class="fl">1.75</span>     <span class="fl">1.9</span>        <span class="fl">0</span>  <span class="dt">Float64</span></span>
+<span id="cb27-7"><a href=""></a>   <span class="fl">3</span> │ nome         <span class="cn">NaN</span>      Ana      <span class="cn">NaN</span>      Eduardo    <span class="fl">0</span>  <span class="dt">String</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="análise-descritiva-do-dataset" class="slide level2">
+<h2>Análise descritiva do dataset</h2>
+<blockquote>
+<p>Dica: Para identificar os cinco artistas com maior número de faixas no dataset, utilize as funções <code>groupby()</code> e <code>combine()</code> para criar uma nova tabela contendo duas colunas: uma com o nome dos artistas e outra com a contagem de faixas. Em seguida, use <code>sort!()</code> para ordenar de forma decrescente e <code>first()</code> para exibir apenas os primeiros registros.</p>
+</blockquote>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span>, <span class="bu">StatsPlots</span>, <span class="bu">Plots</span></span>
+<span id="cb28-2"><a href=""></a></span>
+<span id="cb28-3"><a href=""></a>artists <span class="op">=</span> <span class="fu">combine</span>(<span class="fu">groupby</span>(df, <span class="op">:</span>artists), nrow <span class="op">=&gt;</span> <span class="op">:</span>n_tracks)</span>
+<span id="cb28-4"><a href=""></a><span class="fu">sort!</span>(artists, <span class="op">:</span>n_tracks, rev<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb28-5"><a href=""></a><span class="fu">first</span>(artists, <span class="fl">5</span>)  <span class="co"># Top 5 artistas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="análise-descritiva-do-dataset-1" class="slide level2">
+<h2>Análise descritiva do dataset</h2>
+<blockquote>
+<p>Dica: Para filtrar as faixas de um artista específico, como George Jones, utilize <code>filter()</code> em conjunto com <code>occursin()</code> na coluna :artists. Depois, aplique a função <code>describe()</code> às variáveis numéricas para obter as estatísticas descritivas, como média, mediana, mínimo e máximo.</p>
+</blockquote>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span>, <span class="bu">StatsPlots</span>, <span class="bu">Plots</span></span>
+<span id="cb29-2"><a href=""></a></span>
+<span id="cb29-3"><a href=""></a>df_george <span class="op">=</span> <span class="fu">filter</span>(<span class="op">:</span>artists <span class="op">=&gt;</span> x <span class="op">-&gt;</span> <span class="fu">occursin</span>(<span class="st">"George Jones"</span>, x), df)</span>
+<span id="cb29-4"><a href=""></a></span>
+<span id="cb29-5"><a href=""></a>vars_numericas <span class="op">=</span> [<span class="op">:</span>popularity, <span class="op">:</span>duration_ms, <span class="op">:</span>danceability, <span class="op">:</span>energy,</span>
+<span id="cb29-6"><a href=""></a>                  <span class="op">:</span>loudness, <span class="op">:</span>speechiness, <span class="op">:</span>acousticness, <span class="op">:</span>instrumentalness,</span>
+<span id="cb29-7"><a href=""></a>                  <span class="op">:</span>liveness, <span class="op">:</span>valence, <span class="op">:</span>tempo]</span>
+<span id="cb29-8"><a href=""></a>                  </span>
+<span id="cb29-9"><a href=""></a><span class="fu">describe</span>(<span class="fu">select</span>(df_george, vars_numericas))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="visualizações-estatísticas" class="slide level2">
+<h2>Visualizações estatísticas</h2>
+<ul>
+<li class="fragment"><p>O Julia oferece diversas bibliotecas para criar visualizações estatísticas de forma simples e flexível, permitindo a análise e interpretação de dados de maneira visual. Algumas bibliotecas populares incluem <code>Plots.jl</code>, <code>StatsPlots.jl</code>, <code>Makie.jl</code> e <code>Gadfly.jl</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href=""></a><span class="im">import</span> <span class="bu">Pkg</span></span>
+<span id="cb30-2"><a href=""></a></span>
+<span id="cb30-3"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Plots"</span>)</span>
+<span id="cb30-4"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"StatsPlots"</span>)</span>
+<span id="cb30-5"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Makie"</span>)</span>
+<span id="cb30-6"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Gadfly"</span>)</span>
+<span id="cb30-7"><a href=""></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"Distributions"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href=""></a><span class="im">using</span> <span class="bu">Plots</span>, <span class="bu">StatsPlots</span>, <span class="bu">Makie</span>, <span class="bu">Gadfly</span>, <span class="bu">Distributions</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </section>
-<section id="visualização-de-dados" class="slide level2">
-<h2>Visualização de dados</h2>
-<p><code>Julia</code> oferece diversas bibliotecas para criar visualizações estatísticas de forma simples e flexível, permitindo a análise e interpretação de dados de maneira visual. Algumas bibliotecas populares incluem <code>Plots.jl</code>, <code>StatsPlots.jl</code>, <code>Makie.jl</code> e <code>Gadfly.jl</code>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href=""></a><span class="im">using</span> <span class="bu">Gadfly</span></span>
-<span id="cb34-2"><a href=""></a><span class="im">using</span> <span class="bu">Makie</span></span>
-<span id="cb34-3"><a href=""></a><span class="im">using</span> <span class="bu">Plots</span></span>
-<span id="cb34-4"><a href=""></a><span class="im">using</span> <span class="bu">StatsPlots</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
+<section id="boxplot" class="slide level2">
+<h2>Boxplot</h2>
 <ul>
-<li class="fragment"><code>bloxplot(x)</code>: gráfico de caixas</li>
-<li class="fragment"><code>bar(x)</code>: gráfico de barras</li>
-<li class="fragment"><code>histogram(x)</code>: histograma</li>
-<li class="fragment"><code>scatter(x)</code>: gráfico de dispersão</li>
-<li class="fragment"><code>density(x)</code>: gráfico de densidade</li>
+<li class="fragment"><code>bloxplot(x)</code> resume a distribuição dos dados destacando mediana, quartis e possíveis outliers.</li>
 </ul>
-</div>
-</section></section>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href=""></a>x <span class="op">=</span> [<span class="fl">5.1</span>, <span class="fl">5.5</span>, <span class="fl">5.3</span>, <span class="fl">5.0</span>, <span class="fl">5.2</span>, <span class="fl">5.8</span>, <span class="fl">5.4</span>, <span class="fl">6.0</span>, <span class="fl">4.9</span>, <span class="fl">5.6</span>, <span class="fl">5.7</span>, <span class="fl">6.2</span>]</span>
+<span id="cb32-2"><a href=""></a></span>
+<span id="cb32-3"><a href=""></a><span class="fu">boxplot</span>(x;</span>
+<span id="cb32-4"><a href=""></a>    xlabel <span class="op">=</span> <span class="st">"Amostra"</span>,</span>
+<span id="cb32-5"><a href=""></a>    ylabel <span class="op">=</span> <span class="st">"Valores"</span>,</span>
+<span id="cb32-6"><a href=""></a>    title <span class="op">=</span> <span class="st">"Boxplot de Exemplo"</span>,</span>
+<span id="cb32-7"><a href=""></a>    legend <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb32-8"><a href=""></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saída" class="slide level2">
+<h2>Saída:</h2>
+
+<img data-src="images/boxplot.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="barplot-gráfico-de-barras" class="slide level2">
+<h2>Barplot (gráfico de barras)</h2>
+<ul>
+<li class="fragment"><code>bar(x)</code> representa frequências ou valores médios para categorias.</li>
+</ul>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href=""></a>generos <span class="op">=</span> [<span class="st">"Pop"</span>, <span class="st">"Rock"</span>, <span class="st">"Jazz"</span>, <span class="st">"Funk"</span>]</span>
+<span id="cb33-2"><a href=""></a>freqs <span class="op">=</span> [<span class="fl">50</span>, <span class="fl">30</span>, <span class="fl">15</span>, <span class="fl">5</span>]</span>
+<span id="cb33-3"><a href=""></a></span>
+<span id="cb33-4"><a href=""></a><span class="fu">bar</span>(generos, freqs, xlabel<span class="op">=</span><span class="st">"Gênero"</span>, ylabel<span class="op">=</span><span class="st">"Frequência"</span>, </span>
+<span id="cb33-5"><a href=""></a>    title<span class="op">=</span><span class="st">"Número de músicas por gênero"</span>, legend<span class="op">=</span><span class="cn">false</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saída-1" class="slide level2">
+<h2>Saída:</h2>
+
+<img data-src="images/bar.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="histograma" class="slide level2">
+<h2>Histograma</h2>
+<ul>
+<li class="fragment"><code>histogram(x)</code> exibe a distribuição de frequências de variáveis contínuas. Caso você não possua um conjunto de dados real, é possível gerar números pseudoaleatórios com o pacote <code>Random.jl</code> e criar uma distribuição normal utilizando o pacote <code>Distributions.jl</code>.</li>
+</ul>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href=""></a><span class="im">using</span> <span class="bu">Random</span>, <span class="bu">Distributions</span>, <span class="bu">Plots</span></span>
+<span id="cb34-2"><a href=""></a></span>
+<span id="cb34-3"><a href=""></a>alturas <span class="op">=</span> <span class="fu">rand</span>(<span class="fu">Normal</span>(<span class="fl">170</span>, <span class="fl">7</span>), <span class="fl">500</span>) <span class="co"># median = 7; std = 7; amostra = 500</span></span>
+<span id="cb34-4"><a href=""></a></span>
+<span id="cb34-5"><a href=""></a><span class="fu">histogram</span>(</span>
+<span id="cb34-6"><a href=""></a>    alturas,</span>
+<span id="cb34-7"><a href=""></a>    bins <span class="op">=</span> <span class="fl">20</span>,</span>
+<span id="cb34-8"><a href=""></a>    xlabel <span class="op">=</span> <span class="st">"Altura (cm)"</span>,</span>
+<span id="cb34-9"><a href=""></a>    ylabel <span class="op">=</span> <span class="st">"Frequência"</span>,</span>
+<span id="cb34-10"><a href=""></a>    title <span class="op">=</span> <span class="st">"Distribuição das Alturas"</span>,</span>
+<span id="cb34-11"><a href=""></a>    legend <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb34-12"><a href=""></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saída-2" class="slide level2">
+<h2>Saída:</h2>
+
+<img data-src="images/hist.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="curva-de-densidade" class="slide level2">
+<h2>Curva de densidade</h2>
+<ul>
+<li class="fragment">Para gerar a curva de densidade em <code>Julia</code>, você pode usar o argumento <code>normalize=:pdf</code> dentro da função <code>histogram()</code>:</li>
+</ul>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href=""></a><span class="im">using</span> <span class="bu">Random</span>, <span class="bu">Distributions</span>, <span class="bu">Plots</span></span>
+<span id="cb35-2"><a href=""></a></span>
+<span id="cb35-3"><a href=""></a>alturas <span class="op">=</span> <span class="fu">rand</span>(<span class="fu">Normal</span>(<span class="fl">170</span>, <span class="fl">7</span>), <span class="fl">500</span>) <span class="co"># median = 7; std = 7; amostra = 500</span></span>
+<span id="cb35-4"><a href=""></a></span>
+<span id="cb35-5"><a href=""></a><span class="fu">histogram</span>(alturas, bins<span class="op">=</span><span class="fl">20</span>, normalize<span class="op">=:</span>pdf, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"Histograma"</span>)</span>
+<span id="cb35-6"><a href=""></a><span class="fu">plot!</span>(<span class="fu">density</span>(alturas), label<span class="op">=</span><span class="st">"Curva de densidade"</span>, lw<span class="op">=</span><span class="fl">2</span>, color<span class="op">=:</span>blue)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saída-3" class="slide level2">
+<h2>Saída:</h2>
+
+<img data-src="images/dens.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="gráfico-de-dispersão" class="slide level2">
+<h2>Gráfico de dispersão</h2>
+<ul>
+<li class="fragment"><code>scatter(x)</code> mostra a relação entre duas variáveis numéricas.</li>
+</ul>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href=""></a><span class="im">using</span> <span class="bu">Random</span>, <span class="bu">Plots</span></span>
+<span id="cb36-2"><a href=""></a></span>
+<span id="cb36-3"><a href=""></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">123</span>)</span>
+<span id="cb36-4"><a href=""></a></span>
+<span id="cb36-5"><a href=""></a>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span></span>
+<span id="cb36-6"><a href=""></a>y <span class="op">=</span> x <span class="op">.+</span> <span class="fu">randn</span>(<span class="fl">20</span>) <span class="op">.*</span> <span class="fl">2</span></span>
+<span id="cb36-7"><a href=""></a></span>
+<span id="cb36-8"><a href=""></a><span class="fu">scatter</span>(x, y,</span>
+<span id="cb36-9"><a href=""></a>    xlabel <span class="op">=</span> <span class="st">"Variável X"</span>,</span>
+<span id="cb36-10"><a href=""></a>    ylabel <span class="op">=</span> <span class="st">"Variável Y"</span>,</span>
+<span id="cb36-11"><a href=""></a>    title <span class="op">=</span> <span class="st">"Exemplo de Gráfico de Dispersão"</span>,</span>
+<span id="cb36-12"><a href=""></a>    legend <span class="op">=</span> <span class="cn">false</span>,</span>
+<span id="cb36-13"><a href=""></a>    color <span class="op">=</span> <span class="op">:</span>blue,</span>
+<span id="cb36-14"><a href=""></a>    markerstrokecolor <span class="op">=</span> <span class="op">:</span>black)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saída-4" class="slide level2">
+<h2>Saída:</h2>
+
+<img data-src="images/disp.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="matrizes-de-correlacão-e-mapas-de-calor" class="slide level2">
+<h2>Matrizes de correlacão e mapas de calor</h2>
+<ul>
+<li class="fragment">Matriz de Correlação: Tabela que mostra o grau de correlação (associação linear) entre pares de variáveis numéricas.</li>
+<li class="fragment">Mapa de Calor (Heatmap): Representação visual de uma matriz, onde os valores numéricos são exibidos como cores.</li>
+</ul>
+<p><strong>Por que usar?</strong></p>
+<ul>
+<li class="fragment">Identificar relações fortes ou fracas entre variáveis.</li>
+<li class="fragment">Detectar multicolinearidade em análise estatística e modelagem.</li>
+<li class="fragment">Facilitar a interpretação visual de grandes conjuntos de dados</li>
+</ul>
+<p><strong>Ex.:</strong></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href=""></a><span class="im">using</span> <span class="bu">Random</span>, <span class="bu">StatsPlots</span></span>
+<span id="cb37-2"><a href=""></a></span>
+<span id="cb37-3"><a href=""></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">123</span>)</span>
+<span id="cb37-4"><a href=""></a></span>
+<span id="cb37-5"><a href=""></a>n <span class="op">=</span> <span class="fl">50</span></span>
+<span id="cb37-6"><a href=""></a>A <span class="op">=</span> <span class="fu">randn</span>(n) <span class="op">.*</span> <span class="fl">10</span></span>
+<span id="cb37-7"><a href=""></a>B <span class="op">=</span> A <span class="op">.*</span> <span class="fl">0.5</span> <span class="op">.+</span> <span class="fu">randn</span>(n) <span class="op">.*</span> <span class="fl">5</span></span>
+<span id="cb37-8"><a href=""></a>C <span class="op">=</span> <span class="fu">randn</span>(n) <span class="op">.*</span> <span class="fl">2</span></span>
+<span id="cb37-9"><a href=""></a>D <span class="op">=</span> <span class="fl">0.8</span> <span class="op">.*</span> A <span class="op">.-</span> <span class="fl">0.3</span> <span class="op">.*</span> C <span class="op">.+</span> <span class="fu">randn</span>(n)</span>
+<span id="cb37-10"><a href=""></a></span>
+<span id="cb37-11"><a href=""></a>df_rand <span class="op">=</span> <span class="fu">DataFrame</span>(A<span class="op">=</span>A, B<span class="op">=</span>B, C<span class="op">=</span>C, D<span class="op">=</span>D)</span>
+<span id="cb37-12"><a href=""></a></span>
+<span id="cb37-13"><a href=""></a>corr_mat <span class="op">=</span> <span class="fu">cor</span>(<span class="fu">Matrix</span>(df_rand))</span>
+<span id="cb37-14"><a href=""></a></span>
+<span id="cb37-15"><a href=""></a><span class="fu">heatmap</span>(<span class="fu">names</span>(df_rand), <span class="fu">names</span>(df_rand), corr_mat;</span>
+<span id="cb37-16"><a href=""></a>    c <span class="op">=</span> <span class="op">:</span>coolwarm, clim<span class="op">=</span>(<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span>), aspect_ratio<span class="op">=</span><span class="fl">1</span>,</span>
+<span id="cb37-17"><a href=""></a>    title<span class="op">=</span><span class="st">"Matriz de Correlação (Dados Aleatórios)"</span>,</span>
+<span id="cb37-18"><a href=""></a>    xlabel<span class="op">=</span><span class="st">""</span>, ylabel<span class="op">=</span><span class="st">""</span>, xrotation<span class="op">=</span><span class="fl">45</span>, yrotation<span class="op">=</span><span class="fl">45</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saída-5" class="slide level2">
+<h2>Saída:</h2>
+
+<img data-src="images/heatmap.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="gerando-gráficos-do-dataset" class="slide level2">
+<h2>Gerando gráficos do dataset</h2>
+<ul>
+<li class="fragment">Para o exercício 5, utilizamos a função <code>histogram()</code> aplicada à nova variável <code>duration_min</code>. Em seguida, normalizamos os valores para que a área total do histograma seja igual a 1, permitindo sobrepor e comparar com a curva de densidade.</li>
+</ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span>, <span class="bu">StatsPlots</span>, <span class="bu">Plots</span></span>
+<span id="cb38-2"><a href=""></a></span>
+<span id="cb38-3"><a href=""></a>df.duration_min <span class="op">=</span> df.duration_ms <span class="op">./</span> <span class="fl">60000</span></span>
+<span id="cb38-4"><a href=""></a></span>
+<span id="cb38-5"><a href=""></a><span class="fu">histogram</span>(df[!, <span class="op">:</span>duration_min],</span>
+<span id="cb38-6"><a href=""></a>    bins <span class="op">=</span> <span class="fl">50</span>,</span>
+<span id="cb38-7"><a href=""></a>    xlabel <span class="op">=</span> <span class="st">"Duração (min)"</span>,</span>
+<span id="cb38-8"><a href=""></a>    ylabel <span class="op">=</span> <span class="st">"Número de músicas"</span>,</span>
+<span id="cb38-9"><a href=""></a>    title <span class="op">=</span> <span class="st">"Distribuição da duração das músicas"</span>,</span>
+<span id="cb38-10"><a href=""></a>    normalize <span class="op">=</span> <span class="cn">true</span>,</span>
+<span id="cb38-11"><a href=""></a>    legend <span class="op">=</span> <span class="cn">false</span>)</span>
+<span id="cb38-12"><a href=""></a>    </span>
+<span id="cb38-13"><a href=""></a><span class="fu">density!</span>(df[!, <span class="op">:</span>duration_min], linewidth <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"Densidade"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saída-6" class="slide level2">
+<h2>Saída:</h2>
+
+<img data-src="images/ex5.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="gerando-gráficos-do-dataset-1" class="slide level2">
+<h2>Gerando gráficos do dataset</h2>
+<ul>
+<li class="fragment">O gráfico de heatmap foi construído a partir da matriz, utilizando rótulos correspondentes aos nomes das variáveis e aplicando um esquema de cores <code>(c = :coolwarm)</code> para destacar relações positivas e negativas. Além disso, a escala foi definida no intervalo [-1, 1] e os nomes dos eixos foram rotacionados para facilitar a leitura.</li>
+</ul>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href=""></a><span class="im">using</span> <span class="bu">Statistics</span>, <span class="bu">StatsPlots</span>, <span class="bu">Plots</span></span>
+<span id="cb39-2"><a href=""></a></span>
+<span id="cb39-3"><a href=""></a>var_numericas <span class="op">=</span> [<span class="op">:</span>popularity, <span class="op">:</span>duration_ms, <span class="op">:</span>danceability, <span class="op">:</span>energy,</span>
+<span id="cb39-4"><a href=""></a>             <span class="op">:</span>loudness, <span class="op">:</span>speechiness, <span class="op">:</span>acousticness, <span class="op">:</span>instrumentalness,</span>
+<span id="cb39-5"><a href=""></a>             <span class="op">:</span>liveness, <span class="op">:</span>valence, <span class="op">:</span>tempo]</span>
+<span id="cb39-6"><a href=""></a></span>
+<span id="cb39-7"><a href=""></a><span class="co"># Selecionar e limpar</span></span>
+<span id="cb39-8"><a href=""></a>numdf <span class="op">=</span> <span class="fu">select</span>(df, variables)</span>
+<span id="cb39-9"><a href=""></a></span>
+<span id="cb39-10"><a href=""></a><span class="co"># Matriz de correlação</span></span>
+<span id="cb39-11"><a href=""></a>corr_matrix <span class="op">=</span> <span class="fu">cor</span>(<span class="fu">Matrix</span>(numdf))</span>
+<span id="cb39-12"><a href=""></a></span>
+<span id="cb39-13"><a href=""></a><span class="co"># Heatmap</span></span>
+<span id="cb39-14"><a href=""></a><span class="fu">heatmap</span>(<span class="fu">String</span>.(var_numericas), <span class="fu">String</span>.(var_numericas), corr_matrix;</span>
+<span id="cb39-15"><a href=""></a>    c <span class="op">=</span> <span class="op">:</span>coolwarm, clim <span class="op">=</span> (<span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>), aspect_ratio <span class="op">=</span> <span class="fl">1</span>,</span>
+<span id="cb39-16"><a href=""></a>    xlabel <span class="op">=</span> <span class="st">""</span>, ylabel <span class="op">=</span> <span class="st">""</span>, title <span class="op">=</span> <span class="st">"Matriz de correlação"</span>,</span>
+<span id="cb39-17"><a href=""></a>    xrotation <span class="op">=</span> <span class="fl">45</span>,</span>
+<span id="cb39-18"><a href=""></a>    yrotation <span class="op">=</span> <span class="fl">45</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saída-7" class="slide level2">
+<h2>Saída:</h2>
+
+<img data-src="images/ex6.png" class="r-stretch"></section></section>
 <section>
 <section id="modelar" class="title-slide slide level1 center">
 <h1>Modelar</h1>
@@ -1100,42 +1114,80 @@ Figura&nbsp;2: Julia no Colab
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
