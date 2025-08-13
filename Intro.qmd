@@ -36,7 +36,8 @@ editor: source
 
 
 ```{r}
-Sys.setenv(JULIA_HOME = "/Users/ctrucios/.juliaup/bin/")
+library(JuliaCall)
+julia_setup()
 ```
 
 
@@ -658,7 +659,8 @@ Para filtrar as faixas de um artista específico, como George Jones, utilize `fi
 
 
 
-``` julia
+``` {julia}
+#| echo: true
 using Statistics, StatsPlots, Plots
 
 df_george = filter(:artists => x -> occursin("George Jones", x), df)
@@ -694,7 +696,8 @@ describe(select(df_george, vars_numericas))
 
 **Ex.:**
 
-``` julia
+``` {julia}
+#| echo: true
 x = [5.1, 5.5, 5.3, 5.0, 5.2, 5.8, 5.4, 6.0, 4.9, 5.6, 5.7, 6.2]
 
 boxplot(x;
@@ -705,17 +708,14 @@ boxplot(x;
 )
 ```
 
-## Saída:
-
-![](images/boxplot.png){fig-align="center"}
-
 ## Barplot (gráfico de barras)
 
 -   `bar(x)` representa frequências ou valores médios para categorias.
 
 **Ex.:**
 
-``` julia
+``` {julia}
+#| echo: true
 generos = ["Pop", "Rock", "Jazz", "Funk"]
 freqs = [50, 30, 15, 5]
 
@@ -723,17 +723,14 @@ bar(generos, freqs, xlabel="Gênero", ylabel="Frequência",
     title="Número de músicas por gênero", legend=false)
 ```
 
-## Saída:
-
-![](images/bar.png){fig-align="center"}
-
 ## EDA: Histograma
 
 -   `histogram(x)` exibe a distribuição de frequências de variáveis contínuas. Caso você não possua um conjunto de dados real, é possível gerar números pseudoaleatórios com o pacote `Random.jl` e criar uma distribuição normal utilizando o pacote `Distributions.jl`.
 
 **Ex.:**
 
-``` julia
+``` {julia}
+#| echo: true
 using Random, Distributions, Plots
 
 alturas = rand(Normal(170, 7), 500) # median = 7; std = 7; amostra = 500
@@ -748,17 +745,13 @@ histogram(
 )
 ```
 
-## Saída:
-
-![](images/hist.png){fig-align="center"}
-
 ## EDA: Curva de densidade
 
 -   Para gerar a curva de densidade em `Julia`, você pode usar o argumento `normalize=:pdf` dentro da função `histogram()`:
 
 **Ex.:**
 
-``` julia
+``` {julia}
 using Random, Distributions, Plots
 
 alturas = rand(Normal(170, 7), 500) # median = 7; std = 7; amostra = 500
@@ -767,17 +760,14 @@ histogram(alturas, bins=20, normalize=:pdf, alpha=0.4, label="Histograma")
 plot!(density(alturas), label="Curva de densidade", lw=2, color=:blue)
 ```
 
-## Saída:
-
-![](images/dens.png){fig-align="center"}
-
 ## EDA: Gráfico de dispersão
 
 -   `scatter(x)` mostra a relação entre duas variáveis numéricas.
 
 **Ex.:**
 
-``` julia
+``` {julia}
+#| echo: true
 using Random, Plots
 
 Random.seed!(123)
@@ -793,10 +783,6 @@ scatter(x, y,
     color = :blue,
     markerstrokecolor = :black)
 ```
-
-## Saída:
-
-![](images/disp.png){fig-align="center"}
 
 ## EDA: Matrizes de correlacão e mapas de calor
 
@@ -815,7 +801,8 @@ scatter(x, y,
 
 **Ex.:**
 
-``` julia
+``` {julia}
+#| echo: true
 using Random, StatsPlots
 
 Random.seed!(123)
@@ -836,15 +823,12 @@ heatmap(names(df_rand), names(df_rand), corr_mat;
     xlabel="", ylabel="", xrotation=45, yrotation=45)
 ```
 
-## Saída:
-
-![](images/heatmap.png){fig-align="center"}
-
 ## EDA: Gerando gráficos do dataset
 
 -   Para o exercício 5, utilizamos a função `histogram()` aplicada à nova variável `duration_min`. Em seguida, normalizamos os valores para que a área total do histograma seja igual a 1, permitindo sobrepor e comparar com a curva de densidade.
 
-``` julia
+``` {julia}
+#| echo: true
 using Statistics, StatsPlots, Plots
 
 df.duration_min = df.duration_ms ./ 60000
@@ -860,15 +844,11 @@ histogram(df[!, :duration_min],
 density!(df[!, :duration_min], linewidth = 2, label = "Densidade")
 ```
 
-## Saída:
-
-![](images/ex5.png){fig-align="center"}
-
 ## EDA: Gerando gráficos do dataset
 
 -   O gráfico de heatmap foi construído a partir da matriz, utilizando rótulos correspondentes aos nomes das variáveis e aplicando um esquema de cores `(c = :coolwarm)` para destacar relações positivas e negativas. Além disso, a escala foi definida no intervalo \[-1, 1\] e os nomes dos eixos foram rotacionados para facilitar a leitura.
 
-``` julia
+``` {julia}
 using Statistics, StatsPlots, Plots
 
 var_numericas = [:popularity, :duration_ms, :danceability, :energy,
@@ -888,10 +868,6 @@ heatmap(String.(var_numericas), String.(var_numericas), corr_matrix;
     xrotation = 45,
     yrotation = 45)
 ```
-
-## Saída:
-
-![](images/ex6.png)
 
 # Modelar
 
