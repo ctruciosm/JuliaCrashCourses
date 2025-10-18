@@ -1,0 +1,250 @@
+---
+title: "Julia para Ciência de Dados"
+subtitle: "Um guia introdutório para importar, transformar, analisar e modelar dados"
+lang: "pt"
+author: "**Professor: Carlos Trucíos (DE)** <br> **Instrutores:** colocar quem vai participar"
+institute: "Minicurso Do Zero Ao Julia, <br> Universidade Estadual de Campinas (UNICAMP) <br> Novembro de 2025"
+knitr:
+    opts_chunk: 
+      fig.align: 'center'
+execute:
+    message: false
+    warning: false
+format:
+    revealjs:
+        slide-number: true
+        toc: true
+        toc-depth: 1
+        toc-title: Agenda
+        self-contained: true
+        chalkboard: false
+        width: 1600
+        height: 900
+        theme: [default, styles.scss]
+        incremental: true
+        code-fold: false
+        logo: "imagens/imecc.png"
+        footer: "Minicurso  |   Novembro de 2025    |    [www.ime.unicamp.br/julialang](https://ime.unicamp.br/julialang)"
+        highlight-style: "a11y"
+        title-slide-attributes:
+            data-background-image: "imagens/unicamp.png"
+            data-background-size: 20%
+            data-background-position: 99% 5%
+            data-background-opacity: "1"
+editor: source
+---
+
+# Importação de dados
+
+## Importação de dados
+
+Nesta seção, veremos como importar nossos _datasets_, estando eles armazenados localmente ou online. Também veremos a diferença na leitura de arquivos dos seguintes formatos: __.txt__, __.csv__, __.xlsx__, __.json__ e __.parquet__.
+
+`Julia` conta com diversos pacotes para leitura de _datasets_, mas usaremos apenas o `TidierFiles` nos próximos exemplos uma vez que ele contém todas as principais funcionalidades de leitura. Usaremos as seguintes funções:
+
+``` {julia}
+#| eval: false
+import Pkg
+
+Pkg.add("DataFrames")
+Pkg.add("RDatasets")
+Pkg.add("TidierFiles")
+```
+
+. . . 
+
+- `read_table`
+- `read_csv`
+- `read_xlsx`
+- `read_json`
+- `read_parquet`
+
+## Argumentos básicos
+
+Os argumentos mais comuns utilizados nessas funções são:
+
+. . .
+
+- `path`: O caminho (local ou URL) para o arquivo a ser lido; é obrigatório.
+- `col_select`: Vetor de strings para selecionar quais colunas serão carregadas; o padrão é `Inf` (selecionar todas).
+- `skip`: Número de linhas a serem puladas no início do arquivo; o padrão é 0.
+- `n_max`: Número máximo de linhas a serem lidas após o `skip`; o padrão é `Inf` (ler todas).
+- `col_names`: Indica se a primeira linha (após o `skip`) deve ser usada como nome das colunas; o padrão é `true`.
+- `col_types`: Indica o tipo (numeric, character, etc.) de dados que as colunas contêm; caso o argumento não seja usado, o programa adivinha o tipo.
+
+## Argumentos básicos
+
+Para tratar de valores faltantes, as funções `read_csv` e `read_json` apresentam suas particularidades:
+
+. . .
+
+- missing_value (__.csv__): Indica o que será usado na substituição de valores faltantes; o padrão é `""`. 
+- null (__.json__): Indica como o tipo de dado `null` do __JSON__ deve ser representado; o padrão é converter para o tipo `missing` de `Julia`.
+
+## Leitura de arquivos .txt
+
+. . .
+
+A função `read_table` do pacote `TidierFiles.jl` atua como um leitor genérico de arquivos, que detecta automaticamente o formato do arquivo a partir de sua extensão ou cabeçalho. Em seguida, ela delega a leitura à função apropriada para aquele tipo de arquivo — por exemplo, chama `read_csv` para ler um arquivo __.csv__.
+
+```{julia}
+#| echo: true
+
+using DataFrames, TidierFiles
+
+A_staff = DataFrame(
+    ID = [27, 4, 9],
+    Nome = ["Ana", "Tiago", "Laura"],
+    Altura = [1.65, 1.80, 1.75])
+```
+
+```{julia}
+#| echo: true
+
+write_table(A_staff, "altura_staff.txt")
+```
+
+## Leitura de arquivos .txt
+
+```{julia}
+#| echo: true
+
+read_table("altura_staff.txt", col_select = [:ID, :Nome], n_max = 2)
+```
+
+. . .
+
+As seguintes funções trazem o mesmo resultado que a função `read_table`, desde que o delimitador seja informado a partir do argumento `delim`. Entretanto, caso o separador de caracteres seja desconhecido para o usuário, `read_table` se torna mais eficiente para a leitura.
+
+```{julia}
+#| echo: true
+#| eval: false
+
+read_tsv("altura_staff.txt")
+read_csv("altura_staff.txt", delim = '\t')
+```
+
+## Leitura de arquivos .csv
+
+. . .
+
+O __.csv__ é o tipo de arquivo delimitado mais conhecido e mais usado no meio da computação, e usa vírgulas como separador (padrão internacional). Para ler arquivos __.csv__, a função `read_csv` lida tanto com arquivos em diretórios do computador como com links.
+
+```{julia}
+#| echo: true
+
+read_csv("https://raw.githubusercontent.com/GoogleTrends/data/refs/heads/master/2015-507_cricketbycountry.csv", 
+         n_max = 10, 
+         col_names = false, 
+         skip = 2, 
+         col_select = ["Column1", "Column2"])
+```
+
+## Leitura de arquivos .xlsx
+
+. . .
+
+Para importar arquivos Excel, vamos primeiro criar um arquivo `.xlsx`. O primeiro argumento da função `write_xlsx` é o objeto a ser exportado, sendo que este pode corresponder a uma única aba ou em uma *tupla* (coleção ordenada) de objetos, como acontece no exemplo abaixo.
+
+```{julia}
+#| echo: true
+#| results: 'hide'
+
+C_staff = DataFrame(
+    Nome = ["Ana", "Tiago", "Laura"],
+    Cargo = ["Sênior", "Júnior", "Pleno"])
+A_staff = DataFrame(
+    Nome = ["Ana", "Tiago", "Laura"],
+    Altura = [1.65, 1.80, 1.75])
+```
+
+```{julia}
+#| echo: true
+
+write_xlsx(("Cargo" => C_staff, "Altura" => A_staff); path = "cargo_staff.xlsx", overwrite = true)
+```
+
+::: {.callout-note icon=false}
+### Nota
+
+Se você fez alterações somente em uma aba (para `overwrite = true`), não é necessário reescrever toda a tupla. As alterações serão feitas somente na aba mencionada e o resto do arquivo permanecerá igual. 
+:::
+
+## Leitura de arquivos .xlsx
+
+```{julia}
+#| echo: true
+
+read_xlsx("cargo_staff.xlsx") #lê a primeira aba
+```
+
+Como escolher a aba a ser lida?
+
+```{julia}
+#| echo: true
+
+read_xlsx("cargo_staff.xlsx", sheet = "Altura")
+```
+
+A função abaixo traz o mesmo resultado:
+
+```{julia}
+#| echo: true
+#| eval: false
+read_xlsx("cargo_staff.xlsx", sheet = 2)
+```
+
+## Leitura de arquivos .json
+
+. . .
+
+Arquivos de extensão __.json__ _(JavaScript Object Notation)_ são arquivos de texto que armazenam dados leves para operações de leitura e escrita. Na função `read_json`, o arquivo inteiro deve ser lido antes que seja possível fazer alterações no dataframe.
+
+```{julia}
+#| echo: true
+
+df_json_web = read_json("https://jsonplaceholder.typicode.com/users", null = missing)
+```
+
+## Leitura de arquivos .json
+
+```{julia}
+#| echo: true
+
+df_json_web[1:8,2:4]
+```
+
+## Leitura de arquivos .parquet
+
+. . .
+
+Arquivos __.parquet__ são altamente eficientes para armazenamento de dados analíticos, sendo ideais para grandes volumes, e são comumente usados em ambientes de big data. Por padrão, a função `read_parquet` lê o arquivo inteiro e o converte em uma estrutura tabular.
+
+```{julia}
+#| echo: true
+
+using RDatasets, TidierFiles
+titanic = dataset("datasets", "titanic")
+write_parquet(titanic, "titanic.parquet")
+```
+
+## Leitura de arquivos .parquet
+
+```{julia}
+#| echo: true
+
+titanic_df = read_parquet(
+    "titanic.parquet",
+    col_select = ["Class", "Age", "Survived"],
+    n_max = 10)
+```
+## Leitura da base de dados
+
+Agora, vamos ler os dados que usaremos na aula de hoje.
+
+```{julia}
+#| echo: true
+
+dados = read_csv("https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/datasets/dataset.csv")
+first(dados, 3)
+```
