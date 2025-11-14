@@ -1,0 +1,287 @@
+---
+title: "Julia para Ciência de Dados"
+subtitle: "Um guia introdutório para importar, transformar, analisar e modelar dados"
+lang: "pt"
+author: "**Professor: Carlos Trucíos (DE)** <br> **Instrutores:** Arthur da Silva (DMA), Henrique Velloso (DE) e Sarah Pereira (DMA)."
+institute: "7ª  Semana da Matemática Aplicada (SEMAP), <br> Universidade Estadual de Campinas (UNICAMP) <br> Agosto de 2025"
+knitr:
+    opts_chunk: 
+      fig.align: 'center'
+execute:
+    message: false
+    warning: false
+format:
+    revealjs:
+        slide-number: true
+        toc: true
+        toc-depth: 1
+        toc-title: Agenda
+        self-contained: true
+        chalkboard: false
+        width: 1600
+        height: 900
+        theme: [default, styles.scss]
+        incremental: true
+        code-fold: false
+        logo: "imagens/imecc.png"
+        footer: "7ª SEMAP    |   Agosto de 2025    |    [www.ime.unicamp.br/julialang](https://ime.unicamp.br/julialang)"
+        highlight-style: "a11y"
+        title-slide-attributes:
+            data-background-image: "imagens/unicamp.png"
+            data-background-size: 20%
+            data-background-position: 99% 5%
+            data-background-opacity: "1"
+editor: source
+---
+
+# SQL
+
+## SQLite
+
+O `SQLite` é um mecanismo de banco de dados `SQL` (__Structured Query Language__) embutido, ideal para aplicações que demandam um armazenamento de dados leve e portátil. O banco de dados é armazenado em um único arquivo no disco, compatível com qualquer plataforma.
+
+O `SQL` permite a definição, manipulação e recuperação de dados, utilizando comandos padronizados como __SELECT__, __INSERT__ e __UPDATE__. Ao implementar o `SQL`, o `SQLite` possibilita que os dados sejam estruturados em tabelas, demonstrando a robustez das funcionalidades da linguagem em um formato sem servidor. 
+
+## Dados
+
+```{julia, echo = FALSE}
+import Pkg #só para rodar separado dos outros slides
+```
+
+Primeiro, vamos carregar os pacotes que serão usados! O TidierFiles já foi instalado e carregado no início do minicurso, mas é sempre bom garantir:
+
+```{julia, echo = TRUE}
+Pkg.add(["SQLite", "TidierFiles"]) 
+using SQLite, TidierFiles
+```
+
+. . .
+
+Criando o caminho para o banco de dados:
+
+```{julia, echo = TRUE}
+banco = "banco.sqlite" 
+```
+
+. . .
+
+Conectando ao banco ou criando um, se não existir:
+
+```{julia, echo = TRUE}
+conexao = SQLite.DB(banco)
+```
+
+## Dados
+
+Vamos utilizar o mesmo conjunto de dados usado até agora.
+
+```{julia, echo = TRUE}
+dados = read_csv("https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/datasets/dataset.csv") 
+```
+
+## Dados
+
+Carregando os dados no banco (agora, o nome do conjunto de dados no nosso banco é _spotify_):
+
+```{julia, echo = TRUE}
+SQLite.load!(dados, conexao, "spotify") 
+```
+
+. . .
+
+Agora, vamos consultar as tabelas disponíveis no nosso banco:
+
+```{julia, echo = TRUE}
+SQLite.tables(conexao) 
+```
+
+## Operações
+
+Recuperamos dados utilizando o comando `SELECT`, e podemos filtrar, ordenar e agrupar esses resultados com `WHERE`, `ORDER BY` e `GROUP BY`, respectivamente.
+
+. . .
+
+```{julia, echo = TRUE}
+query = """
+SELECT artists, track_name
+FROM spotify
+WHERE popularity = 92 
+ORDER BY artists 
+"""
+DataFrame(DBInterface.execute(conexao, query))
+```
+## Operações
+
+. . .
+
+```{julia, echo = TRUE}
+query = """
+SELECT DISTINCT artists, track_name
+FROM spotify
+WHERE popularity = 92 
+ORDER BY artists 
+"""
+DataFrame(DBInterface.execute(conexao, query))
+```
+
+## Operações
+
+O comando `COUNT()` combinado a `*` conta todas as ocorrências existentes, e o comando `AS` altera o nome da coluna no resultado final:
+
+. . .
+
+```{julia, echo = TRUE}
+query = """
+SELECT explicit, COUNT(*) AS count
+FROM spotify
+GROUP BY explicit
+"""
+DataFrame(DBInterface.execute(conexao, query))
+```
+
+## Operações
+
+Também é possível adicionar mais de um filtro em `WHERE`, e especificar que a ordenação seja decrescente com `DESC`:
+
+. . .
+
+```{julia, echo = TRUE}
+query = """
+SELECT track_name
+FROM spotify
+WHERE artists = 'Pink Floyd' AND popularity > 75
+ORDER BY popularity DESC
+"""
+DataFrame(DBInterface.execute(conexao, query))
+```
+
+## Operações
+
+Além disso, `AVG` faz a função de média, e `HAVING` substitui o comando `WHERE` quando há grupos definidos por `GROUP BY`:
+
+. . .
+
+```{julia, echo = TRUE}
+query = """
+SELECT AVG("danceability") AS dance, track_genre
+FROM spotify
+GROUP BY track_genre
+HAVING track_genre IN ('rock', 'pop')
+"""
+DataFrame(DBInterface.execute(conexao, query))
+```
+
+. . .
+
+Alternativa: `HAVING track_genre = 'rock' OR track_genre = 'pop'`. Esta linha de código gera o mesmo resultado que a usada no exemplo acima.
+
+## Operações
+
+Ainda, podemos definir operações nas colunas com comandos como `SUM`, `MIN` e `MAX` combinados a operadores comuns de soma, divisão, entre outros:
+
+. . .
+
+```{julia, echo = TRUE}
+query = """
+SELECT SUM(popularity)/114000 AS media_popularidade
+FROM spotify
+"""
+DataFrame(DBInterface.execute(conexao, query))
+```
+
+## Operações
+
+```{julia, echo = TRUE}
+query = """
+SELECT MIN(duration_ms) AS min, MAX(duration_ms) AS max
+FROM spotify
+"""
+DataFrame(DBInterface.execute(conexao, query))
+```
+
+## Alterações
+
+A seguir, vamos adicionar a tabela "shows" ao nosso banco:
+
+```{julia, echo = TRUE}
+SQLite.execute(conexao, 
+"""
+CREATE TABLE IF NOT EXISTS shows (artista TEXT,
+                                  local TEXT,
+                                  mes INTEGER)
+""") 
+```
+. . .
+
+Agora, vamos inserir os dados na tabela: 
+
+```{julia, echo = TRUE}
+SQLite.execute(conexao, """
+INSERT INTO shows VALUES
+('SOAD', 'Brasil', 5),
+('SOAD', 'Colombia', 4),
+('SOAD', 'Peru', 4),
+('SOAD', 'Chile', 4),
+('Dua Lipa', 'Brasil', 11),
+('Dua Lipa', 'Chile', 11),
+('Dua Lipa', 'Peru', 11)
+""")  
+```
+
+. . .
+
+A saída `101` indica que o comando foi realizado com sucesso.
+
+## Alterações
+
+Atualizando os registros e conferindo a modificação feita:
+
+```{julia, echo = TRUE, output = FALSE}
+# atualizando registro
+SQLite.execute(conexao, """
+UPDATE shows
+SET artista = 'nenhum'
+WHERE local = 'Chile'
+""")
+```
+
+. . .
+
+```{julia, echo = TRUE}
+query = """
+SELECT *
+FROM shows
+"""
+DataFrame(DBInterface.execute(conexao, query))
+```
+
+## Alterações
+
+Removendo a tabela "shows":
+
+```{julia, echo = TRUE, output = FALSE}
+SQLite.execute(conexao, "DROP TABLE IF EXISTS shows")
+```
+
+Ao tentar repetir o código do slide anterior, será retornado um erro uma vez que a tabela não existe mais. 
+
+## Conexões
+
+Após concluir as operações, devemos garantir que a conexão com o banco de dados seja encerrada e que quaisquer arquivos temporários sejam removidos para liberar recursos. Para fechar a conexão ativa, usamos o comando `close`:
+
+```{julia, echo = TRUE}
+close(conexao)
+```
+
+E para remover o arquivo do disco:
+
+```{julia, echo = TRUE}
+rm("banco.sqlite")
+```
+
+. . .
+
+Agora não será mais possível solicitar uma __query__ ao servidor, e o banco não se encontra mais no repositório do seu projeto!
+
+__OBS:__ Os comandos em `SQL` geralmente são exibidos em maiúsculo por propósitos didáticos, mas o software também entenderá os comandos em minúsculo.
+
