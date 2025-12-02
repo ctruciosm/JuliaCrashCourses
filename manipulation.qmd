@@ -1,0 +1,352 @@
+---
+title: "Julia para Ciência de Dados"
+subtitle: "Um guia introdutório para importar, transformar, analisar e modelar dados"
+lang: "pt"
+author: "**Professor: Carlos Trucíos (DE)** <br> **Instrutores:** colocar quem vai participar"
+institute: "Minicurso Do Zero Ao Julia, <br> Universidade Estadual de Campinas (UNICAMP) <br> Novembro de 2025"
+knitr:
+    opts_chunk: 
+      fig.align: 'center'
+execute:
+    message: false
+    warning: false
+format:
+    revealjs:
+        slide-number: true
+        toc: true
+        toc-depth: 1
+        toc-title: Agenda
+        self-contained: true
+        chalkboard: false
+        width: 1600
+        height: 900
+        theme: [default, styles.scss]
+        incremental: true
+        code-fold: false
+        logo: "imagens/imecc.png"
+        footer: "Minicurso  |   Novembro de 2025    |    [www.ime.unicamp.br/julialang](https://ime.unicamp.br/julialang)"
+        highlight-style: "a11y"
+        title-slide-attributes:
+            data-background-image: "imagens/unicamp.png"
+            data-background-size: 20%
+            data-background-position: 99% 5%
+            data-background-opacity: "1"
+editor: source
+---
+
+```{julia}
+#| echo: false
+
+using CSV;
+using DataFrames;
+
+file = "https://raw.githubusercontent.com/Arthur-Dionizio/minicurso-julia/main/datasets/dataset.csv";
+dados = CSV.read(download(file), DataFrame);
+```
+
+
+# Manipulação de banco de dados
+
+## Ecossistema Tidier.jl
+
+A biblioteca `Tidier.jl` reúne um conjunto de pacotes voltados para **manipulação, visualização e análise de dados**, seguindo uma filosofia muito próxima ao *tidyverse* do `R`.  
+
+Os principais pacotes são:
+
+. . .
+
+- **`TidierData.jl`**: Implementação 100% em `Julia` das principais ideias dos pacotes `dplyr` e `tidyr`.  
+  Usado para **transformação, filtragem, seleção e sumarização** dos dados;
+
+- **`TidierPlots.jl`**: Implementação 100% em `Julia` do `ggplot2`, permitindo criar gráficos de forma declarativa;
+
+- **`TidierStrings.jl`**: Inspirado no pacote `stringr`, fornece ferramentas para manipulação de strings que funcionam de forma integrada com o Tidier.
+
+. . .
+
+> Acessem o link **https://tidierorg.github.io/Tidier.jl/v1.6.1/** para documentação completa e exemplos adicionais.
+
+---
+
+## Pacote TidierData.jl
+
+Ao longo desta aula, vamos utilizar principalmente o pacote **`TidierData.jl`**, que será responsável pela maior parte da manipulação dos dados.
+
+```{julia}
+#| echo: true
+using TidierData;
+```
+
+. . .
+
+::: {.callout-note icon=false}
+
+### Funções Macro
+
+O `TidierData.jl` é baseado em **macros**, como `@filter`, `@select` e `@summarise`.
+
+Isso permite que o código capture as expressões antes da avaliação, possibilitando uma escrita mais próxima da sintaxe tidy do `R`, que normalmente não seria válida em `Julia` puro.
+:::
+
+---
+
+### Operações encadeadas com `@chain`
+
+Assim como o operador `%>%` no `R`, o `TidierData.jl` utiliza a macro `@chain()` para encadear múltiplas operações no mesmo conjunto de dados.
+
+```{julia}
+#| echo: true
+@chain dados begin
+    @filter(popularity > 50)
+    @arrange(desc(energy))
+    @select(track_name, popularity, energy, acousticness)
+    @slice(1:5)
+end
+```
+
+---
+
+Nesse exemplo:
+
+. . .
+
+- `@filter()` seleciona linhas com base em condições lógicas;
+
+- `@arrange()` ordena os dados por uma ou mais colunas;
+
+- `@select()` escolhe as colunas de interesse;
+
+- `@slice()` seleciona linhas específicas (útil para visualização).
+
+> Obs.: `desc()` é uma função auxiliar para ordenação decrescente.
+
+---
+
+### Funções auxiliares importantes
+
+O `TidierData.jl` possui diversas funções auxiliares que facilitam operações comuns:
+
+- `across()`: Aplica uma mesma função a várias colunas simultaneamente;
+
+- `n()` e `row_number()`: Retornam o número total de linhas ou o índice da linha;
+
+- `replace_missing()`: Substitui valores ausentes (missing) por um valor especificado.
+
+Além disso, algumas funções da base do `Julia` e do `DataFrames.jl` são muito utilizadas:
+
+- `dropmissing()`: Remove linhas que contêm valores ausentes;
+
+- `unique()`: Retorna valores únicos ou remove duplicatas;
+
+- `nrow()`: Retorna o número de linhas do dataset;
+
+- `any()`: Retorna `true` se **pelo menos um** elemento satisfaz a condição.
+
+---
+
+::: {.callout-note icon=false}
+
+### Dica
+
+Para identificar linhas com valores faltantes, uma abordagem eficiente é usar:
+
+```{julia}
+#| echo: true
+row -> any(ismissing, row);
+```
+
+Nesse caso, a função `filter()` da base do `Julia`
+`(filter(condição, dados))` tende a ser mais eficiente que o uso direto de macros.
+:::
+
+---
+
+### Tratamento de valores faltantes
+
+Antes de realizar qualquer análise, é fundamental verificar a presença de valores ausentes (*missing*).
+
+```{julia}
+#| echo: true
+faltantes = filter(row -> any(ismissing, row), dados)
+```
+
+O objeto `faltantes` contém apenas as linhas que apresentam pelo menos um valor ausente.
+
+---
+
+### Removendo valores faltantes
+
+Uma estratégia simples (mas comum) é remover observações incompletas do dataset:
+
+```{julia}
+#| echo: true
+dados = @chain dados begin
+    dropmissing()
+end
+```
+
+Essa operação remove todas as linhas que possuem pelo menos um valor `missing`.
+
+---
+
+### Tratamento de observações duplicadas
+
+Outro passo importante da limpeza dos dados é verificar a existência de observações duplicadas.
+
+Aqui, vamos considerar duplicatas com base no identificador da faixa (`track_id`).
+
+```{julia}
+#| echo: true
+nrow(unique(dados, :track_id)), nrow(dados)
+```
+
+Se houver diferença entre os valores, significa que existem duplicatas no dataset.
+
+---
+
+### Removendo duplicatas
+
+Para manter apenas uma observação por faixa, utilizamos:
+
+```{julia}
+#| echo: true
+dados = unique(dados, :track_id)
+```
+
+Após esse processo, temos um banco de dados **limpo**, sem valores faltantes e sem duplicações, pronto para análise exploratória e modelagem.
+
+---
+
+## Criação e transformação de variáveis com `@mutate`
+
+Durante a análise de dados, é muito comum criar **novas variáveis** a partir das existentes.  
+No `TidierData.jl`, isso é feito com a macro **`@mutate()`**.
+
+. . .
+
+```{julia}
+#| echo: true
+@chain dados begin
+    @mutate(
+        loudness_abs = abs(loudness),
+        energy_level = ifelse(energy > 0.7, "Alta", "Média/Baixa")
+    )
+    @select(track_name, loudness, loudness_abs, energy, energy_level)
+    @slice(1:5)
+end
+```
+
+---
+
+Nesse exemplo:
+
+- `loudness_abs` é uma transformação direta da variável original;
+
+- `energy_level` cria uma variável categórica com base em uma condição lógica.
+
+---
+
+### Agrupamento de dados com `@group_by`
+
+Para análises agregadas, utilizamos a macro `@group_by()`, que funciona de forma análoga ao `group_by()` do `dplyr`.
+
+Ela **não altera o dataset diretamente**, mas muda o comportamento das funções agregadoras aplicadas depois.
+
+```{julia}
+#| echo: false
+dados = @chain dados begin
+    @mutate(
+        energy_level = ifelse(energy > 0.7, "Alta", "Média/Baixa")
+    )
+end;
+```
+
+```{julia}
+#| echo: true
+@chain dados begin
+    @group_by(energy_level)
+    @slice(1:3)
+end
+```
+
+---
+
+### Estatísticas sumárias com `@summarise`
+
+Após agrupar os dados, utilizamos `@summarise()` para calcular estatísticas descritivas.
+
+```{julia}
+#| echo: true
+@chain dados begin
+    @group_by(energy_level)
+    @summarise(
+        media_pop = mean(popularity),
+        mediana_pop = median(popularity),
+        n_faixas = n()
+    )
+end
+```
+
+Funções como `mean`, `median`, `min`, `max` e `std` podem ser usadas diretamente.
+
+> Obs.: O `TidierData.jl` ignora automaticamente valores `missing` em funções estatísticas.
+
+---
+
+### Aplicando funções a várias colunas com `across()`
+
+A função `across()` é útil quando queremos aplicar a mesma transformação ou estatística a múltiplas colunas numéricas.
+
+```{julia}
+#| echo: true
+@chain dados begin
+    @summarise(
+        across([:danceability, :energy, :acousticness], mean)
+    )
+end
+```
+
+Isso evita repetição de código e torna as transformações mais limpas e legíveis.
+
+---
+
+## Preparação para EDA
+
+Vamos juntar algumas etapas típicas de limpeza e transformação:
+
+. . .
+
+```{julia}
+#| echo: true
+dados_eda = @chain dados begin
+    @filter(popularity > 0)
+    @mutate(
+        energy_level = ifelse(energy > 0.7, "Alta", "Média/Baixa")
+    )
+    @group_by(energy_level)
+    @summarise(
+        popularidade_media = mean(popularity),
+        energia_media = mean(energy),
+        n_faixas = n()
+    )
+end
+```
+
+Esse tipo de pipeline é ideal para **Análise Exploratória de Dados** (EDA).
+
+---
+
+### Comparação rápida: Julia × R (tidyverse)
+
+Abaixo, uma comparação conceitual entre `Julia (Tidier)` e `R (tidyverse)`:
+
+| Operação           | R (dplyr)     | Julia (TidierData) |
+| ------------------ | ------------- | ------------------ |
+| Pipeline           | `%>%`         | `@chain`           |
+| Filtrar linhas     | `filter()`    | `@filter()`        |
+| Selecionar colunas | `select()`    | `@select()`        |
+| Criar variáveis    | `mutate()`    | `@mutate()`        |
+| Agrupar dados      | `group_by()`  | `@group_by()`      |
+| Resumir dados      | `summarise()` | `@summarise()`     |
+
+A principal diferença está no uso de macros, mas a lógica de pensamento é praticamente a mesma.
